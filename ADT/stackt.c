@@ -5,9 +5,8 @@ Topik praktikum : adt stack
 Deskripsi : stackt.c
 */
 
-#include "boolean.h"
 #include "stackt.h"
-#include<stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 
