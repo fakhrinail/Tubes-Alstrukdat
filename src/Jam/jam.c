@@ -7,8 +7,7 @@ deskripsi : Definisi ABSTRACT DATA TYPE POINT
 */
 #include <stdio.h>
 #include "jam.h"
-#include"boolean.h"
-#include<math.h>
+#include <math.h>
 
 /* ***************************************************************** */
 /* DEFINISI PRIMITIF                                                 */

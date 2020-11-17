@@ -1,8 +1,7 @@
-
 #ifndef list_berkait_H
 #define list_berkait_H
 
-
+#include "../boolean.h"
 
 typedef char Eltype;   
 typedef NodeList* AddressList;

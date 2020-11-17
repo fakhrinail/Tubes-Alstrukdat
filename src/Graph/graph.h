@@ -1,6 +1,8 @@
 #ifndef graph_H
 #define graph_H
 
+#include "../boolean.h"
+
 typedef char contents;      //isi contents adalah alamat dari .txt file map
 typedef NodeGraph* AddressGraph;
 
