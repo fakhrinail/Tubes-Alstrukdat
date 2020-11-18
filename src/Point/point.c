@@ -31,7 +31,7 @@ boolean EQPoint (POINT P1, POINT P2)
 {
     return Baris(P1)==Baris(P2) && Kolom(P1)==Kolom(P2);
 }
-boolean NEQ (POINT P1, POINT P2)
+boolean NEQPoint (POINT P1, POINT P2)
 /* Mengirimkan true jika P1 tidak sama dengan P2 */
 {
     return Baris(P1)!=Baris(P2) || Kolom(P1)!=Kolom(P2);
