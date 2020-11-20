@@ -1,7 +1,7 @@
 /* File: mesinkar.c */
 /* Implementasi Mesin Karakter */
 
-#include "mesinkar.h"
+#include "mesinkarfile.h"
 #include <stdio.h>
 
 char CC;
@@ -18,7 +18,7 @@ void START() {
           Jika CC = MARK maka EOP akan menyala (true) */
 
 	/* Algoritma */
-	pita = stdin;
+	pita = fopen("../Main/wahana.txt", "r");
 	ADV();
 }
 
@@ -32,8 +32,9 @@ void ADV() {
 
 	/* Algoritma */
 	retval = fscanf(pita,"%c",&CC);
-	EOP = (CC == MARK);
-	if (EOP) {
+	
+	if (retval==EOF) {
               fclose(pita);
+              EOP = true;
  	}
 }

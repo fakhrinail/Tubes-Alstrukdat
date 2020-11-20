@@ -1,4 +1,3 @@
-nama_material,harga_material
-kayu,25
-batu,50
-metal,100
+kayu 25
+batu 50
+metal 100

@@ -1,0 +1,2 @@
+compile : gcc pergerakanmap.c ../Matriks/matriks.c ../MesinKarakter-Kata/mesinkar.c ../Point/point.c -o ../../test/gerakmapv1
+run: ./../../test/gerakmapv1

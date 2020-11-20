@@ -100,6 +100,27 @@ void TulisMap (MATRIKS M)
    }
 }
 
+void GerakPlayer (MATRIKS *M, char arah)
+{
+   if (arah=='w'){
+      Baris(Player(*M)) -= 1; 
+   }else if(arah=='a'){
+      Kolom(Player(*M)) -= 1;
+   }else if(arah=='s'){
+      Baris(Player(*M)) += 1;
+   }else if(arah=='d'){
+      Kolom(Player(*M)) += 1;
+   }
+   if (Baris(Player(*M))==19){
+      Baris(Player(*M)) -= 1;
+   }else if (Kolom(Player(*M))==19){
+      Kolom(Player(*M)) -= 1;
+   }else if (Baris(Player(*M))==0){
+      Kolom(Player(*M)) += 1;
+   }else if (Kolom(Player(*M))==0){
+      Kolom(Player(*M)) += 1;
+   }
+}
 
 
 

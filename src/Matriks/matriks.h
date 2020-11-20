@@ -43,10 +43,9 @@ void isiMap (MATRIKS* M);
 
 void CopyMap (MATRIKS MIn, MATRIKS * MHsl);
 
-
 void TulisMap (MATRIKS M);
 
-
+void GerakPlayer (MATRIKS *M, char arah);
 
 
 #endif

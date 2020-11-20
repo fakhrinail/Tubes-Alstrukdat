@@ -10,7 +10,7 @@ Deskripsi           Membuat body mesinkata
 #include <stdio.h>
 
 boolean EndKata = false;
-Kata CKata;
+char CKata[NMax];
 
 void IgnoreBlank()
 /* Mengabaikan satu atau beberapa BLANK
@@ -47,15 +47,39 @@ void ADVKATA()
           Jika CC = MARK, EndKata = true.		  
    Proses : Akuisisi kata menggunakan procedure SalinKata */
 {
-    
+    IgnoreBlank();
     if (CC==MARK){
         EndKata=true;
     }else{
         SalinKata();
     }
-    IgnoreBlank();
-    if (CC==MARK){
-        EndKata=true;
+}
+
+int StrToInt(char S[])
+{
+    int i = 0;
+    int value = 0;
+    while (S[i]!='\0'){
+        value = value*10 + (int)(S[i]) - (int)('0');
+        i++;
+    }
+    return value;
+}
+
+void CopyString(char S1[], char S2[])
+{
+    int i=0;
+    while (S2[i]!='\0'){
+        S1[i] = S2[i];
+        i++;
+    }
+}
+
+void resetCKata(char kata[]){
+    int i=0;
+    while (kata[i]!='\0'){
+        kata[i]='\0';
+        i++;
     }
 }
 
@@ -67,13 +91,13 @@ void SalinKata()
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 {
+    resetCKata(CKata);
     int i=0;
     while (CC!=MARK && CC!=BLANK && i<NMax){
-        CKata.TabKata[i] = CC;
+        CKata[i] = CC;
         i+=1;
         ADV();
     }
-    CKata.Length = i;
 }
 
 

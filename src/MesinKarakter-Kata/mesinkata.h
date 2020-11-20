@@ -12,20 +12,15 @@ TODO: secepatnya nentuin file *.txt kita kayak gimana dan langsung ubah MesinKat
 #define __MESINKATA_H__
 
 #include "../boolean.h"
-#include "mesinkar.h"
+#include "mesinkarfile.h"
 
 
-#define NMax 50
+#define NMax 100
 #define BLANK ' '
-
-typedef struct {
-	char TabKata[NMax]; /* container penyimpan kata, indeks yang dipakai [0..NMax-1] */
-    int Length;
-} Kata;
 
 /* State Mesin Kata */
 extern boolean EndKata;
-extern Kata CKata;
+extern char CKata[NMax];
 
 void IgnoreBlank();
 /* Mengabaikan satu atau beberapa BLANK
@@ -44,6 +39,10 @@ void ADVKATA();
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika CC = MARK, EndKata = true.		  
    Proses : Akuisisi kata menggunakan procedure SalinKata */
+
+int StrToInt(char S[]);
+
+void CopyString(char S1[], char S2[]);
 
 void SalinKata();
 /* Mengakuisisi kata, menyimpan dalam CKata
