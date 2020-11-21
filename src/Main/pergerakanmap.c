@@ -1,5 +1,5 @@
 #include "../Matriks/matriks.h"
-#include "../MesinKarakter-Kata/mesinkar.h"
+#include "../MesinKarakter-Kata/mesinkar+katainput.h"
 #include <stdio.h>
 
 int main(){
@@ -8,15 +8,13 @@ int main(){
     TulisMap(MAP1);
     printf("\n");
 
-    START();
-    while(CC!=MARK){
-        if (CC!='\n'){
-            
-            isiMap(&MAP1);
-            TulisMap(MAP1);
-            printf("\n");
-        }
-        ADV();
+    STARTKATAi();
+    while(!isEOP(CKataI)){
+        GerakPlayer(&MAP1,CKataI);
+        isiMap(&MAP1);
+        TulisMap(MAP1);
+        printf("\n");
+        ADVKATAi();
     }
 
     return 0;

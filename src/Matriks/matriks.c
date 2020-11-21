@@ -7,89 +7,68 @@ Deskripsi         Membuat body ADT Matriks
 */
 
 #include <stdio.h>
+#include "../MesinKarakter-Kata/mesinkar+katafile.h"
 #include "matriks.h"
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */              
 /* *** Konstruktor membentuk MATRIKS *** */
-void MakeMAP (MATRIKS * M, int map)
+void MakeMAP (MATRIKS * M, char path[])
 /* Membentuk Map kosong sesuai dengan penempatan map keberapa*/
 /* I.S. Matriks tidak terdefinisi */
-/* F.S. Jika map==1, Player inisialisasi pada point (10,10) dan office (15,15). Selain map==1, Player dan office akan diinisiasi (-1,-1). Selain itu basic bintang (*) dan pagar (#) kecuali Gerbang yang akan disesuaikan oleh map keberapa */
+/* F.S. matriks Map.mem terisi dengan simbol-simbol yang sesuai pada map.txt*/
 {
-   if (map==1){   //map kiri atas
-      Player(*M) = MakePOINT(10,10);
-      Office(*M) = MakePOINT(15,15);
-      Antrian(*M) = MakePOINT(1,1);
-      (*M).Gerbang[0] = MakePOINT(10,19);
-      (*M).Gerbang[1] = MakePOINT(19,10);
-   }else{
-      Player(*M) = MakePOINT(-1,-1);
-      Office(*M) = MakePOINT(-1,-1);
-      Antrian(*M) = MakePOINT(-1,-1);
-
-      if (map==2){   //map kanan atas
-         (*M).Gerbang[0] = MakePOINT(10,0);
-         (*M).Gerbang[1] = MakePOINT(19,10);
-      }else if(map==3){    //map kanan bawah
-         (*M).Gerbang[0] = MakePOINT(0,10);
-         (*M).Gerbang[1] = MakePOINT(10,0);
-      }else if(map==4){    //map kiri bawah
-         (*M).Gerbang[0] = MakePOINT(0,10);
-         (*M).Gerbang[1] = MakePOINT(10,19);
-      }   
-   }
-   isiMap(M);
-}
-
-void isiMem (MATRIKS* M, int i, int j){
-   POINT temp = MakePOINT(i,j);
-   if (Baris(temp)==0 || Kolom(temp)==0 || Baris(temp)==19 || Kolom(temp)==19){
-      if (EQPoint(temp, (*M).Gerbang[0]) || EQPoint(temp,(*M).Gerbang[1])){
-         (*M).Mem[Baris(temp)][Kolom(temp)] = 'G';                //bernilai gerbang
-      }else{
-         (*M).Mem[Baris(temp)][Kolom(temp)] = '#';                //bernilai pagar lahan
-      }
-   }else{
-      if (EQPoint(temp,Player(*M))){
-         (*M).Mem[Baris(temp)][Kolom(temp)] = 'P';                //bernilai pemain
-      }else if (EQPoint(temp,Office(*M))){
-         (*M).Mem[Baris(temp)][Kolom(temp)] = 'O';                //bernilai Office
-      }else if (EQPoint(temp,Antrian(*M))){
-         (*M).Mem[Baris(temp)][Kolom(temp)] = 'A';                //bernilai Antrian
-      }else{
-         (*M).Mem[Baris(temp)][Kolom(temp)] = '-';                //bernilai tempat kosong
-      }
-   }
-}
-
-void isiMap (MATRIKS* M){
-   int i;
-   for (i=0;i<=BrsMax;i++){
-      int j;
-      for (j=0;j<=KolMax;j++){
-         isiMem(M,i,j);
-      }
-   }
-}
-
-void CopyMap (MATRIKS MIn, MATRIKS * MHsl)
-/* Melakukan assignment MHsl  MIn */
-{
-   Player(*MHsl) = Player(MIn);
-   Office(*MHsl) = Player(MIn);
-   Antrian(*MHsl) = Antrian(MIn);
-   (*MHsl).Gerbang[0] = MIn.Gerbang[0];
-   (*MHsl).Gerbang[1] = MIn.Gerbang[1];
+   STARTKATAf(path);
    
-   int i,j;
-   for (i=0;i<=BrsMax;i++){
-      for (j=0;j<=KolMax;j++){
-         (*MHsl).Mem[i][j] = MIn.Mem[i][j];
+   int i=0;
+   while (!EndFile){
+      CopyString((*M).Mem[i],CKataF);
+      ADVKATAf();
+      i++;
+   }
+   
+}
+
+POINT SearchIndeks(MATRIKS *M, char jenis)
+/* Fungsi antara untuk membantu mencari lokasi simbol ('A','P','O').
+   Jika lokasi ditemukan maka akan mereturn Point lokasi tersebut. Jika tidak 
+   ditemukan maka akan mereturn Point (-1,-1).*/
+{
+   boolean found = false;
+   int i=0;
+   int j=0;
+   while (!found && i<20){
+      j=0;
+      while (!found && j<20){
+         if ((*M).Mem[i][j]==jenis){
+            found = true;
+         }
       }
    }
+
+   if (found){
+      return MakePOINT(i,j);
+   }else{
+      return MakePOINT(-1,-1);
+   }
+      
+}
+
+void isiMap (MATRIKS* M)
+/* I.S.  : point lokasi player, office, dan antrian tidak terdefinisi
+   F.S.  : point lokasi player, office, dan antrian terdefinisi
+   proses: SearchIndeks */
+{
+   Player(*M) = SearchIndeks(M,'P');
+   Office(*M) = SearchIndeks(M,'O');
+   Antrian(*M) = SearchIndeks(M,'A');
+   //Gerbang TODO   
+   //Wahana TODO
 }
 
 void TulisMap (MATRIKS M)
+/* I.S.  : Sembarang
+   F.S.  : Ditampilkan isi matriks M.mem
+   proses: iterasi printf*/
 {
    int i,j;
    for (i=0;i<=BrsMax;i++){
@@ -100,15 +79,19 @@ void TulisMap (MATRIKS M)
    }
 }
 
-void GerakPlayer (MATRIKS *M, char arah)
+void GerakPlayer (MATRIKS *M, char arah[])
+/* I.S.  : Point Player lama
+   F.S.  : Point Player ditambah/dikurangi sesuai arah namun ada batasnya yaitu <20 dan
+   >-1.
+   proses: if else*/
 {
-   if (arah=='w'){
+   if (arah[0]=='w'){
       Baris(Player(*M)) -= 1; 
-   }else if(arah=='a'){
+   }else if(arah[0]=='a'){
       Kolom(Player(*M)) -= 1;
-   }else if(arah=='s'){
+   }else if(arah[0]=='s'){
       Baris(Player(*M)) += 1;
-   }else if(arah=='d'){
+   }else if(arah[0]=='d'){
       Kolom(Player(*M)) += 1;
    }
    if (Baris(Player(*M))==19){

@@ -20,6 +20,7 @@ typedef struct {
    POINT Gerbang[2];
    POINT Office;
    POINT Antrian;
+   //POINT Wahana TODO
 } MATRIKS;
 /* NBrsEff >= 1 dan NKolEff >= 1 */
 /* Indeks matriks yang digunakan: [BrsMin..BrsMax][KolMin..KolMax] */
@@ -30,22 +31,30 @@ typedef struct {
 #define Office(M) (M).Office
 #define Antrian(M) (M).Antrian
 
-/* ********** DEFINISI PROTOTIPE PRIMITIF ********** */              
-/* *** Konstruktor membentuk MATRIKS *** */
-void MakeMAP (MATRIKS * M, int map); 
+void MakeMAP (MATRIKS * M, char path[]);
 /* Membentuk Map kosong sesuai dengan penempatan map keberapa*/
 /* I.S. Matriks tidak terdefinisi */
-/* F.S. Jika map==1, Player inisialisasi pada point (10,10) dan office (15,15). Selain map==1, Player dan office akan diinisiasi (-1,-1). Selain itu basic bintang (*) dan pagar (#) kecuali Gerbang yang akan disesuaikan oleh map keberapa */
+/* F.S. matriks Map.mem terisi dengan simbol-simbol yang sesuai pada map.txt*/
 
-void isiMem (MATRIKS* M, int i, int j);
+POINT SearchIndeks(MATRIKS *M, char jenis);
+/* Fungsi antara untuk membantu mencari lokasi simbol ('A','P','O').
+   Jika lokasi ditemukan maka akan mereturn Point lokasi tersebut. Jika tidak 
+   ditemukan maka akan mereturn Point (-1,-1).*/
 
 void isiMap (MATRIKS* M);
-
-void CopyMap (MATRIKS MIn, MATRIKS * MHsl);
+/* I.S.  : point lokasi player, office, dan antrian tidak terdefinisi
+   F.S.  : point lokasi player, office, dan antrian terdefinisi
+   proses: SearchIndeks */
 
 void TulisMap (MATRIKS M);
+/* I.S.  : Sembarang
+   F.S.  : Ditampilkan isi matriks M.mem
+   proses: iterasi printf*/
 
-void GerakPlayer (MATRIKS *M, char arah);
-
+void GerakPlayer (MATRIKS *M, char arah[]);
+/* I.S.  : Point Player lama
+   F.S.  : Point Player ditambah/dikurangi sesuai arah namun ada batasnya yaitu <20 dan
+   >-1.
+   proses: if else*/
 
 #endif

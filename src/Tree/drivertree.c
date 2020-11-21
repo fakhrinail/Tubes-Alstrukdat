@@ -2,29 +2,29 @@
 #include <stdio.h>
 #include <stddef.h>
 #include "tree.h"
-#include "../MesinKarakter-Kata/mesinkata.h"
+#include "../MesinKarakter-Kata/mesinkar+katafile.h"
 
 int main(){
 
     WahanaTree W1;
-    STARTKATA();
-    CopyString(W1.nama,CKata);
-    ADVKATA();
-    W1.hargaTiket = StrToInt(CKata);
-    ADVKATA();
-    W1.kapasitas = StrToInt(CKata);
-    ADVKATA();
-    W1.durasi = StrToInt(CKata);
-    ADVKATA();
-    CopyString(W1.deskripsi,CKata);          
-    ADVKATA();
-    W1.hargaBangun = StrToInt(CKata);
-    ADVKATA();
-    W1.bahanBangun[0] = StrToInt(CKata);
-    ADVKATA();
-    W1.bahanBangun[1] = StrToInt(CKata);
-    ADVKATA();
-    W1.bahanBangun[2] = StrToInt(CKata);
+    STARTKATAf("../../doc/wahana.txt");
+    CopyString(W1.nama,CKataF);
+    ADVKATAf();
+    W1.hargaTiket = StrToInt(CKataF);
+    ADVKATAf();
+    W1.kapasitas = StrToInt(CKataF);
+    ADVKATAf();
+    W1.durasi = StrToInt(CKataF);
+    ADVKATAf();
+    CopyString(W1.deskripsi,CKataF);          
+    ADVKATAf();
+    W1.hargaBangun = StrToInt(CKataF);
+    ADVKATAf();
+    W1.bahanBangun[0] = StrToInt(CKataF);
+    ADVKATAf();
+    W1.bahanBangun[1] = StrToInt(CKataF);
+    ADVKATAf();
+    W1.bahanBangun[2] = StrToInt(CKataF);
     
 
 
@@ -37,8 +37,6 @@ int main(){
     printf("%d\n",W1.bahanBangun[0]);
     printf("%d\n",W1.bahanBangun[1]);
     printf("%d\n",W1.bahanBangun[2]);
-    
-    
 
 
     return 0;
