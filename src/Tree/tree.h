@@ -2,9 +2,7 @@
 #define Tree_H
 
 #include "../boolean.h"
-#include "../MesinKarakter-Kata/mesinkar+katafile.h"
 
-typedef struct tNodeTree *AddressTree;
 typedef struct {
     char nama[20];  
     int hargaTiket;
@@ -15,6 +13,7 @@ typedef struct {
     int bahanBangun[3];    
 } WahanaTree;
 
+typedef struct tNodeTree *AddressTree;
 typedef struct tNodeTree{
     AddressTree Left;
     AddressTree Right;
@@ -29,7 +28,7 @@ typedef struct tNodeTree{
 #define NamaWahana(T) (T)->detail.nama
 #define HargaTiket(T) (T)->detail.hargaTiket
 #define Kapasitas(T) (T)->detail.kapasitas
-#define Durasi(T) (T)->detail.durasi
+#define DurasiWahana(T) (T)->detail.durasi
 #define Deskripsi(T) (T)->detail.deskripsi
 #define HargaBangun(T) (T)->detail.hargaBangun
 #define KayuBangun(T) (T)->detail.bahanBangun[0]
@@ -38,7 +37,15 @@ typedef struct tNodeTree{
 
 AddressTree Alokasi(WahanaTree X);
 
-AddressTree Dealokasi(AddressTree X);
+void Dealokasi(AddressTree X);
+
+void DaftarWahana(WahanaTree W[]);
+/* Intinya dari file diubah ke WahanaTree */
+
+void DaftarTree(AddressTree T[], WahanaTree W[]);
+/* Intinya ngubah dari WahanaTree ke AddressTree */
+
+void MakeTree(AddressTree Root, AddressTree Left, AddressTree Right);
 
 
 #endif

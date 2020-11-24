@@ -56,4 +56,6 @@ boolean isEOP(char kata[]);
 /* Fungsi antara yang berguna mengecek suatu CKata apakah dia EOP atau bukan,
 jika dia EOP (exit) maka akan mengclose kan pita dan mengembalikan true. */
 
+boolean isSame(char kata1[], char kata2[]);
+
 #endif

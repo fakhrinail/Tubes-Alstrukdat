@@ -92,3 +92,15 @@ jika dia EOP (exit) maka akan mengclose kan pita dan mengembalikan true. */
               return false;
        }
 }
+
+boolean isSame(char kata1[], char kata2[]){
+    boolean sama = true;
+    int i=0;
+    while (sama && (kata1[i]!='\0' || kata2[i]!='\0')){
+        if (kata1[i]!=kata2[i]){
+            sama = false;
+        }
+        i++;
+    }
+    return sama;
+}

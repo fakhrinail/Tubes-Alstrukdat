@@ -1,4 +1,14 @@
 #include <stdio.h>
+#include "../MesinKarakter-Kata/mesinkar+katafile.h"
+#include "../MesinKarakter-Kata/mesinkar+katainput.h"
+#include "../Jam/jam.h"
+#include "../Tree/tree.h"
+
+WahanaTree W[3];        //List Wahana dari wahana.txt
+AddressTree T[3];       //Pohon yang akan berisi List Wahana di atas
+int uangPengguna;       //sebagai uang game
+int listBahan[3];       //sebagai bahan bangunan yang dimiliki pengguna, 0 untuk kayu, 1 untuk batu, 2 untuk metal
+JAM currentJam;         //sebagai jam di game
 
 void new_game();
 
@@ -7,6 +17,15 @@ void load_game();
 void exit();
 
 int main(){
+
+    /* Membuat Tree Wahana */
+    
+    DaftarWahana(W);
+    DaftarTree(T,W);
+    MakeTree(T[0],T[1],T[2]);
+
+    /* Membuat List Bahan Bangunan */
+    
 
     printf("\\=========================================================================/\n");
     printf("\\                                                                         /\n");
@@ -21,7 +40,7 @@ int main(){
     printf("\n");
     printf("\n");
     printf("Klik enter untuk melanjutkan.\n");
-    fgetc(stdin);
+    STARTKATAi();
 
 
     printf("\\=========================================================================/\n");
@@ -35,8 +54,10 @@ int main(){
     printf("\\=========================================================================/\n");
     printf("\n");
     printf("Masukkan pilihan anda. (1/2/3)\n");
+
     int pilihan;
-    scanf("%d", &pilihan);
+    ADVKATAi();
+    pilihan = StrToInt(CKataI);
 
     if (pilihan==1){
         new_game;
