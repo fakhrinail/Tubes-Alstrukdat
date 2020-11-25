@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include "tree.h"
 #include "../MesinKarakter-Kata/mesinkar+katafile.h"
+#include "../MesinKarakter-Kata/mesinkar+katainput.h"
 
 
 AddressTree Alokasi(WahanaTree X)
@@ -72,4 +73,30 @@ void MakeTree(AddressTree Root, AddressTree Left, AddressTree Right)
 {
     Left(Root) = Left;
     Right(Root) = Right;
+}
+
+boolean Search(char namaWahana[], AddressTree T)
+{
+    if (T==NULL){
+        return false;
+    }else{
+        if (isSame(namaWahana,NamaWahana(T))){
+            return true;
+        }else{
+            return Search(namaWahana,Left(T)) || Search(namaWahana,Right(T));
+        }
+    }
+}
+
+AddressTree searchTree(char namaWahana[], AddressTree Root)
+{
+    if (isSame(namaWahana, NamaWahana(Root))){
+        return Root;
+    }else{
+        if (Search(namaWahana,Left(Root))){
+            return searchTree(namaWahana,Left(Root));
+        }else{
+            return searchTree(namaWahana,Right(Root));
+        }
+    }
 }

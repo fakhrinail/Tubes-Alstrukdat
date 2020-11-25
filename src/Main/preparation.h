@@ -19,15 +19,28 @@ typedef struct{
 
 void DaftarBahan(BahanBangunan listbahan[]);
 
-VarBuy* Buy(BahanBangunan listbahan[], int uangPengguna, JAM J);
+VarBuy* Buy(BahanBangunan listbahan[], int uangPengguna, JAM waktu);
 
 /* Build */
 
 typedef struct{
     POINT lokasi;
+    char namaWahana[20];
     int hargaBangun;
     int bahanBangun[3];
     int waktu;
 }VarBuild;
 
-VarBuild* Build();
+VarBuild* Build(AddressTree T, int uangPengguna, int bahanBangunanPengguna[], JAM waktu, MATRIKS MAP);
+
+/* Upgrade */
+
+typedef struct{
+    POINT lokasi;
+    char namaWahana[20];
+    int hargaBangun;
+    int bahanBangun[3];
+    int waktu;
+}VarUpgrade;
+
+VarUpgrade* Upgrade();

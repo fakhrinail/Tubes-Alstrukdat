@@ -47,5 +47,6 @@ void DaftarTree(AddressTree T[], WahanaTree W[]);
 
 void MakeTree(AddressTree Root, AddressTree Left, AddressTree Right);
 
+AddressTree searchTree(char namaWahana[], AddressTree RootUtama);
 
 #endif

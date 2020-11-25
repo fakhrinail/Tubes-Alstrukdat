@@ -73,7 +73,7 @@ VarBuy* Buy(BahanBangunan listbahan[], int uangPengguna, JAM waktu)
 }
 
 /* Build */
-VarBuild* Build(AddressTree T, int uangPengguna, int bahanBangunan[], JAM waktu, MATRIKS MAP)
+VarBuild* Build(AddressTree T, int uangPengguna, int bahanBangunanPengguna[], JAM waktu, MATRIKS MAP)
 {
     JAM acuan = MakeJAM(9,0);
     int temp = JAMToMenit(waktu);
@@ -88,14 +88,16 @@ VarBuild* Build(AddressTree T, int uangPengguna, int bahanBangunan[], JAM waktu,
             printf("Oops, inputan anda tidak valid. Silahkan ulangi\n");
             ADVKATAi();
         }
-        if (uangPengguna>=HargaBangun(T) && (bahanBangunan[0]>=KayuBangun(T) && bahanBangunan[1]>= BatuBangun(T) && bahanBangunan[2]>=MetalBangun(T))){
+        if (uangPengguna>=HargaBangun(T) && (bahanBangunanPengguna[0]>=KayuBangun(T) && bahanBangunanPengguna[1]>= BatuBangun(T) && bahanBangunanPengguna[2]>=MetalBangun(T))){
             VarBuild* B = malloc(sizeof(VarBuild));
-            B->bahanBangun[0] = bahanBangunan[0];
-            B->bahanBangun[1] = bahanBangunan[1];
-            B->bahanBangun[2] = bahanBangunan[2];
+            CopyString(B->namaWahana,NamaWahana(T));
+            B->bahanBangun[0] = bahanBangunanPengguna[0];
+            B->bahanBangun[1] = bahanBangunanPengguna[1];
+            B->bahanBangun[2] = bahanBangunanPengguna[2];
             B->hargaBangun = HargaBangun(T);
             B->lokasi =  MAP.Player;
             B->waktu = 120;
+            printf("Aksi build anda tercatat.\n");
             return B;
 
         }else{
@@ -105,5 +107,21 @@ VarBuild* Build(AddressTree T, int uangPengguna, int bahanBangunan[], JAM waktu,
     }else if (waktu.HH > acuan.HH && waktu.HH <21){
         printf("Oops, waktu yang dibutuhkan sudah melebih batas. \n");
         return NULL;
+    }
+}
+
+/* Upgrade */
+
+VarUpgrade* Upgrade(AddressTree T, int uangPengguna, int bahanBangunanPengguna[], JAM waktu, MATRIKS MAP)
+{
+    JAM acuan = MakeJAM(9,0);
+    int temp = JAMToMenit(waktu);
+    temp += 180;            //upgrade menghabiskan waktu 3 jam
+    waktu = MenitToJAM(temp);
+
+    if ((waktu.HH > acuan.HH && waktu.HH >= 21) || waktu.HH < acuan.HH){
+        
+    }else if (waktu.HH > acuan.HH && waktu.HH <21){
+
     }
 }
