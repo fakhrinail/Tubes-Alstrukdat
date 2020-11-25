@@ -52,7 +52,8 @@ VarBuy* Buy(BahanBangunan listbahan[], int uangPengguna, JAM waktu)
         jml = StrToInt(CKataI);
         
         int hargabahan = listbahan[pilihan-1].hargabahan;
-        if (jml*hargabahan > uangPengguna)
+        int jmlharga = jml*hargabahan;
+        if (jmlharga > uangPengguna)
         {
             printf("Uang Anda tidak mencukupi\n");
             return NULL;
@@ -60,8 +61,8 @@ VarBuy* Buy(BahanBangunan listbahan[], int uangPengguna, JAM waktu)
         else
         {
             VarBuy* B = malloc(sizeof(VarBuy));
-            B->uang = jml*hargabahan;
-            /*TODO Jumlah gue gatau */
+            B->uang = jmlharga;
+            B->jmlbahan[pilihan-1] = jml;
             printf("Pembelian Anda tercatat, terima kasih sudah membeli!\n");
             return B;
         }

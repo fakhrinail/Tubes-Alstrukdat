@@ -8,7 +8,7 @@
 
 typedef struct{
     int uang;
-    char jmlbahan[3];
+    int jmlbahan[3];
     int waktu;
 } VarBuy;
 
