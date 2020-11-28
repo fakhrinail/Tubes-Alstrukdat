@@ -10,26 +10,26 @@ Deskripsi : Realisasi stacklist.h
 #include <stdlib.h>
 
 /* Prototype manajemen memori */
-addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[3], infotype waktu, POINT lokasi, char namaWahana[])
+addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[], infotype waktu, POINT lokasi, char namaWahana[])
 /* Ini parameternya bakal diisi lewat buy, build, atau upgrade, nanti liat dee */
 {
-    addressStack P =  malloc(sizeof(ElmtStack));
+    addressStack P = malloc(sizeof(ElmtStack));
     if (P != NULL)
     {
         Command(P) = cmd;
         Uang(P) = uang;
-        Kayu(P) = jml[0];
-        Batu(P) = jml[1];
-        Metal(P) = jml[2];
+        P->kayu = jml[0];
+        P->batu = jml[1];
+        P->metal = jml[2];
         Waktu(P) = waktu;
-        Baris(P->lokasi) = Baris(lokasi);
-        Kolom(P->lokasi) = Kolom(lokasi);
+        P->lokasi.baris = Baris(lokasi);
+        P->lokasi.kolom = Kolom(lokasi);
         CopyString(P->namaWahana,namaWahana);
         Next(P) = NULL;
     }
     return P;
 }
-void Dealokasi (addressStack P)
+void DealokasiStack (addressStack P)
 /* I.S. P adalah hasil alokasi, P != Nil */
 /* F.S. Alamat P didealokasi, dikembalikan ke sistem */ 
 {
@@ -42,7 +42,7 @@ boolean IsEmpty (Stack S)
 {
     return Top(S) == NULL;
 }
-void CreateEmpty (Stack * S)
+void CreateEmptyStackList (Stack * S)
 /* I.S. sembarang */ 
 /* F.S. Membuat sebuah stack S yang kosong */
 {
@@ -55,8 +55,13 @@ void Push (Stack * S, addressStack P)
 /*      jika tidak, S tetap */
 /* Pada dasarnya adalah operasi Insert First pada list linier */
 {
-    Next(P) = (*S).TOP->Next;
-    (*S).TOP = P;
+    if (IsEmpty(*S)){
+        Next(P) = NULL;
+        (*S).TOP = P;
+    }else{
+        Next(P) = Next((*S).TOP);
+        (*S).TOP = P;
+    }
 }
 /* TODO FIX-IN POP */
 void Pop (Stack * S)
@@ -108,10 +113,11 @@ void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
         printf("Masukkan bahan yang ingin dibeli:\n ");
         ADVKATAi();
         pilihan = StrToInt(CKataI);
+        
         printf("Masukkan jumlah yang ingin dibeli:\n ");
         ADVKATAi();
         jml = StrToInt(CKataI);
-
+        
         int hargabahan = listbahan[pilihan-1].hargabahan;
         int jmlharga = jml*hargabahan;
 
@@ -129,11 +135,12 @@ void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
                 }
             }
             
-            /* Membuat dummy charWahana */
-            char namaWahana = "kosong";
+            /* Membuat dummy dummy*/
+            char dummy[20];
+            MakeString20Empty(dummy);
 
             /* ALOKASI */
-            addressStack varBuy = AlokasiStack(3,jmlharga,bahan,30,MakePOINT(-1,-1),namaWahana);
+            addressStack varBuy = AlokasiStack(3,jmlharga,bahan,30,MakePOINT(-1,-1),dummy);
             Push(S, varBuy);
             printf("Pembelian anda tercatat, Terima kasih!\n");
         }
@@ -184,4 +191,9 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
             printf("Oops, uang atau bahan anda tidak mencukupi untuk melakukan aksi ini.\n");
         }
     }
+}
+
+void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS Map)
+{
+
 }

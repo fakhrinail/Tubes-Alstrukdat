@@ -4,12 +4,12 @@
 #include "mesinkar+katafile.h"
 #include <stdio.h>
 
-char CC;
+char CCF;
 boolean EndLine = false;
 boolean EndFile = false;
 char CKataF[NMaxFILE];
 
-static FILE * pita;
+static FILE * pitaFile;
 static int retval;
 
 void STARTf(char path[]) {   // variabel path digunakan untuk menyimpan path file
@@ -20,7 +20,7 @@ void STARTf(char path[]) {   // variabel path digunakan untuk menyimpan path fil
        Jika CC = MARK maka EndLine akan menyala (true) */
 
 	/* Algoritma */
-	pita = fopen(path, "r");
+	pitaFile = fopen(path, "r");
 	ADVf();
 }
 
@@ -35,12 +35,12 @@ void ADVf() {
               Jika CC = EOF maka pembacaan file berhenti.*/
 
 	/* Algoritma */
-	retval = fscanf(pita,"%c",&CC);
-	EndLine = CC==MARK;
+	retval = fscanf(pitaFile,"%c",&CCF);
+	EndLine = CCF==MARK;
 
 	if (retval==EOF) {
         EndFile = true;
-        fclose(pita);
+        fclose(pitaFile);
  	}
 }
 
@@ -49,7 +49,7 @@ void IgnoreBlankAndMARKf()
    I.S. : CC sembarang 
    F.S. : CC ≠ BLANK atau CC = MARK */
 {
-    while (CC==BLANK || CC==MARK){
+    while (CCF==BLANK || CCF==MARK){
         ADVf();
     }
 }
@@ -62,7 +62,7 @@ void STARTKATAf(char path[])
 {
     STARTf(path);
     IgnoreBlankAndMARKf();
-    if (CC==MARK){
+    if (CCF==MARK){
         EndLine = true;
     }else{
         SalinKataf();
@@ -77,7 +77,7 @@ void ADVKATAf()
    Proses : Akuisisi kata menggunakan procedure SalinKata */
 {
     IgnoreBlankAndMARKf();
-    if (CC==MARK){
+    if (CCF==MARK){
        EndLine=true;
     }else{
        SalinKataf();
@@ -90,7 +90,7 @@ int StrToInt(char S[])
 {
     int i = 0;
     int value = 0;
-    while (S[i]!='\0'){
+    while (S[i]>= '0' && S[i] <= '9'){
         value = value*10 + (int)(S[i]) - (int)('0');
         i++;
     }
@@ -104,10 +104,11 @@ void CopyString(char S1[], char S2[])
            yang ada di S2. */
 {
     int i=0;
-    while (S2[i]!='\0'){
+    while (S2[i]>= 'a' && S2[i]<= 'z'){
         S1[i] = S2[i];
         i++;
     }
+
 }
 
 void resetCKata(char kata[])
@@ -115,10 +116,9 @@ void resetCKata(char kata[])
    F.S. : kata "kosong" kembali alias berisi '\0' 
    proses: tiap-tiap char yang ada di kata diassign dengan '\0' */
 {
-    int i=0;
-    while (kata[i]!='\0'){
-        kata[i]='\0';
-        i++;
+    int i;
+    for (i=0;i<100;i++){
+        kata[i] = '\0';
     }
 }
 
@@ -131,8 +131,8 @@ void SalinKataf()
 {
     resetCKata(CKataF);
     int i=0;
-    while (CC!=MARK && CC!=BLANK && i<NMaxFILE){
-        CKataF[i] = CC;
+    while (CCF!=MARK && CCF!=BLANK && i<NMaxFILE){
+        CKataF[i] = CCF;
         i+=1;
         ADVf();
     }

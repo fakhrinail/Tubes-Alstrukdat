@@ -42,7 +42,7 @@ void TulisJAM (JAM J){
 /* KELOMPOK KONVERSI TERHADAP TYPE                                   */
 /* ***************************************************************** */
 int JAMToMenit (JAM J){
-   return (Hour(J)*3600 + Minute(J)*60);
+   return (Hour(J)*60 + Minute(J)*1);
 }
 /* Diberikan sebuah JAM, mengkonversi menjadi jumlah detik dari pukul 0:0:0 */
 /* Rumus : detik = 3600*HH + 60*MM + SS */
@@ -69,19 +69,19 @@ JAM MenitToJAM (int N){
 /* ***************************************************************** */
 /* *** Kelompok Operator Relational *** */
 boolean JEQ (JAM J1, JAM J2){
-   return(JAMToDetik(J1) == JAMToDetik(J2));
+   return(JAMToMenit(J1) == JAMToMenit(J2));
 }
 /* Mengirimkan true jika J1=J2, false jika tidak */
 boolean JNEQ (JAM J1, JAM J2){
-   return(JAMToDetik(J1) != JAMToDetik(J2));
+   return(JAMToMenit(J1) != JAMToMenit(J2));
 }
 /* Mengirimkan true jika J1 tidak sama dengan J2 */
 boolean JLT (JAM J1, JAM J2){
-   return(JAMToDetik(J1) < JAMToDetik(J2));
+   return(JAMToMenit(J1) < JAMToMenit(J2));
 }
 /* Mengirimkan true jika J1<J2, false jika tidak */
 boolean JGT (JAM J1, JAM J2){
-   return(JAMToDetik(J1) > JAMToDetik(J2));
+   return(JAMToMenit(J1) > JAMToMenit(J2));
 }
 
 /* Mengirim N detik sebelum J dalam bentuk JAM */

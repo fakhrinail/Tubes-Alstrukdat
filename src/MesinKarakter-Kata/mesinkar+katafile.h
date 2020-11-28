@@ -16,7 +16,7 @@
 extern boolean EndLine;       //boolean ini berguna buat bedain per line tiap file
 extern boolean EndFile;       //boolean ini berguna untuk menandakan file telah selesai dibaca
 extern char CKataF[NMaxFILE];
-extern char CC;
+extern char CCF;
 
 void STARTf(char path[]);      // variabel path digunakan untuk menyimpan path file
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.

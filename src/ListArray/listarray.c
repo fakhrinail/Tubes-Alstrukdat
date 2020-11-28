@@ -8,6 +8,7 @@ void DaftarBahan(BahanBangunan listbahan[])
     {
         while (!EndLine)
         {
+            MakeString20Empty(listbahan[i].namabahan);
             CopyString(listbahan[i].namabahan,CKataF);
             ADVKATAf();
             listbahan[i].hargabahan = StrToInt(CKataF);

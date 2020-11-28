@@ -6,11 +6,11 @@
 
 #include "../boolean.h"
 
-#define NMaxINPUT 50
+#define NMaxINPUT 100
 #define MARK '\n'
 #define BLANK ' '
 
-extern char CC;
+extern char CCI;
 //EndKata untuk input ditiadakan karena menurut gue gaperlu, toh tiap ada spasi bakal 
 //diskip.
 extern boolean EOP;           //variabel ini berguna untuk jika inputan nanti bernilai
@@ -57,5 +57,9 @@ boolean isEOP(char kata[]);
 jika dia EOP (exit) maka akan mengclose kan pita dan mengembalikan true. */
 
 boolean isSame(char kata1[], char kata2[]);
+
+void MakeString20Empty(char kata[]);
+
+boolean isStringEmpty(char kata[]);
 
 #endif

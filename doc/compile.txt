@@ -1,2 +1,5 @@
 compile : gcc pergerakanmap.c ../Matriks/matriks.c ../MesinKarakter-Kata/mesinkar.c ../Point/point.c -o ../../test/gerakmapv1
 run: ./../../test/gerakmapv1
+
+NOTE:
+1.  Ketika kita ngecompile program dari "../../<path>" nah dijalanin juga harus dari path itu. Bisa jadi reminder aja nanti di program dibuat sedemikian rupa.

@@ -1,5 +1,6 @@
 #include "../Matriks/matriks.h"
 #include "../MesinKarakter-Kata/mesinkar+katainput.h"
+#include "../MesinKarakter-Kata/mesinkar+katafile.h"
 #include <stdio.h>
 
 int main(){

@@ -10,6 +10,8 @@
 #include "../MesinKarakter-Kata/mesinkar+katainput.h"
 #include "../Tree/tree.h"
 #include "../Matriks/matriks.h"
+#include <stdio.h>
+#include <stddef.h>
 
 /* Deklarasi infotype */
 typedef int infotype;
@@ -19,7 +21,9 @@ typedef struct tElmtStack* addressStack;
 typedef struct tElmtStack {
 	infotype command; 			//1 build, 2 upgrade, 3 buy
 	infotype uang;
-    infotype jmlbahan[3];
+    infotype kayu;
+	infotype batu;
+	infotype metal;
     infotype waktu;				//disepakatin dalam menit
 	POINT lokasi;
 	char namaWahana[20];
@@ -43,25 +47,22 @@ typedef struct {
 #define Next(P) (P)->Next
 #define Command(P) (P)->command
 #define Uang(P) (P)->uang
-#define Kayu(P) (P)->jmlbahan[0]
-#define Batu(P) (P)->jmlbahan[1]
-#define Metal(P) (P)->jmlbahan[2]
 #define Waktu(P) (P)->waktu
 
 /* Prototype manajemen memori */
-addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[3], infotype waktu, POINT lokasi, char namaWahana[]);
+addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[], infotype waktu, POINT lokasi, char namaWahana[]);
 /* I.S. Sembarang */
 /* F.S. Alamat P dialokasi, jika berhasil maka Info(P)=X dan 
         Next(P)=Nil */
 /*      P=Nil jika alokasi gagal */
-void Dealokasi (addressStack P);
+void DealokasiStack (addressStack P);
 /* I.S. P adalah hasil alokasi, P != Nil */
 /* F.S. Alamat P didealokasi, dikembalikan ke sistem */ 
 
 /* ********* PROTOTYPE REPRESENTASI LOJIK STACK ***************/
 boolean IsEmpty (Stack S);
 /* Mengirim true jika Stack kosong: TOP(S) = Nil */
-void CreateEmpty (Stack * S);
+void CreateEmptyStackList (Stack * S);
 /* I.S. sembarang */ 
 /* F.S. Membuat sebuah stack S yang kosong */
 void Push (Stack * S, addressStack P);

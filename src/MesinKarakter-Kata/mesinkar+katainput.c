@@ -5,12 +5,12 @@
 #include "mesinkar+katafile.h"
 #include <stdio.h>
 
-char CC;
+char CCI;
 //EndKata ditiadakan, lihat di .h penjelasannya.
 boolean EOP = false;       
 char CKataI[NMaxINPUT];
 
-static FILE * pita;
+static FILE * pitaInput;
 static int retval;
 
 void STARTi() {
@@ -20,8 +20,8 @@ void STARTi() {
    F.S. : CC adalah karakter pertama pada pita. */
 
 	/* Algoritma */
-	pita = stdin;
-	ADVi();
+	pitaInput = stdin;
+    ADVi();
 }
 
 void ADVi() {
@@ -31,7 +31,7 @@ void ADVi() {
           CC mungkin = MARK, CC mungkin = BLANK. */
 
 	/* Algoritma */
-	retval = fscanf(pita,"%c",&CC);
+	retval = fscanf(pitaInput,"%c",&CCI);
 }
 
 void STARTKATAi()
@@ -40,7 +40,7 @@ void STARTKATAi()
    proses: SalinKata*/
 {
     STARTi();
-    if (CC!=MARK){
+    if (CCI!=MARK){
         SalinKatai();
     }
 }
@@ -50,7 +50,7 @@ void IgnoreBlankAndMARKi()
    I.S. : CC sembarang 
    F.S. : CC ≠ BLANK atau CC = MARK */
 {
-    while (CC==BLANK || CC==MARK){
+    while (CCI==BLANK || CCI==MARK){
         ADVi();
     }
 }
@@ -74,8 +74,8 @@ void SalinKatai()
 {
     resetCKata(CKataI);
     int i=0;
-    while (CC!=MARK && i<NMaxINPUT){
-        CKataI[i] = CC;
+    while (CCI!=MARK && i<NMaxINPUT){
+        CKataI[i] = CCI;
         i+=1;
         ADVi();
     }
@@ -86,7 +86,7 @@ boolean isEOP(char kata[])
 jika dia EOP (exit) maka akan mengclose kan pita dan mengembalikan true. */
 {
        if (kata[0]=='e' && kata[1]=='x' && kata[2]=='i' && kata[3]=='t'){
-              fclose(pita);
+              fclose(pitaInput);
               return true;
        }else{
               return false;
@@ -103,4 +103,12 @@ boolean isSame(char kata1[], char kata2[]){
         i++;
     }
     return sama;
+}
+
+void MakeString20Empty(char kata[])
+{   
+    int i;
+    for (i=0;i<20;i++){
+        kata[i] = '\0';
+    }
 }
