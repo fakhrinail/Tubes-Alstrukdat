@@ -64,14 +64,35 @@ void Push (Stack * S, addressStack P)
     }
 }
 /* TODO FIX-IN POP */
-void Pop (Stack * S)
+void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map)
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, */
 /*      elemen TOP yang lama didealokasi */
 /* Pada dasarnya adalah operasi Delete First pada list linier */
 {
-    
+    if (InfoCommandTop(*S)==1){
+        *uangPengguna -= InfoUangTop(*S);
+        int HH = InfoWaktuTop(*S)/60;
+        int MM = InfoWaktuTop(*S)%60;
+        (*jamPengguna).HH += HH;
+        (*jamPengguna).MM += MM;
+        bahanPengguna[0] -= InfoKayuTop(*S);
+        bahanPengguna[1] -= InfoBatuTop(*S);
+        bahanPengguna[2] -= InfoMetalTop(*S);
+        
+        /* Mencari lokasi yang masih kosong */
+        int i=0;
+        while (isNil((*Map).arrayWahana[i].lokasi)){
+            i++;
+        }
+        (*Map).arrayWahana[i].lokasi = InfoLokasiTop(*S);
+
+    }else if (InfoCommandTop(*S)==2){
+
+    }else if (InfoCommandTop(*S)==3){
+        
+    }
 }
 
 void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
@@ -221,5 +242,5 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
 
 void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS Map)
 {
-
+    
 }

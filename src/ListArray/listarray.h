@@ -1,6 +1,7 @@
 #include "../MesinKarakter-Kata/mesinkar+katafile.h"
 #include "../MesinKarakter-Kata/mesinkar+katainput.h"
 #include "../Point/point.h"
+#include "../boolean.h"
 
 #ifndef _LISTARRAY_H
 #define _LISTARRAY_H

@@ -1,3 +1,4 @@
 kayu 25
 batu 50
 metal 100
+

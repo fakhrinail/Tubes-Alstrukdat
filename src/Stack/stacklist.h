@@ -39,9 +39,9 @@ typedef struct {
 #define Top(S) (S).TOP
 #define InfoCommandTop(S) (S).TOP->command
 #define InfoUangTop(S) (S).TOP->uang
-#define InfoKayuTop(S) (S).TOP->jmlbahan[0]
-#define InfoBatuTop(S) (S).TOP->jmlbahan[1]
-#define InfoMetalTop(S) (S).TOP->jmlbahan[2]
+#define InfoKayuTop(S) (S).TOP->kayu
+#define InfoBatuTop(S) (S).TOP->batu
+#define InfoMetalTop(S) (S).TOP->metal
 #define InfoWaktuTop(S) (S).TOP->waktu
 #define InfoLokasiTop(S) (S).TOP->lokasi
 #define Next(P) (P)->Next
@@ -71,7 +71,7 @@ void Push (Stack * S, addressStack P);
 /* F.S. X menjadi TOP yang baru jika alokasi X berhasil, */
 /*      jika tidak, S tetap */
 /* Pada dasarnya adalah operasi Insert First pada list linier */
-void Pop (Stack * S);
+void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map);
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, */

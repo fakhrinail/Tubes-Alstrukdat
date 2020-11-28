@@ -41,6 +41,7 @@ void ADVf() {
 	if (retval==EOF) {
         EndFile = true;
         fclose(pitaFile);
+        printf("kamu sampai di sini!\n");
  	}
 }
 

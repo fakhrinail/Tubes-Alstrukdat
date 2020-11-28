@@ -17,6 +17,7 @@ int main(){
     AddressTree T[3];
     DaftarWahana(W);
     printf("%s",W[0].nama);
+    
     /*
     DaftarTree(T,W);
     MakeTree(T[0],T[1],T[2]);

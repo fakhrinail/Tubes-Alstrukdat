@@ -1,3 +1,4 @@
 bombomcar 10 10 30 bismillah 100 10 0 0
 halilintar 20 30 15 semoga 250 20 10 0
 kora-kora 20 30 15 kelar 200 10 20 0
+

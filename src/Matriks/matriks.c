@@ -8,6 +8,7 @@ Deskripsi         Membuat body ADT Matriks
 
 #include <stdio.h>
 #include "../MesinKarakter-Kata/mesinkar+katafile.h"
+#include "../MesinKarakter-Kata/mesinkar+katainput.h"
 #include "matriks.h"
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */              
@@ -82,7 +83,11 @@ void isiMap (MATRIKS* M)
    }
 
    //Wahana 
-
+   int index;
+   for (index=0;index<30;index++){
+      (*M).arrayWahana[index].lokasi = MakePOINT(-1,-1);
+      MakeString20Empty((*M).arrayWahana[index].namaWahana);
+   }
 }
 
 void TulisMap (MATRIKS M)
