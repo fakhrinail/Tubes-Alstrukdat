@@ -112,7 +112,7 @@ void PrintPrioQueueChar (PrioQueueChar Q)
     int temp;
     for (int i = 0; i < NBElmt(Q);i++){
         temp = (Head(Q)+i+MaxEl(Q)) % MaxEl(Q);
-        printf("%d %c\n", Elmt(Q,temp).prio,Elmt(Q,temp).info);
+        printf("%d %c\n", Elmt(Q,temp).sabar,Elmt(Q,temp).namawahana);
     }
 
     printf("#\n");
