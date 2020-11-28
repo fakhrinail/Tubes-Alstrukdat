@@ -3,45 +3,58 @@
 #define _STACKLIST_H
 
 #include "boolean.h"
-#include <stdlib.h>
-
-/* Konstanta */
-#define Nil NULL
+#include "../Point/point.h"
+#include "../Jam/jam.h"
+#include "../ListArray/listarray.h"
+#include "../MesinKarakter-Kata/mesinkar+katafile.h"
+#include "../MesinKarakter-Kata/mesinkar+katainput.h"
+#include "../Tree/tree.h"
+#include "../Matriks/matriks.h"
 
 /* Deklarasi infotype */
 typedef int infotype;
 
 /* Stack dengan representasi berkait dengan pointer */
-typedef struct tElmtStack * address;
+typedef struct tElmtStack* addressStack;
 typedef struct tElmtStack {
-	infotype command; //1 build, 2 upgrade, 3 buy
+	infotype command; 			//1 build, 2 upgrade, 3 buy
 	infotype uang;
     infotype jmlbahan[3];
-    infotype waktu;
-	address Next; 
+    infotype waktu;				//disepakatin dalam menit
+	POINT lokasi;
+	char namaWahana[20];
+	addressStack Next; 
 } ElmtStack; 
 
 /* Type stack dengan ciri TOP : */
 typedef struct { 
-	address TOP;  /* alamat TOP: elemen puncak */
+	addressStack TOP;  /* alamat TOP: elemen puncak */
 } Stack;
 
 /* Selektor */
 #define Top(S) (S).TOP
-#define InfoTop(S) (S).TOP->ElmtStack; 
+#define InfoCommandTop(S) (S).TOP->command
+#define InfoUangTop(S) (S).TOP->uang
+#define InfoKayuTop(S) (S).TOP->jmlbahan[0]
+#define InfoBatuTop(S) (S).TOP->jmlbahan[1]
+#define InfoMetalTop(S) (S).TOP->jmlbahan[2]
+#define InfoWaktuTop(S) (S).TOP->waktu
+#define InfoLokasiTop(S) (S).TOP->lokasi
 #define Next(P) (P)->Next
 #define Command(P) (P)->command
 #define Uang(P) (P)->uang
-#define JmlBahan(P) (P)->jmlbahan[3]
+#define Kayu(P) (P)->jmlbahan[0]
+#define Batu(P) (P)->jmlbahan[1]
+#define Metal(P) (P)->jmlbahan[2]
 #define Waktu(P) (P)->waktu
 
 /* Prototype manajemen memori */
-void Alokasi (address *P, infotype cmd, infotype uang, infotype jml[3], infotype waktu);
+addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[3], infotype waktu, POINT lokasi, char namaWahana[]);
 /* I.S. Sembarang */
 /* F.S. Alamat P dialokasi, jika berhasil maka Info(P)=X dan 
         Next(P)=Nil */
 /*      P=Nil jika alokasi gagal */
-void Dealokasi (address P);
+void Dealokasi (addressStack P);
 /* I.S. P adalah hasil alokasi, P != Nil */
 /* F.S. Alamat P didealokasi, dikembalikan ke sistem */ 
 
@@ -51,17 +64,21 @@ boolean IsEmpty (Stack S);
 void CreateEmpty (Stack * S);
 /* I.S. sembarang */ 
 /* F.S. Membuat sebuah stack S yang kosong */
-void Push (Stack * S, infotype cmd, infotype uang, infotype jml[3], infotype waktu);
+void Push (Stack * S, addressStack P);
 /* Menambahkan X sebagai elemen Stack S */
 /* I.S. S mungkin kosong, X terdefinisi */
 /* F.S. X menjadi TOP yang baru jika alokasi X berhasil, */
 /*      jika tidak, S tetap */
 /* Pada dasarnya adalah operasi Insert First pada list linier */
-void Pop (Stack * S, infotype * cmd, infotype * uang, infotype * jml[3], infotype * waktu);
+void Pop (Stack * S);
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, */
 /*      elemen TOP yang lama didealokasi */
 /* Pada dasarnya adalah operasi Delete First pada list linier */
+
+void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu);
+
+void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS Map);
 
 #endif

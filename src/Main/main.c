@@ -3,9 +3,11 @@
 #include "../MesinKarakter-Kata/mesinkar+katainput.h"
 #include "../Jam/jam.h"
 #include "../Tree/tree.h"
+#include "../ListArray/listarray.h"
 
 WahanaTree W[3];        //List Wahana dari wahana.txt
 AddressTree T[3];       //Pohon yang akan berisi List Wahana di atas
+BahanBangunan material[3];
 int uangPengguna;       //sebagai uang game
 int listBahan[3];       //sebagai bahan bangunan yang dimiliki pengguna, 0 untuk kayu, 1 untuk batu, 2 untuk metal
 JAM currentJam;         //sebagai jam di game
@@ -25,6 +27,7 @@ int main(){
     MakeTree(T[0],T[1],T[2]);
 
     /* Membuat List Bahan Bangunan */
+    DaftarBahan(material);
     
 
     printf("\\=========================================================================/\n");

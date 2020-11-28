@@ -25,10 +25,11 @@ void MakeMAP (MATRIKS * M, char path[])
       ADVKATAf();
       i++;
    }
+   isiMap(M);     //untuk mengisi point player,office,antrian,dll.
    
 }
 
-POINT SearchIndeks(MATRIKS *M, char jenis)
+POINT SearchIndeks(MATRIKS M, char jenis)
 /* Fungsi antara untuk membantu mencari lokasi simbol ('A','P','O').
    Jika lokasi ditemukan maka akan mereturn Point lokasi tersebut. Jika tidak 
    ditemukan maka akan mereturn Point (-1,-1).*/
@@ -39,9 +40,14 @@ POINT SearchIndeks(MATRIKS *M, char jenis)
    while (!found && i<20){
       j=0;
       while (!found && j<20){
-         if ((*M).Mem[i][j]==jenis){
+         if (M.Mem[i][j]==jenis){
             found = true;
+         }else{
+            j++;        //kalo udh nemu indeksnya gaperlu nambah indeks
          }
+      }
+      if (!found){      //kalo udh nemu indeksnya gaperlu nambah indeks
+         i++;
       }
    }
 
@@ -58,11 +64,25 @@ void isiMap (MATRIKS* M)
    F.S.  : point lokasi player, office, dan antrian terdefinisi
    proses: SearchIndeks */
 {
-   Player(*M) = SearchIndeks(M,'P');
-   Office(*M) = SearchIndeks(M,'O');
-   Antrian(*M) = SearchIndeks(M,'A');
-   //Gerbang TODO   
-   //Wahana TODO
+   Player(*M) = SearchIndeks(*M,'P');
+   Office(*M) = SearchIndeks(*M,'O');
+   Antrian(*M) = SearchIndeks(*M,'A');
+   
+   //gerbang
+   int i;
+   int j;
+   int indeksGerbang=0;
+   for (i=0;i<20;i++){
+      for (j=0;j<20;j++){
+         if ((*M).Mem[i][j]=='G'){
+            (*M).Gerbang[indeksGerbang] = MakePOINT(i,j);
+            indeksGerbang++;
+         }
+      }
+   }
+
+   //Wahana 
+
 }
 
 void TulisMap (MATRIKS M)
@@ -105,5 +125,31 @@ void GerakPlayer (MATRIKS *M, char arah[])
    }
 }
 
-
+void updateMap(MATRIKS *M)
+{
+   int i;
+   int j;
+   for (i=0;i<20;i++){
+      for (j=0;j<20;j++){
+         POINT temp = MakePOINT(i,j);
+         if (Baris(temp)==0 || Kolom(temp)==0 || Baris(temp)==19 || Kolom(temp)==19){
+            if (EQPoint(temp, (*M).Gerbang[0]) || EQPoint(temp,(*M).Gerbang[1])){
+               (*M).Mem[Baris(temp)][Kolom(temp)] = 'G';                //bernilai gerbang
+            }else{
+               (*M).Mem[Baris(temp)][Kolom(temp)] = '#';                //bernilai pagar lahan
+            }
+         }else{
+            if (EQPoint(temp,Player(*M))){
+               (*M).Mem[Baris(temp)][Kolom(temp)] = 'P';                //bernilai pemain
+            }else if (EQPoint(temp,Office(*M))){
+               (*M).Mem[Baris(temp)][Kolom(temp)] = 'O';                //bernilai Office
+            }else if (EQPoint(temp,Antrian(*M))){
+               (*M).Mem[Baris(temp)][Kolom(temp)] = 'A';                //bernilai Antrian
+            }else{
+               (*M).Mem[Baris(temp)][Kolom(temp)] = '-';                //bernilai tempat kosong
+            }
+         }
+      }
+   }
+}
 

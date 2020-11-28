@@ -10,24 +10,26 @@ Deskripsi : Realisasi stacklist.h
 #include <stdlib.h>
 
 /* Prototype manajemen memori */
-void Alokasi (address *P, infotype cmd, infotype uang, infotype jml[3], infotype waktu)
-/* I.S. Sembarang */
-/* F.S. Alamat P dialokasi, jika berhasil maka Info(P)=X dan 
-        Next(P)=Nil */
-/*      P=Nil jika alokasi gagal */
+addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[3], infotype waktu, POINT lokasi, char namaWahana[])
+/* Ini parameternya bakal diisi lewat buy, build, atau upgrade, nanti liat dee */
 {
-    *P = (address) (malloc(sizeof(ElmtStack)));
-    if (*P != Nil)
+    addressStack P =  malloc(sizeof(ElmtStack));
+    if (P != NULL)
     {
-        Command(*P) = cmd;
-        Uang(*P) = uang;
-        JmlBahan(*P) = jml[3];
-        Waktu(*P) = waktu;
-        Next(*P) = Nil;
+        Command(P) = cmd;
+        Uang(P) = uang;
+        Kayu(P) = jml[0];
+        Batu(P) = jml[1];
+        Metal(P) = jml[2];
+        Waktu(P) = waktu;
+        Baris(P->lokasi) = Baris(lokasi);
+        Kolom(P->lokasi) = Kolom(lokasi);
+        CopyString(P->namaWahana,namaWahana);
+        Next(P) = NULL;
     }
-    
+    return P;
 }
-void Dealokasi (address P)
+void Dealokasi (addressStack P)
 /* I.S. P adalah hasil alokasi, P != Nil */
 /* F.S. Alamat P didealokasi, dikembalikan ke sistem */ 
 {
@@ -38,41 +40,148 @@ void Dealokasi (address P)
 boolean IsEmpty (Stack S)
 /* Mengirim true jika Stack kosong: TOP(S) = Nil */
 {
-    return Top(S) == Nil;
+    return Top(S) == NULL;
 }
 void CreateEmpty (Stack * S)
 /* I.S. sembarang */ 
 /* F.S. Membuat sebuah stack S yang kosong */
 {
-    Top(*S) = Nil;
+    Top(*S) = NULL;
 }
-void Push (Stack * S, infotype cmd, infotype uang, infotype jml[3], infotype waktu)
+void Push (Stack * S, addressStack P)
 /* Menambahkan X sebagai elemen Stack S */
 /* I.S. S mungkin kosong, X terdefinisi */
 /* F.S. X menjadi TOP yang baru jika alokasi X berhasil, */
 /*      jika tidak, S tetap */
 /* Pada dasarnya adalah operasi Insert First pada list linier */
 {
-    address P;
-    Alokasi(&P,cmd,uang,&jml[3],waktu);
-    if (P != Nil)
-    {
-        Next(P) = Top(*S);
-        Top(*S) = P;
-    }
+    Next(P) = (*S).TOP->Next;
+    (*S).TOP = P;
 }
-void Pop (Stack * S, infotype * cmd, infotype * uang, infotype * jml[3], infotype * waktu)
+/* TODO FIX-IN POP */
+void Pop (Stack * S)
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, */
 /*      elemen TOP yang lama didealokasi */
 /* Pada dasarnya adalah operasi Delete First pada list linier */
 {
-    *cmd = Command(Top(*S));
-    *uang = Uang(Top(*S));
-    *jml[3] = JmlBahan(Top(*S));
-    *waktu = Waktu(Top(*S));
-    address P = Top(*S);
-    Top(*S) = Next(P);
-    Dealokasi(P);
+    
+}
+
+void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
+{
+    /* Menghitung Waktu */
+    int totalWaktu = 0;
+    if (!IsEmpty(*S)){
+        addressStack P = (*S).TOP;
+        while (Next(P)!=NULL){
+            totalWaktu += P->waktu;
+            P = Next(P);
+        }
+        totalWaktu += P->waktu;
+    }
+
+    /* Menghitung waktu sekarang */
+    int currentJam = 0;
+    if (JAMToMenit(waktu)<JAMToMenit(MakeJAM(21,0))){
+        currentJam = JAMToMenit(MakeJAM(24,0)) - JAMToMenit(MakeJAM(21,0)) + JAMToMenit(waktu);
+    }else{
+        currentJam = JAMToMenit(waktu) - JAMToMenit(MakeJAM(21,0));
+    }
+
+    /* Menentukan apakah waktu cukup atau tidak, buy menghabiskan waktu 30 menit  */
+    if (totalWaktu+currentJam+30 > 720){                   //lebih dari 12 jam
+        printf("Oops, waktu melebih batas!\n");
+    }else{
+        /* Memulai pesanan */
+
+        int pilihan;
+        int jml;
+
+        printf("Berikut adalah list bahan yang bisa dibeli:\n");
+        for (int i = 0; i < 3; i++)
+        {
+            printf("%d. %s %d\n", i+1, listbahan[i].namabahan, listbahan[i].hargabahan);
+        }
+        
+        printf("Masukkan bahan yang ingin dibeli:\n ");
+        ADVKATAi();
+        pilihan = StrToInt(CKataI);
+        printf("Masukkan jumlah yang ingin dibeli:\n ");
+        ADVKATAi();
+        jml = StrToInt(CKataI);
+
+        int hargabahan = listbahan[pilihan-1].hargabahan;
+        int jmlharga = jml*hargabahan;
+
+        if (jmlharga > uangPengguna){
+            printf("Uang Anda tidak mencukupi\n");
+        }
+        else{
+            /* Membuat array of bahan */
+            infotype bahan[3];
+            for (int i=0;i<3;i++){
+                if (i==pilihan-1){
+                    bahan[i] = jml;
+                }else{
+                    bahan[i] = 0;
+                }
+            }
+            
+            /* Membuat dummy charWahana */
+            char namaWahana = "kosong";
+
+            /* ALOKASI */
+            addressStack varBuy = AlokasiStack(3,jmlharga,bahan,30,MakePOINT(-1,-1),namaWahana);
+            Push(S, varBuy);
+            printf("Pembelian anda tercatat, Terima kasih!\n");
+        }
+    }
+}
+
+void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS Map)
+{
+    /* Menghitung Waktu */
+    int totalWaktu = 0;
+    if (!IsEmpty(*S)){
+        addressStack P = (*S).TOP;
+        while (Next(P)!=NULL){
+            totalWaktu += P->waktu;
+            P = Next(P);
+        }
+        totalWaktu += P->waktu;
+    }
+
+    /* Menghitung waktu sekarang */
+    int currentJam = 0;
+    if (JAMToMenit(waktu)<JAMToMenit(MakeJAM(21,0))){
+        currentJam = JAMToMenit(MakeJAM(24,0)) - JAMToMenit(MakeJAM(21,0)) + JAMToMenit(waktu);
+    }else{
+        currentJam = JAMToMenit(waktu) - JAMToMenit(MakeJAM(21,0));
+    }
+
+    /* Menentukan apakah waktu cukup atau tidak, build menghabiskan waktu 120 menit */
+    if (totalWaktu+currentJam+120 > 720){
+        printf("Oops, waktu melebihi batas!\n");
+    }else{
+        printf("Berikut wahana yang bisa anda bangun: \n");
+        printf("    -%s\n", NamaWahana(T));
+        ADVKATAi();
+        while (!isSame(NamaWahana(T),CKataI)){
+            printf("Oops, inputan anda tidak valid. Silahkan ulangi\n");
+            ADVKATAi();
+        }
+        if (uangPengguna>=HargaBangun(T) && (bahanPengguna[0]>=KayuBangun(T) && bahanPengguna[1]>= BatuBangun(T) && bahanPengguna[2]>=MetalBangun(T))){
+            addressStack VarBuild = AlokasiStack(1,HargaBangun(T),T->detail.bahanBangun,120,Map.Player,NamaWahana(T));
+            if (VarBuild!=NULL){
+                Push(S, VarBuild);
+                printf("Aksi Build anda tercatat, Terima kasih!\n");
+            }else{
+                printf("Oops, Terjadi error pada sistem hubungi teknisi untuk memperbaiki\n");
+            }
+        }else{
+            printf("Oops, uang atau bahan anda tidak mencukupi untuk melakukan aksi ini.\n");
+        }
+    }
 }

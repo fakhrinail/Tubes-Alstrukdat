@@ -4,14 +4,14 @@
 
 int main(){
     MATRIKS MAP1;
-    MakeMAP(&MAP1,1);       //membuat isi kosongan dari map1
+    MakeMAP(&MAP1, "../../doc/map1.txt");       //membuat isi kosongan dari map1
     TulisMap(MAP1);
     printf("\n");
 
     STARTKATAi();
     while(!isEOP(CKataI)){
         GerakPlayer(&MAP1,CKataI);
-        isiMap(&MAP1);
+        updateMap(&MAP1);
         TulisMap(MAP1);
         printf("\n");
         ADVKATAi();

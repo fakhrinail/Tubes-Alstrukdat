@@ -5,6 +5,7 @@
 
 #include "../boolean.h"
 #include "../Point/point.h"
+#include "../ListArray/listarray.h"
 
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define BrsMin 0
@@ -14,17 +15,16 @@
 
 typedef int indeks; /* indeks baris, kolom */
 typedef char ElType; 
+
 typedef struct { 
 	ElType Mem[BrsMax+1][KolMax+1];
    POINT Player;
    POINT Gerbang[2];
    POINT Office;
    POINT Antrian;
-   //POINT Wahana TODO
+   WahanaMatriks arrayWahana[30];
 } MATRIKS;
-/* NBrsEff >= 1 dan NKolEff >= 1 */
-/* Indeks matriks yang digunakan: [BrsMin..BrsMax][KolMin..KolMax] */
-/* Memori matriks yang dipakai selalu di "ujung kiri atas" */
+
 
 /* *** Selektor *** */
 #define Player(M) (M).Player
@@ -36,7 +36,7 @@ void MakeMAP (MATRIKS * M, char path[]);
 /* I.S. Matriks tidak terdefinisi */
 /* F.S. matriks Map.mem terisi dengan simbol-simbol yang sesuai pada map.txt*/
 
-POINT SearchIndeks(MATRIKS *M, char jenis);
+POINT SearchIndeks(MATRIKS M, char jenis);
 /* Fungsi antara untuk membantu mencari lokasi simbol ('A','P','O').
    Jika lokasi ditemukan maka akan mereturn Point lokasi tersebut. Jika tidak 
    ditemukan maka akan mereturn Point (-1,-1).*/
@@ -56,5 +56,7 @@ void GerakPlayer (MATRIKS *M, char arah[]);
    F.S.  : Point Player ditambah/dikurangi sesuai arah namun ada batasnya yaitu <20 dan
    >-1.
    proses: if else*/
+
+void updateMap (MATRIKS *M);
 
 #endif
