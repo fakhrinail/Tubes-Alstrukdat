@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 int main(){
+    
     BahanBangunan listBangunan[3];
     DaftarBahan(listBangunan);
     for (int i = 0; i < 3; i++)
@@ -10,11 +11,13 @@ int main(){
     }
     
     int uangPengguna = 1000;
-    JAM Waktu = MakeJAM(8,0);
-
+    JAM Waktu = MakeJAM(1,0);
+    
     WahanaTree W[3];
     AddressTree T[3];
     DaftarWahana(W);
+    printf("%s",W[0].nama);
+    /*
     DaftarTree(T,W);
     MakeTree(T[0],T[1],T[2]);
 
@@ -28,6 +31,8 @@ int main(){
     bahanPengguna[1] = 50;
     bahanPengguna[2] = 50;
 
-
+    printf("%s", NamaWahana(T[0]));
+    Build(&S,bahanPengguna,uangPengguna,Waktu,T[0],MakePOINT(2,2));
+    */
     return 0;
 }

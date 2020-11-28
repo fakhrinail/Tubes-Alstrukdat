@@ -80,6 +80,6 @@ void Pop (Stack * S);
 
 void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu);
 
-void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS Map);
+void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, POINT posisiPlayer);
 
 #endif

@@ -95,6 +95,17 @@ void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
         currentJam = JAMToMenit(waktu) - JAMToMenit(MakeJAM(21,0));
     }
 
+    /* Menghitung uang yang telah di-spend dalam beberapa aksi */
+    int totalUang = 0;
+    if (!IsEmpty(*S)){
+        addressStack P = (*S).TOP;
+        while (Next(P)!=NULL){
+            totalUang += P->uang;
+            P = Next(P);
+        }
+        totalUang += P->uang;
+    }
+
     /* Menentukan apakah waktu cukup atau tidak, buy menghabiskan waktu 30 menit  */
     if (totalWaktu+currentJam+30 > 720){                   //lebih dari 12 jam
         printf("Oops, waktu melebih batas!\n");
@@ -121,7 +132,7 @@ void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
         int hargabahan = listbahan[pilihan-1].hargabahan;
         int jmlharga = jml*hargabahan;
 
-        if (jmlharga > uangPengguna){
+        if (jmlharga + totalUang > uangPengguna){
             printf("Uang Anda tidak mencukupi\n");
         }
         else{
@@ -141,13 +152,17 @@ void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
 
             /* ALOKASI */
             addressStack varBuy = AlokasiStack(3,jmlharga,bahan,30,MakePOINT(-1,-1),dummy);
-            Push(S, varBuy);
-            printf("Pembelian anda tercatat, Terima kasih!\n");
+            if (varBuy!=NULL){
+                Push(S, varBuy);
+                printf("Pembelian anda tercatat, Terima kasih!\n");
+            }else{
+                printf("Oops, Terjadi error dalam program\n");
+            }
         }
     }
 }
 
-void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS Map)
+void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, POINT posisiPlayer)
 {
     /* Menghitung Waktu */
     int totalWaktu = 0;
@@ -168,6 +183,17 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
         currentJam = JAMToMenit(waktu) - JAMToMenit(MakeJAM(21,0));
     }
 
+    /* Menghitung uang yang telah di-spend dalam beberapa aksi */
+    int totalUang = 0;
+    if (!IsEmpty(*S)){
+        addressStack P = (*S).TOP;
+        while (Next(P)!=NULL){
+            totalUang += P->uang;
+            P = Next(P);
+        }
+        totalUang += P->uang;
+    }
+
     /* Menentukan apakah waktu cukup atau tidak, build menghabiskan waktu 120 menit */
     if (totalWaktu+currentJam+120 > 720){
         printf("Oops, waktu melebihi batas!\n");
@@ -179,8 +205,8 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
             printf("Oops, inputan anda tidak valid. Silahkan ulangi\n");
             ADVKATAi();
         }
-        if (uangPengguna>=HargaBangun(T) && (bahanPengguna[0]>=KayuBangun(T) && bahanPengguna[1]>= BatuBangun(T) && bahanPengguna[2]>=MetalBangun(T))){
-            addressStack VarBuild = AlokasiStack(1,HargaBangun(T),T->detail.bahanBangun,120,Map.Player,NamaWahana(T));
+        if (uangPengguna>=HargaBangun(T)+totalUang && (bahanPengguna[0]>=KayuBangun(T) && bahanPengguna[1]>= BatuBangun(T) && bahanPengguna[2]>=MetalBangun(T))){
+            addressStack VarBuild = AlokasiStack(1,HargaBangun(T),T->detail.bahanBangun,120,posisiPlayer,NamaWahana(T));
             if (VarBuild!=NULL){
                 Push(S, VarBuild);
                 printf("Aksi Build anda tercatat, Terima kasih!\n");
