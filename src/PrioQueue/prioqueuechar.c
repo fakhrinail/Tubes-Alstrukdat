@@ -66,32 +66,18 @@ void Enqueue (PrioQueueChar * Q, infotype X)
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
 {
-    if (IsEmpty(*Q)) {
-        Head(*Q) = 0;
-        Tail(*Q) = 0;
-    } else {
-        if (Tail(*Q) == MaxEl(*Q)-1) {
-            Tail(*Q) = 0;
-        } else {
-            Tail(*Q) = Tail(*Q) + 1;
-        }
-    }
-
+    if(Head(*Q) == Nil)   Head(*Q) = 0;
+    Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
     InfoTail(*Q) = X;
-    // Pengurutan elemen
-    int i = Tail(*Q);
-    boolean isUrut = false;
+    int a1 = Tail(*Q);
+    int a2 = (a1 + MaxEl(*Q) - 1)% MaxEl(*Q);
     infotype temp;
-
-    while (i > Head(*Q) && !isUrut) {
-        if (Prio(Elmt(*Q,i)) < Prio(Elmt(*Q,i-1))) {
-            temp = Elmt(*Q,i-1);
-            Elmt(*Q,i-1) = Elmt(*Q,i);
-            Elmt(*Q,i) = temp;
-            i = i - 1;
-        } else {
-            isUrut = true;
-        }
+    while (a1 != Head(*Q) && Prio(Elmt(*Q, a1)) < Prio(Elmt(*Q, a2))){
+        temp = Elmt(*Q, a1);
+        Elmt(*Q, a1) = Elmt(*Q, a2);
+        Elmt(*Q, a2) = temp;
+        a1 = a2;
+        a2 = (a1 + MaxEl(*Q) - 1)% MaxEl(*Q);
     }
 }
 
@@ -101,17 +87,14 @@ void Dequeue (PrioQueueChar * Q, infotype * X)
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
 {
-    *X = InfoHead(*Q);
-
-    if (Head(*Q) == Tail(*Q)) {
+    *X= InfoHead(*Q);
+    if (NBElmt(*Q) == 1) {
         Head(*Q) = Nil;
         Tail(*Q) = Nil;
-    } else {
-        if (Head(*Q) == MaxEl(*Q)-1) {
-            Head(*Q) = 0;
-        } else {
-            Head(*Q) = Head(*Q) + 1;
-        }
+    }
+    else {
+        Head(*Q)++;
+        Head(*Q) %= MaxEl(*Q);
     }
 }
 
@@ -126,12 +109,11 @@ void PrintPrioQueueChar (PrioQueueChar Q)
 #
 */
 {
-    if (IsEmpty(Q)) {
-        printf("#\n");
-    } else {
-        for (int i = Head(Q); i<=Tail(Q); i++) {
-            printf("%d %c\n",Prio(Elmt(Q,i)), Info(Elmt(Q,i)));
-        }
-        printf("#\n");
+    int temp;
+    for (int i = 0; i < NBElmt(Q);i++){
+        temp = (Head(Q)+i+MaxEl(Q)) % MaxEl(Q);
+        printf("%d %c\n", Elmt(Q,temp).prio,Elmt(Q,temp).info);
     }
+
+    printf("#\n");
 }
