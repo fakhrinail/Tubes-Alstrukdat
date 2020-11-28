@@ -83,10 +83,11 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
         
         /* Mencari lokasi yang masih kosong */
         int i=0;
-        while (isNil((*Map).arrayWahana[i].lokasi)){
+        while (!isNil((*Map).arrayWahana[i].lokasi)){
             i++;
         }
         (*Map).arrayWahana[i].lokasi = InfoLokasiTop(*S);
+        CopyString((*Map).arrayWahana[i].namaWahana,(*S).TOP->namaWahana);
 
     }else if (InfoCommandTop(*S)==2){
 
