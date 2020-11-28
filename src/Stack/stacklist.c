@@ -87,11 +87,40 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
             i++;
         }
         (*Map).arrayWahana[i].lokasi = InfoLokasiTop(*S);
+        
 
     }else if (InfoCommandTop(*S)==2){
-
-    }else if (InfoCommandTop(*S)==3){
-
+        *uangPengguna -= InfoUangTop(*S);
+        int HH = InfoWaktuTop(*S)/60;
+        int MM = InfoWaktuTop(*S)%60;
+        (*jamPengguna).HH += HH;
+        (*jamPengguna).MM += MM;
+        bahanPengguna[0] -= InfoKayuTop(*S);
+        bahanPengguna[1] -= InfoBatuTop(*S);
+        bahanPengguna[2] -= InfoMetalTop(*S);
+        
+        /* Mencari lokasi*/
+        int i=0;
+        while (!isNil((*Map).arrayWahana[i].lokasi)){
+            if ( Baris((*Map).arrayWahana[i].lokasi) == Baris((*Map).Player) && Kolom((*Map).arrayWahana[i].lokasi) == Kolom((*Map).Player)){
+                (*Map).arrayWahana[i].lokasi = InfoLokasiTop(*S);
+                break;
+            }
+            else{
+                i++;
+            }
+        }
+    }
+    else if (InfoCommandTop(*S)==3){
+        *uangPengguna -= InfoUangTop(*S);
+        int HH = InfoWaktuTop(*S)/60;
+        int MM = InfoWaktuTop(*S)%60;
+        (*jamPengguna).HH += HH;
+        (*jamPengguna).MM += MM;
+        bahanPengguna[0] -= InfoKayuTop(*S);
+        bahanPengguna[1] -= InfoBatuTop(*S);
+        bahanPengguna[2] -= InfoMetalTop(*S);
+        
     }
 }
 
