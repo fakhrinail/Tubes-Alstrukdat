@@ -108,3 +108,40 @@ VarBuild* Build(AddressTree T, int uangPengguna, int bahanBangunan[], JAM waktu,
         return NULL;
     }
 }
+
+/* Build */
+VarUpgrade* Upgrade(AddressTree T, int uangPengguna, int bahanBangunan[], JAM waktu, MATRIKS MAP)
+{
+    JAM acuan = MakeJAM(9,0);
+    int temp = JAMToMenit(waktu);
+    temp += 120;            //build menghabiskan waktu 2 jam
+    waktu = MenitToJAM(temp);
+
+    if(MAP.Player == wahana ){//dibuat buat ada ngecek ini wahana  atau bukan
+
+        if ((waktu.HH > acuan.HH && waktu.HH >= 21) || waktu.HH < acuan.HH){        //waktunya cukup untuk melakukan build
+
+            if (uangPengguna>=HargaBangun(T) && (bahanBangunan[0]>=KayuBangun(T) && bahanBangunan[1]>= BatuBangun(T) && bahanBangunan[2]>=MetalBangun(T))){
+                VarUpgrade* B = malloc(sizeof(VarUpgrade));
+                B->bahanBangun[0] = bahanBangunan[0];
+                B->bahanBangun[1] = bahanBangunan[1];
+                B->bahanBangun[2] = bahanBangunan[2];
+                B->hargaBangun = HargaBangun(T);
+                B->lokasi =  MAP.Player;
+                B->waktu = 120;
+                return B;
+
+            }else{
+                printf("Oops, uang anda tidak mencukupi untuk melakukan aksi ini.\n");
+                return NULL;
+            }
+        }
+        else if (waktu.HH > acuan.HH && waktu.HH <21){
+            printf("Oops, waktu yang dibutuhkan sudah melebih batas. \n");
+            return NULL;
+        }
+    }
+    else{
+        printf("Oops, kamu tidak berada pada wahana \n");
+    }
+}

@@ -31,3 +31,16 @@ typedef struct{
 }VarBuild;
 
 VarBuild* Build();
+
+VarUpgrade* Buy(BahanBangunan listbahan[], int uangPengguna, JAM J);
+
+/* Upgrade */
+
+typedef struct{
+    POINT lokasi;
+    int hargaBangun;
+    int bahanBangun[3];
+    int waktu;
+}VarUpgrade; 
+
+VarUpgrade* Upgrade();
