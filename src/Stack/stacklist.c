@@ -99,11 +99,11 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
         bahanPengguna[1] -= InfoBatuTop(*S);
         bahanPengguna[2] -= InfoMetalTop(*S);
         
-        /* Mencari lokasi*/
+        /* Mencari lokasi dan mengupgradenya*/
         int i=0;
         while (!isNil((*Map).arrayWahana[i].lokasi)){
-            if ( Baris((*Map).arrayWahana[i].lokasi) == Baris((*Map).Player) && Kolom((*Map).arrayWahana[i].lokasi) == Kolom((*Map).Player)){
-                (*Map).arrayWahana[i].lokasi = InfoLokasiTop(*S);
+            if (Baris((*Map).arrayWahana->lokasi) != Baris(InfoLokasiTop(*S)) || Kolom((*Map).arrayWahana->lokasi) != Kolom(InfoLokasiTop(*S))){
+                CopyString((*Map).arrayWahana[i].namaWahana,(*S).TOP->namaWahana);
                 break;
             }
             else{
