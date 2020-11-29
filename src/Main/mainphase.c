@@ -293,7 +293,7 @@ void reportoffice(AddressTree T){
     printf("( _ __)            1. bombomcar              ( _ __)\n");
     printf("( _ __)            2. halilintar             ( _ __)\n");
     printf("(__  _)            3. kora-kora              (__  _)\n");
-    printf("(_ ___)            4. jungkat jungkit        (_ ___)\n");
+    printf("(_ ___)            4. jungkat-jungkit        (_ ___)\n");
     printf("(__  _)            5. rollercoaster          (__  _)\n");
     printf("(__  _)            6. bianglala              (__  _)\n");
     printf("( _ __)            7. tornado                ( _ __)\n");
@@ -331,7 +331,7 @@ void reportoffice(AddressTree T){
     }
     else if(StrToInt(CKataI)==4){
         AddressTree temp;
-        temp = searchTree("jungkat jungkit",T);
+        temp = searchTree("jungkat-jungkit",T);
         printf("Nama                : %c\n",temp->detail.nama);
         printf("Total Pengunjung    : %d\n",temp->detail.totalDinaiki);
         printf("Total Penghasilan   : %d\n",temp->detail.totalPenghasilan);
@@ -377,7 +377,7 @@ void detailsoffice(AddressTree T){
     printf("( _ __)            1. bombomcar              ( _ __)\n");
     printf("( _ __)            2. halilintar             ( _ __)\n");
     printf("(__  _)            3. kora-kora              (__  _)\n");
-    printf("(_ ___)            4. jungkat jungkit        (_ ___)\n");
+    printf("(_ ___)            4. jungkat-jungkit        (_ ___)\n");
     printf("(__  _)            5. rollercoaster          (__  _)\n");
     printf("(__  _)            6. bianglala              (__  _)\n");
     printf("( _ __)            7. tornado                ( _ __)\n");
@@ -433,7 +433,7 @@ void detailsoffice(AddressTree T){
     }
     else if(StrToInt(CKataI)==4){
         AddressTree temp;
-        temp = searchTree("jungkat jungkit",T);
+        temp = searchTree("jungkat-jungkit",T);
         printf("Nama        : %c\n",temp->detail.nama);
         printf("Harga       : %d\n",temp->detail.hargaTiket);
         printf("Lokasi      : \n");
