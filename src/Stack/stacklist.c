@@ -354,3 +354,12 @@ boolean cekwahana(MATRIKS Map){
     } 
     return cek;
 }
+
+void UNDO(Stack *S, infotype *res){
+    addressStack P;
+	P = Top(*S);
+	(*res) = Info(P);
+	Top(*S) = Next(Top(*S));
+	Next(P) = NULL;
+	DealokasiStack(P);
+}
