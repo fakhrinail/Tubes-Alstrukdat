@@ -28,8 +28,10 @@ void new_game()
     MakeMAP(&MAP4,"../../doc/map4.txt");
 
     /* Load material dari file */
-    
     DaftarBahan(material);
+
+    /* Load Wahana dari file */
+    
 
     /* Memasukkan nama pengguna */
     MakeString20Empty(namaPengguna);
@@ -81,9 +83,17 @@ void new_game()
                 if (isSame(CKataI,"a") || isSame(CKataI,"w") || isSame(CKataI,"d") || isSame(CKataI,"s")){
                     GerakPlayer(&MAP1,CKataI);
                     updateMap(&MAP1);
-                    
+                    NextMenit(&currentJam);
                 }else if (isSame(CKataI,"buy")){
                     Buy(&SAwal,material,uangPengguna,currentJam);
+                    totalAksi += 1;
+                    totalUang += InfoUangTop(SAwal);
+                    totalWaktu += InfoWaktuTop(SAwal);
+                }else if (isSame(CKataI,"build")){
+                    Build(&SAwal,listBahan,uangPengguna,currentJam,//TODO);
+                    totalAksi += 1;
+                    totalUang += InfoUangTop(SAwal);
+                    totalWaktu += InfoWaktuTop(SAwal);
                 }
             }
         }

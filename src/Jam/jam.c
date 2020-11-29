@@ -104,3 +104,14 @@ void NextMenit (JAM * J)
       (*J).HH = (*J).HH%24;
    }
 }
+
+void addJam(JAM *J, int menit){
+   (*J).MM += menit;
+   if ((*J).MM>=60){
+      (*J).HH += (*J).MM/60;
+      if ((*J).HH>=24){
+         (*J).HH = (*J).HH % 24;
+      }
+      (*J).MM = (*J).MM%60;
+   }
+}

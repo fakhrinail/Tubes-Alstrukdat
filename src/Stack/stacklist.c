@@ -76,8 +76,7 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
         *uangPengguna -= InfoUangTop(*S);
         int HH = InfoWaktuTop(*S)/60;
         int MM = InfoWaktuTop(*S)%60;
-        (*jamPengguna).HH += HH;
-        (*jamPengguna).MM += MM;
+        addJam(jamPengguna,120);            // menghabiskan waktu 120 menit
         bahanPengguna[0] -= InfoKayuTop(*S);
         bahanPengguna[1] -= InfoBatuTop(*S);
         bahanPengguna[2] -= InfoMetalTop(*S);
@@ -112,8 +111,7 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
         *uangPengguna -= InfoUangTop(*S);
         int HH = InfoWaktuTop(*S)/60;
         int MM = InfoWaktuTop(*S)%60;
-        (*jamPengguna).HH += HH;
-        (*jamPengguna).MM += MM;
+        addJam(jamPengguna,120);            // menghabiskan waktu 120 menit
         bahanPengguna[0] -= InfoKayuTop(*S);
         bahanPengguna[1] -= InfoBatuTop(*S);
         bahanPengguna[2] -= InfoMetalTop(*S);
@@ -154,8 +152,7 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
         *uangPengguna -= InfoUangTop(*S);
         int HH = InfoWaktuTop(*S)/60;
         int MM = InfoWaktuTop(*S)%60;
-        (*jamPengguna).HH += HH;
-        (*jamPengguna).MM += MM;
+        addJam(jamPengguna,30);            // menghabiskan waktu 30 menit
         bahanPengguna[0] -= InfoKayuTop(*S);
         bahanPengguna[1] -= InfoBatuTop(*S);
         bahanPengguna[2] -= InfoMetalTop(*S);

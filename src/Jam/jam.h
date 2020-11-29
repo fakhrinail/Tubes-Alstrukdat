@@ -64,5 +64,6 @@ int Durasi (JAM JAw, JAM JAkh);
 
 void NextMenit(JAM *J);
 
+void addJam(JAM *J, int menit);
 
 #endif
