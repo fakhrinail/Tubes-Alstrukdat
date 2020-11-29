@@ -5,6 +5,7 @@
 #include "../Tree/tree.h"
 #include "../ListArray/listarray.h"
 #include "../Matriks/matriks.h"
+#include "../Stack/stacklist.h"
 
 
 MATRIKS MAP1, MAP2, MAP3, MAP4;
@@ -15,6 +16,8 @@ int uangPengguna;       //sebagai uang game
 int listBahan[3];       //sebagai bahan bangunan yang dimiliki pengguna, 0 untuk kayu, 1 untuk batu, 2 untuk metal
 JAM currentJam;         //sebagai jam di game
 char namaPengguna[20];
+Stack SAwal;
+Stack STarget;
 
 void new_game()
 {
@@ -24,25 +27,55 @@ void new_game()
     MakeMAP(&MAP3,"../../doc/map3.txt");
     MakeMAP(&MAP4,"../../doc/map4.txt");
 
+    /* Load material dari file */
+    DaftarBahan(material);
+
     /* Memasukkan nama pengguna */
     MakeString20Empty(namaPengguna);
     printf("Masukkan nama anda: ");
     ADVKATAi(); // sebagai scanf
     CopyString(namaPengguna,CKataI);
+
+    /* Memasukkan uang dan bahan pengguna */
+    uangPengguna = 1000;
+    listBahan[0] = 0;           //kayu
+    listBahan[1] = 0;           //batu
+    listBahan[2] = 0;           //metal 
     
+    /* inisiasi jam */
+    currentJam = MakeJAM(21,0);
+
+    /* inisiasi stack */
+    CreateEmptyStackList(&SAwal);
+    CreateEmptyStackList(&STarget);
+
     /* Inisiasi preparation phase */
     
     boolean preparation = true;
+    int countDayPreparation = 0;
     while(!isEOP(CKataI)){ // selama tidak exit 
-        printf("Preparation Phase\n");
-        TulisMap(MAP1);
-        printf("Legend : \n A = Antrian \n P = Player \n W = Wahana \n O = Office \n G = Gerbang\n");
-        printf("Nama : %s\n", namaPengguna);
-        printf("Uang : %d\n", uangPengguna);
-        printf("Waktu : ");
-        TulisJAM(currentJam);
-        printf("Masukkan perintah: ");
-        ADVKATAi();
+        if (preparation){
+            countDayPreparation++;
+            printf("\n");
+            printf("Preparation Phase Day %d \n", countDayPreparation);
+            TulisMap(MAP1);printf("\n");
+            printf("Legend : \n A = Antrian \n P = Player \n W = Wahana \n O = Office \n G = Gerbang\n\n");
+            printf("Nama : %s\n", namaPengguna);
+            printf("Uang : %d\n", uangPengguna);
+            printf("Waktu Sekarang: ");
+            TulisJAM(currentJam);
+            printf("Waktu Open Gate: ");
+            TulisJAM(MakeJAM(9,0));
+            printf("Sisa Waktu: %d jam %d menit\n", Durasi(currentJam,MakeJAM(9,0))/60, Durasi(currentJam,MakeJAM(9,0))%60); printf("\n");
+            printf("Masukkan perintah: ");
+            ADVKATAi();
+            if (isSame(CKataI,"a") || isSame(CKataI,"w") || isSame(CKataI,"d") || isSame(CKataI,"s")){
+                GerakPlayer(&MAP1,CKataI);
+                updateMap(&MAP1);
+            }else if (isSame(CKataI,"buy")){
+                Buy(&SAwal,material,uangPengguna,currentJam);
+            }
+        }
     }
 }
 

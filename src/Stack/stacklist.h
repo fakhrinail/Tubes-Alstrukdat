@@ -14,17 +14,16 @@
 #include <stddef.h>
 
 /* Deklarasi infotype */
-typedef int infotype;
 
 /* Stack dengan representasi berkait dengan pointer */
 typedef struct tElmtStack* addressStack;
 typedef struct tElmtStack {
-	infotype command; 			//1 build, 2 upgrade, 3 buy
-	infotype uang;
-    infotype kayu;
-	infotype batu;
-	infotype metal;
-    infotype waktu;				//disepakatin dalam menit
+	int command; 			//1 build, 2 upgrade, 3 buy
+	int uang;
+    int kayu;
+	int batu;
+	int metal;
+    int waktu;				//disepakatin dalam menit
 	POINT lokasi;
 	char namaWahana[20];
 	addressStack Next; 
@@ -44,13 +43,12 @@ typedef struct {
 #define InfoMetalTop(S) (S).TOP->metal
 #define InfoWaktuTop(S) (S).TOP->waktu
 #define InfoLokasiTop(S) (S).TOP->lokasi
-#define Next(P) (P)->Next
 #define Command(P) (P)->command
 #define Uang(P) (P)->uang
 #define Waktu(P) (P)->waktu
 
 /* Prototype manajemen memori */
-addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[], infotype waktu, POINT lokasi, char namaWahana[]);
+addressStack AlokasiStack (int cmd, int uang, int jml[], int waktu, POINT lokasi, char namaWahana[]);
 /* I.S. Sembarang */
 /* F.S. Alamat P dialokasi, jika berhasil maka Info(P)=X dan 
         Next(P)=Nil */
@@ -84,7 +82,7 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
 
 void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS MAP);
 
-boolean cekwahana(MATRIKS Map);
+POINT cekWahana(MATRIKS Map);
 
 void UNDO(Stack *S);
 

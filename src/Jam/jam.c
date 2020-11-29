@@ -85,3 +85,11 @@ boolean JGT (JAM J1, JAM J2){
 }
 
 /* Mengirim N detik sebelum J dalam bentuk JAM */
+int Durasi (JAM JAw, JAM JAkh)
+{
+   if (JGT(JAw,JAkh)){
+      return JAMToMenit(MakeJAM(24,0)) - JAMToMenit(JAw) + JAMToMenit(JAkh);
+   }else{
+      return JAMToMenit(JAkh) - JAMToMenit(JAw);
+   }
+}

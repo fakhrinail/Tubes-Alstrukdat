@@ -61,7 +61,6 @@ boolean JGT (JAM J1, JAM J2);
 /* Mengirimkan true jika J1>J2, false jika tidak */
 
 int Durasi (JAM JAw, JAM JAkh);
-/* Mengirim JAkh-JAw dlm Detik, dengan kalkulasi */
-/* Jika JAw > JAkh, maka JAkh adalah 1 hari setelah JAw */
+
 
 #endif

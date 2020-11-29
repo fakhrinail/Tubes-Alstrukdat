@@ -10,7 +10,7 @@ Deskripsi : Realisasi stacklist.h
 #include <stdlib.h>
 
 /* Prototype manajemen memori */
-addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[], infotype waktu, POINT lokasi, char namaWahana[])
+addressStack AlokasiStack (int cmd, int uang, int jml[], int waktu, POINT lokasi, char namaWahana[])
 /* Ini parameternya bakal diisi lewat buy, build, atau upgrade, nanti liat dee */
 {
     addressStack P = malloc(sizeof(ElmtStack));
@@ -25,7 +25,7 @@ addressStack AlokasiStack (infotype cmd, infotype uang, infotype jml[], infotype
         P->lokasi.baris = Baris(lokasi);
         P->lokasi.kolom = Kolom(lokasi);
         CopyString(P->namaWahana,namaWahana);
-        Next(P) = NULL;
+        P->Next = NULL;
     }
     return P;
 }
@@ -56,10 +56,10 @@ void Push (Stack * S, addressStack P)
 /* Pada dasarnya adalah operasi Insert First pada list linier */
 {
     if (IsEmptyStack(*S)){
-        Next(P) = NULL;
+        P->Next = NULL;
         (*S).TOP = P;
     }else{
-        Next(P) = Next((*S).TOP);
+        P->Next = (*S).TOP->Next;
         (*S).TOP = P;
     }
 }
@@ -105,8 +105,8 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
         
         /* Dealokasi */
         addressStack Temp = (*S).TOP;
-        (*S).TOP = Next((*S).TOP);
-        Dealokasi(Temp);
+        (*S).TOP = (*S).TOP->Next;
+        DealokasiStack(Temp);
 
     }else if (InfoCommandTop(*S)==2){
         *uangPengguna -= InfoUangTop(*S);
@@ -146,8 +146,8 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
 
         /* Dealokasi */
         addressStack Temp = (*S).TOP;
-        (*S).TOP = Next((*S).TOP);
-        Dealokasi(Temp);
+        (*S).TOP = (*S).TOP->Next;
+        DealokasiStack(Temp);
 
     }
     else if (InfoCommandTop(*S)==3){
@@ -167,11 +167,11 @@ void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
 {
     /* Menghitung Waktu */
     int totalWaktu = 0;
-    if (!IsEmpty(*S)){
+    if (!IsEmptyStack(*S)){
         addressStack P = (*S).TOP;
-        while (Next(P)!=NULL){
+        while (P->Next!=NULL){
             totalWaktu += P->waktu;
-            P = Next(P);
+            P = P->Next;
         }
         totalWaktu += P->waktu;
     }
@@ -186,11 +186,11 @@ void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
 
     /* Menghitung uang yang telah di-spend dalam beberapa aksi */
     int totalUang = 0;
-    if (!IsEmpty(*S)){
+    if (!IsEmptyStack(*S)){
         addressStack P = (*S).TOP;
-        while (Next(P)!=NULL){
+        while (P->Next!=NULL){
             totalUang += P->uang;
-            P = Next(P);
+            P = P->Next;
         }
         totalUang += P->uang;
     }
@@ -226,7 +226,7 @@ void Buy(Stack *S, BahanBangunan listbahan[], int uangPengguna, JAM waktu)
         }
         else{
             /* Membuat array of bahan */
-            infotype bahan[3];
+            int bahan[3];
             for (int i=0;i<3;i++){
                 if (i==pilihan-1){
                     bahan[i] = jml;
@@ -255,11 +255,11 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
 {
     /* Menghitung Waktu */
     int totalWaktu = 0;
-    if (!IsEmpty(*S)){
+    if (!IsEmptyStack(*S)){
         addressStack P = (*S).TOP;
-        while (Next(P)!=NULL){
+        while (P->Next!=NULL){
             totalWaktu += P->waktu;
-            P = Next(P);
+            P = P->Next;
         }
         totalWaktu += P->waktu;
     }
@@ -274,11 +274,11 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
 
     /* Menghitung uang yang telah di-spend dalam beberapa aksi */
     int totalUang = 0;
-    if (!IsEmpty(*S)){
+    if (!IsEmptyStack(*S)){
         addressStack P = (*S).TOP;
-        while (Next(P)!=NULL){
+        while (P->Next!=NULL){
             totalUang += P->uang;
-            P = Next(P);
+            P = P->Next;
         }
         totalUang += P->uang;
     }
@@ -312,11 +312,11 @@ void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, Address
 {
     /* Menghitung Waktu */
     int totalWaktu = 0;
-    if (!IsEmpty(*S)){
+    if (!IsEmptyStack(*S)){
         addressStack P = (*S).TOP;
-        while (Next(P)!=NULL){
+        while (P->Next!=NULL){
             totalWaktu += P->waktu;
-            P = Next(P);
+            P = P->Next;
         }
         totalWaktu += P->waktu;
     }
@@ -331,11 +331,11 @@ void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, Address
 
     /* Menghitung uang yang telah di-spend dalam beberapa aksi */
     int totalUang = 0;
-    if (!IsEmpty(*S)){
+    if (!IsEmptyStack(*S)){
         addressStack P = (*S).TOP;
-        while (Next(P)!=NULL){
+        while (P->Next!=NULL){
             totalUang += P->uang;
-            P = Next(P);
+            P = P->Next;
         }
         totalUang += P->uang;
     }
@@ -421,11 +421,11 @@ POINT cekWahana(MATRIKS Map){
 }
 
 void UNDO(Stack *S){
-    if (IsEmpty(*S)){
+    if (IsEmptyStack(*S)){
         printf("Stack sudah habis, tidak bisa undo\n");
     } else{
         addressStack P = (*S).TOP;
-        Top(*S) = Next(Top(*S));
+        Top(*S) = (*S).TOP->Next;
         DealokasiStack(P);
         printf("Yeay kamu berhasil undo!\n");
     }
@@ -433,11 +433,11 @@ void UNDO(Stack *S){
 
 
 void EXECUTE(Stack* SAwal, Stack* STarget, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map, AddressTree* T){
-    while (!IsEmpty(*SAwal)){
+    while (!IsEmptyStack(*SAwal)){
         addressStack P=NULL;
         P = (*SAwal).TOP;
         Push(STarget,P);
-        (*SAwal).TOP = Next((*SAwal).TOP);
+        (*SAwal).TOP = (*SAwal).TOP->Next;
     }
     while (!IsEmptyStack(*STarget))
     {
@@ -452,7 +452,7 @@ void MAIN(Stack* SAwal)
 {
     while (!IsEmptyStack(*SAwal)){
         addressStack P = (*SAwal).TOP;
-        (*SAwal).TOP = Next((*SAwal).TOP);
+        (*SAwal).TOP = (*SAwal).TOP->Next;
         DealokasiStack(P);
     }
     printf("Semua perintah tidak dilakukan!\n");
