@@ -73,7 +73,7 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
         boolean cond = false;
         while (cond == false ){
             int i = 0;
-            if (M.arrayWahana[i].namaWahana == 'bombomcar'){
+            if (isSame(M.arrayWahana[i].namaWahana,'bombomcar')){
                 BreakWahana(&M,'bombomcar');
                 cond = true;
             }
@@ -85,7 +85,7 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
         boolean cond = false;
         while (cond == false ){
             int i = 0;
-            if (M.arrayWahana[i].namaWahana == 'halilintar'){
+            if (isSame(M.arrayWahana[i].namaWahana,'halilintar')){
                 BreakWahana(&M,'halilintar');
                 cond = true;
             }
@@ -97,7 +97,7 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
         boolean cond = false;
         while (cond == false ){
             int i = 0;
-            if (M.arrayWahana[i].namaWahana == 'kora-kora'){
+            if (isSame(M.arrayWahana[i].namaWahana,'kora-kora')){
                 BreakWahana(&M,'kora-kora');
                 cond = true;
             }
