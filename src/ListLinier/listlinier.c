@@ -13,7 +13,7 @@ Deskripsi : Realisasi listlinier.h
 
 /* PROTOTYPE */
 /****************** TEST LIST KOSONG ******************/
-boolean IsEmpty (List L)
+boolean IsEmptyList (List L)
 /* Mengirim true jika list kosong */
 {
     return First(L) == Nil;
@@ -28,7 +28,7 @@ void CreateEmpty (List *L)
 }
 
 /****************** Manajemen Memori ******************/
-address Alokasi (infotype X[])
+address AlokasiList (infotype X[])
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka Info(P)=X, Next(P)=Nil */
@@ -47,7 +47,7 @@ address Alokasi (infotype X[])
         return Nil;
     }
 }
-void Dealokasi (address *P)
+void DealokasiList (address *P)
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address P */

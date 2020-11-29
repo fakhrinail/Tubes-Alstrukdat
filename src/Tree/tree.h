@@ -5,11 +5,21 @@
 
 
 typedef struct {
+    //untuk detail di office
     char nama[20];  
     int hargaTiket;
+    POINT lokasi[10];
+    char deskripsi[100];
     int kapasitas;
-    int durasi;
-    char deskripsi[100];  
+    int durasi;  
+
+    //untuk report di office
+    int totalDinaiki;
+    int totalPenghasilan;
+    int oneDayDinaiki;
+    int oneDayPenghasilan;
+
+    //biaya membangun
     int hargaBangun;
     int bahanBangun[3];    
 } WahanaTree;

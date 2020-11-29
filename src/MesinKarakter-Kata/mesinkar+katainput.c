@@ -112,3 +112,11 @@ void MakeString20Empty(char kata[])
         kata[i] = '\0';
     }
 }
+
+void MakeString100Empty(char kata[])
+{
+    int i;
+    for (i=0;i<100;i++){
+        kata[i] = '\0';
+    }
+}

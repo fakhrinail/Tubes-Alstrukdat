@@ -37,7 +37,7 @@ void DealokasiStack (addressStack P)
 }
 
 /* ********* PROTOTYPE REPRESENTASI LOJIK STACK ***************/
-boolean IsEmpty (Stack S)
+boolean IsEmptyStack (Stack S)
 /* Mengirim true jika Stack kosong: TOP(S) = Nil */
 {
     return Top(S) == NULL;
@@ -65,7 +65,7 @@ void Push (Stack * S, addressStack P)
 }
 
 
-void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map)
+void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map, AddressTree* T)
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, */
@@ -250,7 +250,7 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
         printf("Oops, waktu melebihi batas!\n");
     }else{
         printf("Berikut wahana yang bisa anda bangun: \n");
-        printf("    -%s\n", NamaWahana(T));
+        printf("    - %s\n", NamaWahana(T));
         ADVKATAi();
         while (!isSame(NamaWahana(T),CKataI)){
             printf("Oops, inputan anda tidak valid. Silahkan ulangi\n");
@@ -382,6 +382,7 @@ POINT cekWahana(MATRIKS Map){
     } 
 }
 
+/*
 void UNDO(Stack *S, infotype *res){
     addressStack P;
 	P = Top(*S);
@@ -390,3 +391,4 @@ void UNDO(Stack *S, infotype *res){
 	Next(P) = NULL;
 	DealokasiStack(P);
 }
+*/

@@ -1,10 +1,11 @@
+#ifndef _LISTARRAY_H
+#define _LISTARRAY_H
+
 #include "../MesinKarakter-Kata/mesinkar+katafile.h"
 #include "../MesinKarakter-Kata/mesinkar+katainput.h"
 #include "../Point/point.h"
 #include "../boolean.h"
-
-#ifndef _LISTARRAY_H
-#define _LISTARRAY_H
+#include "../ListLinier/listlinier.h"
 
 typedef struct{
     char namabahan[20];
@@ -14,11 +15,10 @@ typedef struct{
 typedef struct{
    char namaWahana[20];
    POINT lokasi;
-   int hargawahana; //tiket 
-   char deskripsi[100]; 
-   int kapasitas;
-   //TO DO history upgrade
-   int waktuwahana;
+   int hargawahana;     //tiket 
+   char upgrade1[20];   //upgrade kiri pohon
+   char upgrade2[20];   //upgrade kanan pohon
+   List historyUpgrade;
    boolean kondisi;
 }WahanaMatriks;
 

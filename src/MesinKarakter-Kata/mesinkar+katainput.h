@@ -60,6 +60,6 @@ boolean isSame(char kata1[], char kata2[]);
 
 void MakeString20Empty(char kata[]);
 
-boolean isStringEmpty(char kata[]);
+void MakeString100Empty(char kata[]);
 
 #endif

@@ -60,7 +60,7 @@ void DealokasiStack (addressStack P);
 /* F.S. Alamat P didealokasi, dikembalikan ke sistem */ 
 
 /* ********* PROTOTYPE REPRESENTASI LOJIK STACK ***************/
-boolean IsEmpty (Stack S);
+boolean IsEmptyStack (Stack S);
 /* Mengirim true jika Stack kosong: TOP(S) = Nil */
 void CreateEmptyStackList (Stack * S);
 /* I.S. sembarang */ 
@@ -71,7 +71,7 @@ void Push (Stack * S, addressStack P);
 /* F.S. X menjadi TOP yang baru jika alokasi X berhasil, */
 /*      jika tidak, S tetap */
 /* Pada dasarnya adalah operasi Insert First pada list linier */
-void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map);
+void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map, AddressTree* T);
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, */

@@ -10,12 +10,13 @@
 
 #define Nil NULL
 
-typedef char* infotype;
+typedef char infotype;
 typedef struct tElmtlist *address;
 typedef struct tElmtlist { 
 	infotype info[20]; //buat nyimpen nama wahana
 	address next;
 } ElmtList;
+
 typedef struct {
 	address First;
 } List;
@@ -30,7 +31,7 @@ typedef struct {
 
 /* PROTOTYPE */
 /****************** TEST LIST KOSONG ******************/
-boolean IsEmpty (List L);
+boolean IsEmptyList(List L);
 /* Mengirim true jika list kosong */
 
 /****************** PEMBUATAN LIST KOSONG ******************/
@@ -39,12 +40,12 @@ void CreateEmpty (List *L);
 /* F.S. Terbentuk list kosong */
 
 /****************** Manajemen Memori ******************/
-address Alokasi (infotype X[]);
+address AlokasiList (infotype X[]);
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka info(P)=X, Next(P)=Nil */
 /* Jika alokasi gagal, mengirimkan Nil */
-void Dealokasi (address *P);
+void DealokasiList (address *P);
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address P */
