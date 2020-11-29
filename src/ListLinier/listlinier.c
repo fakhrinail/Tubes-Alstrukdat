@@ -28,7 +28,7 @@ void CreateEmpty (List *L)
 }
 
 /****************** Manajemen Memori ******************/
-address Alokasi (infotype X)
+address Alokasi (infotype X[])
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka Info(P)=X, Next(P)=Nil */
@@ -38,7 +38,7 @@ address Alokasi (infotype X)
     P = (address) malloc(sizeof(ElmtList));
     if (P != Nil)
     {
-        Info(P) = X;
+        *Info(P) = X;
         Next(P) = Nil;
         return P;
     }
@@ -364,10 +364,10 @@ void PrintInfo (List L)
         printf("[");
         while (Next(P) != Nil)
         {
-            printf("%d,",Info(P));
+            printf("%s,",Info(P));
             P = Next(P);
         }
-        printf("%d]", Info(P));
+        printf("%s]", Info(P));
     }
 }
 int NbElmt (List L)
@@ -388,78 +388,6 @@ int NbElmt (List L)
         }
         return jml;
     }
-}
-
-/*** Prekondisi untuk Min: List tidak kosong ***/
-infotype Min (List L)
-/* Mengirimkan nilai Info(P) yang minimum */
-{
-    int min = 99999;
-    address P = First(L);
-
-    while (P != Nil)
-    {
-        if (Info(P) < min)
-        {
-            min = Info(P);
-        }
-        P = Next(P);
-    }
-
-    return min;
-}
-
-address AdrMin (List L)
-/* Mengirimkan address P, dengan info(P) yang bernilai minimum */
-{
-    infotype min = Min(L);
-    address Pmin = Search(L,min);
-
-    return Pmin;
-}
-
-/*** Prekondisi untuk Max: List tidak kosong ***/
-infotype Max (List L)
-/* Mengirimkan nilai Info(P) yang maksimum */
-{
-    int max = -99999;
-    address P = First(L);
-
-    while (P != Nil)
-    {
-        if (Info(P) > max)
-        {
-            max = Info(P);
-        }
-        P = Next(P);
-    }
-
-    return max;
-}
-
-address AdrMax (List L)
-/* Mengirimkan address P, dengan info(P) yang bernilai maksimum */
-{
-    infotype max = Max(L);
-    address Pmax = Search(L,max);
-
-    return Pmax;
-}
-
-float Average (List L)
-/* Mengirimkan nilai rata-rata info(P) */
-{
-    float rata2, total;
-    address P = First(L);
-
-    while (P != Nil)
-    {
-        total += Info(P);
-        P = Next(P);
-    }
-
-    rata2 = total / NbElmt(L);
-    return rata2;
 }
 
 /****************** PROSES TERHADAP LIST ******************/

@@ -6,14 +6,14 @@
 #ifndef listlinier_H
 #define listlinier_H
 
-#include "boolean.h"
+#include "../boolean.h"
 
 #define Nil NULL
 
-typedef char infotype;
+typedef char* infotype;
 typedef struct tElmtlist *address;
 typedef struct tElmtlist { 
-	infotype info[20];
+	infotype info[20]; //buat nyimpen nama wahana
 	address next;
 } ElmtList;
 typedef struct {
@@ -39,7 +39,7 @@ void CreateEmpty (List *L);
 /* F.S. Terbentuk list kosong */
 
 /****************** Manajemen Memori ******************/
-address Alokasi (infotype X);
+address Alokasi (infotype X[]);
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka info(P)=X, Next(P)=Nil */

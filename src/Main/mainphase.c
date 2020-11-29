@@ -4,6 +4,7 @@
 #include "../PrioQueue/prioqueuechar.h"
 #include "../Matriks/matriks.h"
 #include "../MesinKarakter-Kata/mesinkar+katafile.h"
+#include "../MesinKarakter-Kata/mesinkar+katainput.h"
 
 void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
 {
@@ -17,9 +18,40 @@ void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
         jmlpengunjung = rand() % 6;
     }
 
+    int totalwahana;
+    int i = 0;
+    while (!(isNil(M.arrayWahana[i].lokasi)))
+    {
+        totalwahana++;
+    }
+    
     int jmlwahana; //jml wahana yg ingin dikunjungi
+    int j = 0;
     for (int i = 0; i < jmlpengunjung; i++)
     {
+        jmlwahana = rand() % totalwahana+1;
+        Enqueue(&Q, );
+    }
+}
+
+void Serve(MATRIKS M, PrioQueueChar *Q)
+{
+    printf("Masukkan nama wahana yang ingin dilayani: ");
+    ADVKATAi();
+    if (isSame('bombomcar', CKataI))
+    {
         
+    }
+    else if (isSame('halilintar', CKataI))
+    {
+        
+    }
+    else if (isSame('kora-kora', CKataI))
+    {
+        
+    }
+    else
+    {
+        printf("Tidak ada wahana dengan nama tersebut\n");
     }
 }
