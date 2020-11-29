@@ -67,24 +67,47 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
     printf("Masukkan nama wahana yang ingin dilayani: ");
     ADVKATAi();
     //nanti dibuat fungsi rusak secara random tiap mau serve sesuatu wahana
-    /*
+
     if (isSame('bombomcar', CKataI))
     {
-        
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (M.arrayWahana[i].namaWahana == 'bombomcar'){
+                BreakWahana(&M,'bombomcar');
+                cond = true;
+            }
+            i++;
+        }
     }
     else if (isSame('halilintar', CKataI))
     {
-        
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (M.arrayWahana[i].namaWahana == 'halilintar'){
+                BreakWahana(&M,'halilintar');
+                cond = true;
+            }
+            i++;
+        }
     }
     else if (isSame('kora-kora', CKataI))
     {
-        
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (M.arrayWahana[i].namaWahana == 'kora-kora'){
+                BreakWahana(&M,'kora-kora');
+                cond = true;
+            }
+            i++;
+        }
     }
     else
     {
         printf("Tidak ada wahana dengan nama tersebut\n");
     }
-    */
 }
 
 
