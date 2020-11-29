@@ -195,10 +195,9 @@ void reportoffice(AddressTree T){
     printf("(_ ___)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(_ ___)\n");
     printf("`-._.-'                                      `-._.-'\n");
     printf("Masukkan perintah (1-7) : ");
-    int input;
-    scanf("%d", &input); //ganti pake mesinkata
+    ADVKATAi();
 
-    if(input==1){
+    if(StrToInt(CKataI)==1){
         AddressTree temp;
         temp = searchTree("bombomcar",T);
         printf("Nama                : %c\n",temp->detail.nama);
@@ -207,7 +206,7 @@ void reportoffice(AddressTree T){
         printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
         printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
     }
-    else if(input==2){
+    else if(StrToInt(CKataI)==2){
         AddressTree temp;
         temp = searchTree("halilintar",T);
         printf("Nama                : %c\n",temp->detail.nama);
@@ -216,7 +215,7 @@ void reportoffice(AddressTree T){
         printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
         printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
     }
-    else if(input==3){
+    else if(StrToInt(CKataI)==3){
         AddressTree temp;
         temp = searchTree("kora-kora",T);
         printf("Nama                : %c\n",temp->detail.nama);
@@ -244,10 +243,9 @@ void detailsoffice(AddressTree T){
     printf("(_ ___)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(_ ___)\n");
     printf("`-._.-'                                      `-._.-'\n");
     printf("Masukkan perintah (1-7) : ");
-    int input;
-    scanf("%d", &input); //ganti pake mesinkata
+    ADVKATAi();
 
-    if(input==1){
+    if(StrToInt(CKataI)==1){
         AddressTree temp;
         temp = searchTree("bombomcar",T);
         printf("Nama        : %c\n",temp->detail.nama);
@@ -262,7 +260,7 @@ void detailsoffice(AddressTree T){
         printf("Kapasitas   : %d\n",temp->detail.kapasitas);
         printf("Durasi      : %d\n",temp->detail.durasi);
     }
-    else if(input==2){
+    else if(StrToInt(CKataI)==2){
         AddressTree temp;
         temp = searchTree("halilintar",T);
         printf("Nama        : %c\n",temp->detail.nama);
@@ -277,7 +275,7 @@ void detailsoffice(AddressTree T){
         printf("Kapasitas   : %d\n",temp->detail.kapasitas);
         printf("Durasi      : %d\n",temp->detail.durasi);
     }
-    else if(input==3){
+    else if(StrToInt(CKataI)==3){
         AddressTree temp;
         temp = searchTree("kora-kora",T);
         printf("Nama        : %c\n",temp->detail.nama);
