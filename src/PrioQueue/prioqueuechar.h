@@ -14,7 +14,7 @@
 
 /* Definisi elemen dan address */
 typedef struct {
-    int prio;  /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas tertinggi) */
+    int prio;  /* [1..5], prioritas dengan nilai 1..5 (1 adalah prioritas tertinggi) */
     int sabar; /* indikator kesabaran pengunjung */
     List daftarwahana;  /* daftar wahana yg ingin dikunjungi */
 } infotypeQ;

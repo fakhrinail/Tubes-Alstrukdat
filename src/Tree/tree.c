@@ -13,10 +13,12 @@ AddressTree Alokasi(WahanaTree X)
     if (P!=NULL){
         Left(P) = NULL;
         Right(P) = NULL;
+        MakeString20Empty(NamaWahana(P));
         CopyString(NamaWahana(P),X.nama);
         HargaTiket(P) = X.hargaTiket;
         Kapasitas(P) = X.kapasitas;
         DurasiWahana(P) = X.durasi;
+        MakeString100Empty(Deskripsi(P));
         CopyString(Deskripsi(P),X.deskripsi);
         HargaBangun(P) = X.hargaBangun;
         KayuBangun(P) = X.bahanBangun[0];

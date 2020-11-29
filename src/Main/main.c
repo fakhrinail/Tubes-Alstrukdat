@@ -9,8 +9,8 @@
 
 
 MATRIKS MAP1, MAP2, MAP3, MAP4;
-WahanaTree W[3];        //List Wahana dari wahana.txt
-AddressTree T[3];       //Pohon yang akan berisi List Wahana di atas
+WahanaTree W[7];        //List Wahana dari wahana.txt
+AddressTree T[7];       //Pohon yang akan berisi List Wahana di atas
 BahanBangunan material[3];
 int uangPengguna;       //sebagai uang game
 int listBahan[3];       //sebagai bahan bangunan yang dimiliki pengguna, 0 untuk kayu, 1 untuk batu, 2 untuk metal
@@ -22,15 +22,23 @@ Stack STarget;
 void new_game()
 {
     /* Load Map dari file */
+    
     MakeMAP(&MAP1,"../../doc/map1.txt");
     MakeMAP(&MAP2,"../../doc/map2.txt");
     MakeMAP(&MAP3,"../../doc/map3.txt");
     MakeMAP(&MAP4,"../../doc/map4.txt");
-
+    
     /* Load material dari file */
+    
     DaftarBahan(material);
-
+    
     /* Load Wahana dari file */
+    
+    DaftarWahana(W);
+    DaftarTree(T,W);
+    MakeTree(T[1],T[3],T[4]);
+    MakeTree(T[2],T[5],T[6]);
+    MakeTree(T[0],T[1],T[2]);   //root utama T[0]
     
 
     /* Memasukkan nama pengguna */
@@ -62,7 +70,7 @@ void new_game()
             int totalAksi = 0;
             int totalWaktu = 0;
             int totalUang = 0;
-            while (!isEOP(CKataI) && isSame(CKataI,"main") && isSame(CKataI,"execute")){
+            while (!isEOP(CKataI) && preparation){
                 printf("\n");
                 printf("Preparation Phase Day %d \n", countDayPreparation);
                 TulisMap(MAP1);printf("\n");
@@ -84,18 +92,37 @@ void new_game()
                     GerakPlayer(&MAP1,CKataI);
                     updateMap(&MAP1);
                     NextMenit(&currentJam);
+
                 }else if (isSame(CKataI,"buy")){
                     Buy(&SAwal,material,uangPengguna,currentJam);
                     totalAksi += 1;
                     totalUang += InfoUangTop(SAwal);
                     totalWaktu += InfoWaktuTop(SAwal);
-                }else if (isSame(CKataI,"build")){
-                    Build(&SAwal,listBahan,uangPengguna,currentJam,//TODO);
-                    totalAksi += 1;
-                    totalUang += InfoUangTop(SAwal);
-                    totalWaktu += InfoWaktuTop(SAwal);
+
+                }else if (isSame(CKataI,"build")){ 
+                    addressStack Temp = SAwal.TOP;
+                    Build(&SAwal,listBahan,uangPengguna,currentJam,T[0],Player(MAP1));
+                    if (Temp != SAwal.TOP){
+                        totalAksi += 1;
+                        totalUang += InfoUangTop(SAwal);
+                        totalWaktu += InfoWaktuTop(SAwal);
+                    }
+                }else if (isSame(CKataI,"upgrade")){
+                    addressStack Temp = SAwal.TOP;
+                    Upgrade(&SAwal,listBahan,uangPengguna,currentJam,T[0],MAP1);
+                    if (Temp != SAwal.TOP){
+                        totalAksi += 1;
+                        totalUang += InfoUangTop(SAwal);
+                        totalWaktu += InfoWaktuTop(SAwal);
+                    }
+                }else if (isSame(CKataI,"execute")){
+                    EXECUTE(&SAwal,&STarget,&uangPengguna,&currentJam,listBahan,&MAP1,&T[0]);
+                    preparation = false;
                 }
             }
+        }else if(!preparation){
+            printf("ANDA MASUK MAIN PHASE YEAY!");
+            preparation = true;
         }
     }
 }
@@ -117,16 +144,6 @@ void exit(){
 }
 
 int main(){
-
-    /* Membuat Tree Wahana */
-    
-    DaftarWahana(W);
-    DaftarTree(T,W);
-    MakeTree(T[0],T[1],T[2]);
-
-    /* Membuat List Bahan Bangunan */
-    DaftarBahan(material);
-
 
     printf(" __      __.__.__  .__                                          __           \n");
     printf("/  \\    /  \\__|  | |  | ___.__. __  _  _______    ____    ____ |  | _____.__.\n");

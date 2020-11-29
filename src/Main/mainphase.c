@@ -62,7 +62,7 @@ void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
 }
 
 /* dipanggil kalo input command serve */
-void Serve(MATRIKS M, PrioQueueChar *Q)
+void Serve(MATRIKS* M, PrioQueueChar *Q)
 {
     printf("Masukkan nama wahana yang ingin dilayani: ");
     ADVKATAi();
@@ -73,11 +73,18 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
         boolean cond = false;
         while (cond == false ){
             int i = 0;
-            if (isSame(M.arrayWahana[i].namaWahana,'bombomcar')){
-                BreakWahana(&M,'bombomcar');
+            if (isSame((*M).arrayWahana[i].namaWahana,"bombomcar")){
+                BreakWahana(M,"bombomcar");
                 cond = true;
+            }else{
+                i++;
             }
-            i++;
+            if (cond){
+                if ((*M).arrayWahana[i].kondisi){
+                    
+                }
+
+            }
         }
     }
     else if (isSame(CKataI, "halilintar"))
@@ -85,11 +92,12 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
         boolean cond = false;
         while (cond == false ){
             int i = 0;
-            if (isSame(M.arrayWahana[i].namaWahana,'halilintar')){
-                BreakWahana(&M,'halilintar');
+            if (isSame((*M).arrayWahana[i].namaWahana,"halilintar")){
+                BreakWahana(M,"halilintar");
                 cond = true;
+            }else{
+                i++;
             }
-            i++;
         }
     }
     else if (isSame(CKataI, "kora-kora"))
@@ -97,11 +105,77 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
         boolean cond = false;
         while (cond == false ){
             int i = 0;
-            if (isSame(M.arrayWahana[i].namaWahana,'kora-kora')){
-                BreakWahana(&M,'kora-kora');
+            if (isSame((*M).arrayWahana[i].namaWahana,"kora-kora")){
+                BreakWahana(M,"kora-kora");
                 cond = true;
+            }else{
+                i++;
             }
-            i++;
+        }
+    }
+    else if (isSame(CKataI, "jungkat-jungkit"))
+    {
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (isSame((*M).arrayWahana[i].namaWahana,"jungkat-jungkit")){
+                BreakWahana(M,"jungkat-jungkit");
+                cond = true;
+            }else{
+                i++;
+            }
+        }
+    }
+    else if (isSame(CKataI, "rollercoaster"))
+    {
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (isSame((*M).arrayWahana[i].namaWahana,"rollercoaster")){
+                BreakWahana(M,"rollercoaster");
+                cond = true;
+            }else{
+                i++;
+            }
+        }
+    }
+    else if (isSame(CKataI, "rollercoaster"))
+    {
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (isSame((*M).arrayWahana[i].namaWahana,"rollercoaster")){
+                BreakWahana(M,"rollercoaster");
+                cond = true;
+            }else{
+                i++;
+            }
+        }
+    }
+    else if (isSame(CKataI, "bianglala"))
+    {
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (isSame((*M).arrayWahana[i].namaWahana,"bianglala")){
+                BreakWahana(M,"bianglala");
+                cond = true;
+            }else{
+                i++;
+            }
+        }
+    }
+    else if (isSame(CKataI, "tornado"))
+    {
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (isSame((*M).arrayWahana[i].namaWahana,"tornado")){
+                BreakWahana(M,"tornado");
+                cond = true;
+            }else{
+                i++;
+            }
         }
     }
     else
@@ -112,7 +186,7 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
 
 
 /* dipanggil setiap mau serve wahana tersebut */
-void BreakWahana (MATRIKS *M, char namawahana[20])
+void BreakWahana (MATRIKS *M, char namawahana[])
 {
     srand(time(0));
     /* rand() % (max_number + 1 - minimum_number) + minimum_number */
@@ -124,7 +198,7 @@ void BreakWahana (MATRIKS *M, char namawahana[20])
         /* ubah setiap wahana dengan nama sama jadi rusak */
         while (!(isNil(M->arrayWahana[i].lokasi)))
         {
-            if (isSame(M->arrayWahana[i].namaWahana, &namawahana[20]))
+            if (isSame(M->arrayWahana[i].namaWahana, namawahana))
             {
                 M->arrayWahana[i].kondisi = false; //set ke rusak
             }

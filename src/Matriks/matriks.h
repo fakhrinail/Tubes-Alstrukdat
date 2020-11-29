@@ -15,7 +15,6 @@
 
 typedef int indeks; /* indeks baris, kolom */
 typedef char ElType; 
-
 typedef struct { 
 	ElType Mem[BrsMax+1][KolMax+1];
    POINT Player;

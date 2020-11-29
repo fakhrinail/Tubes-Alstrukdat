@@ -6,7 +6,6 @@ Deskripsi : Realisasi stacklist.h
 */
 
 #include "stacklist.h"
-#include "boolean.h"
 #include <stdlib.h>
 
 /* Prototype manajemen memori */
@@ -150,13 +149,14 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
     }
     else if (InfoCommandTop(*S)==3){
         *uangPengguna -= InfoUangTop(*S);
-        int HH = InfoWaktuTop(*S)/60;
-        int MM = InfoWaktuTop(*S)%60;
         addJam(jamPengguna,30);            // menghabiskan waktu 30 menit
         bahanPengguna[0] -= InfoKayuTop(*S);
         bahanPengguna[1] -= InfoBatuTop(*S);
         bahanPengguna[2] -= InfoMetalTop(*S);
         
+        addressStack P = (*S).TOP;
+        (*S).TOP = (*S).TOP->Next;
+        DealokasiStack(P);
     }
 }
 
@@ -436,13 +436,13 @@ void EXECUTE(Stack* SAwal, Stack* STarget, int* uangPengguna, JAM* jamPengguna, 
         Push(STarget,P);
         (*SAwal).TOP = (*SAwal).TOP->Next;
     }
+    
     while (!IsEmptyStack(*STarget))
     {
         Pop(STarget,uangPengguna,jamPengguna,bahanPengguna,Map,T);
     }
     printf("Berhasil menjalankan semua perintah!\n");
     printf("Masuk ke Main Phase . . .\n");
-    
 }
 
 void MAIN(Stack* SAwal)
