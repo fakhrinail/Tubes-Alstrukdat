@@ -14,8 +14,9 @@
 
 /* Definisi elemen dan address */
 typedef struct {
-    int sabar;  /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas tertinggi) */
-    List daftarwahana;  /* daftar wahana yg ingin dikunjungi harusnya pake listlinier*/
+    int prio;  /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas tertinggi) */
+    int sabar; /* indikator kesabaran pengunjung */
+    List daftarwahana;  /* daftar wahana yg ingin dikunjungi */
 } infotypeQ;
 
 typedef int addressQ;   /* indeks tabel */
@@ -32,7 +33,7 @@ typedef struct {
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika e adalah infotype dan Q adalah PrioQueueChar, maka akses elemen : */
-#define Prio(e)     (e).sabar
+#define Prio(e)     (e).prio
 #define InfoQ(e)     (e).namawahana
 #define Head(Q)     (Q).HEAD
 #define Tail(Q)     (Q).TAIL

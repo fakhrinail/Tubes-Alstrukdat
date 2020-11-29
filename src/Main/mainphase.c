@@ -16,11 +16,8 @@ void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
     /* random jml pengunjung */
     srand(time(0));
     int jmlpengunjung;
-    jmlpengunjung = rand() % 6; //random antara 0-5
-    while (jmlpengunjung == 0) //ulang kalo 0
-    {
-        jmlpengunjung = rand() % 6;
-    }
+    /* rand() % (max_number + 1 - minimum_number) + minimum_number */
+    jmlpengunjung = rand() % (5+1-1) + 1; //random antara 1-5
 
     /* itung total wahana */
     int totalwahana;
@@ -35,17 +32,15 @@ void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
     {
         /* ngitung jml wahana yg bakal dikunjungi per pengunjung */
         int jmlwahana; //jml wahana yg ingin dikunjungi
-        jmlwahana = rand() % totalwahana+1; //jmlwahana antar 1-totalwahana
-        while (jmlwahana == 0)
-        {
-            jmlwahana = rand() % totalwahana+1;
-        }
+        /* rand() % (max_number + 1 - minimum_number) + minimum_number */
+        jmlwahana = rand() % (totalwahana+1-1) + 1; //jmlwahana antar 1-totalwahana
         
         /* isi daftar wahana tiap pengunjung */
         infotypeQ daftar;
         List listwahana;
-        daftar.sabar = 5;
-        daftar.daftarwahana = listwahana;
+        daftar.prio = i+1; //prioritas antrian
+        daftar.sabar = 5; //kalo 0 bakal keluar queue
+        daftar.daftarwahana = listwahana; //listwahana yg ingin dikunjuni
         char namawahana[20];
         CopyString(namawahana[20], M.arrayWahana[0].namaWahana);
         InsVLast(&daftar, namawahana[20]);
@@ -67,6 +62,7 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
 {
     printf("Masukkan nama wahana yang ingin dilayani: ");
     ADVKATAi();
+    //nanti dibuat fungsi rusak secara random tiap mau serve sesuatu wahana
     if (isSame('bombomcar', CKataI))
     {
         
@@ -85,6 +81,27 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
     }
 }
 
+
+/* dipanggil setiap mau serve wahana tersebut */
+void BreakWahana (MATRIKS *M, char namawahana[20])
+{
+    srand(time(0));
+    /* rand() % (max_number + 1 - minimum_number) + minimum_number */
+    int rusak = rand() % (4+1-1) + 1;
+    /* peluang rusak 1/4 */
+    if (rusak == 1) //kalo 1 rusak
+    {
+        int i = 0;
+        /* ubah setiap wahana dengan nama sama jadi rusak */
+        while (!(isNil(M->arrayWahana[i].lokasi)))
+        {
+            if (isSame(M->arrayWahana[i].namaWahana, namawahana[20]))
+            {
+                M->arrayWahana[i].kondisi = false; //set ke rusak
+            }
+        }
+    }
+}
 
 void REPAIR();
 void OFFICE(AddressTree T , MATRIKS Map){
