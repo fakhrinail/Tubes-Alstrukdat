@@ -8,6 +8,7 @@ Deskripsi : Realisasi listlinier.h
 #include "../boolean.h"
 #include "listlinier.h"
 #include "../MesinKarakter-Kata/mesinkar+katafile.h"
+#include "../MesinKarakter-Kata/mesinkar+katainput.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -38,7 +39,8 @@ address AlokasiList (infotype X[])
     P = (address) malloc(sizeof(ElmtList));
     if (P != Nil)
     {
-        *Info(P) = X;
+        MakeString20Empty(P->info);
+        CopyString(P->info,X);
         Next(P) = Nil;
         return P;
     }
@@ -47,12 +49,12 @@ address AlokasiList (infotype X[])
         return Nil;
     }
 }
-void DealokasiList (address *P)
+void DealokasiList (address P)
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address P */
 {
-    free(*P);
+    free(P);
 }
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
@@ -151,12 +153,12 @@ address SearchPrec (List L, infotype X)
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void InsVFirst (List *L, infotype X)
+void InsVFirst (List *L, infotype X[])
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
 {
-    address P = Alokasi(X);
+    address P = AlokasiList(X);
 
     if (P != Nil)
     {
@@ -164,13 +166,13 @@ void InsVFirst (List *L, infotype X)
         First(*L) = P;
     }
 }
-void InsVLast (List *L, infotype X)
+void InsVLast (List *L, infotype X[])
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 {
-    address P = Alokasi(X);
+    address P = AlokasiList(X);
     address P2 = First(*L);
 
     if (P != Nil)
@@ -281,7 +283,7 @@ void DelFirst (List *L, address *P)
     First(*L) = Next(*P);
     Next(*P) = Nil;
 }
-void DelP (List *L, infotype X)
+void DelP (List *L, infotype X[])
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
 /* Maka P dihapus dari list dan di-dealokasi */
@@ -461,7 +463,7 @@ List FCopyList (List L)
 
         while (P != Nil)
         {
-            Pcopy = Alokasi(Info(P));
+            Pcopy = AlokasiList(Info(P));
 
             if (Pcopy == Nil)
             {
@@ -500,7 +502,7 @@ void CpAlokList (List Lin, List *Lout)
 
     while (P != Nil && !(isFailed))
     {
-        Pcopy = Alokasi(Info(P));
+        Pcopy = AlokasiList(Info(P));
 
         if (Pcopy == Nil)
         {
@@ -565,12 +567,12 @@ void PecahList (List *L1, List *L2, List L)
             {
                 if (i <= setengah)
                 {
-                    Pcopy = Alokasi(Info(P));
+                    Pcopy = AlokasiList(Info(P));
                     InsertLast(L1,Pcopy);
                 }
                 else
                 {
-                    Pcopy = Alokasi(Info(P));
+                    Pcopy = AlokasiList(Info(P));
                     InsertLast(L2,Pcopy);
                 }
                 P = Next(P);
@@ -588,12 +590,12 @@ void PecahList (List *L1, List *L2, List L)
             {
                 if (i <= setengah)
                 {
-                    Pcopy = Alokasi(Info(P));
+                    Pcopy = AlokasiList(Info(P));
                     InsertLast(L1,Pcopy);
                 }
                 else
                 {
-                    Pcopy = Alokasi(Info(P));
+                    Pcopy = AlokasiList(Info(P));
                     InsertLast(L2,Pcopy);
                 }
                 P = Next(P);

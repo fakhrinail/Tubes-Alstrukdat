@@ -55,7 +55,7 @@ void Push (Stack * S, addressStack P)
 /*      jika tidak, S tetap */
 /* Pada dasarnya adalah operasi Insert First pada list linier */
 {
-    if (IsEmpty(*S)){
+    if (IsEmptyStack(*S)){
         Next(P) = NULL;
         (*S).TOP = P;
     }else{
@@ -87,8 +87,26 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
         while (!isNil((*Map).arrayWahana[i].lokasi)){
             i++;
         }
+        /* isi detail wahana */
         (*Map).arrayWahana[i].lokasi = InfoLokasiTop(*S);
         CopyString((*Map).arrayWahana[i].namaWahana,(*S).TOP->namaWahana);
+        
+        AddressTree P = searchTree((*S).TOP->namaWahana,(*T));
+        (*Map).arrayWahana[i].hargawahana = P->detail.hargaTiket;
+        (*Map).arrayWahana[i].historyUpgrade.First = NULL;
+        (*Map).arrayWahana[i].kondisi = true;
+        if (Left(P)!=NULL && Right(P)!=NULL){
+            CopyString((*Map).arrayWahana[i].upgrade1, Left(P)->Left->detail.nama);
+            CopyString((*Map).arrayWahana[i].upgrade2, Right(P)->Left->detail.nama);
+        }else{
+            MakeString20Empty((*Map).arrayWahana[i].upgrade1);
+            MakeString20Empty((*Map).arrayWahana[i].upgrade2);
+        }
+        
+        /* Dealokasi */
+        addressStack Temp = (*S).TOP;
+        (*S).TOP = Next((*S).TOP);
+        Dealokasi(Temp);
 
     }else if (InfoCommandTop(*S)==2){
         *uangPengguna -= InfoUangTop(*S);
@@ -102,15 +120,35 @@ void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MA
         
         /* Mencari lokasi dan mengupgradenya*/
         int i=0;
-        while (!isNil((*Map).arrayWahana[i].lokasi)){
-            if (Baris((*Map).arrayWahana->lokasi) != Baris(InfoLokasiTop(*S)) || Kolom((*Map).arrayWahana->lokasi) != Kolom(InfoLokasiTop(*S))){
-                CopyString((*Map).arrayWahana[i].namaWahana,(*S).TOP->namaWahana);
-                break;
+        boolean found = false;
+        while (!isNil((*Map).arrayWahana[i].lokasi) && !found){
+            if (EQPoint((*Map).arrayWahana[i].lokasi,(*S).TOP->lokasi)){
+                found=true;
             }
             else{
                 i++;
             }
         }
+        /* isi detail wahana */
+        AddressTree P = searchTree((*S).TOP->namaWahana,(*T));         //cari wahana yg sesuai
+
+        (*Map).arrayWahana[i].hargawahana = P->detail.hargaTiket;
+        InsVLast(&(*Map).arrayWahana[i].historyUpgrade, (*Map).arrayWahana[i].namaWahana);
+        (*Map).arrayWahana[i].kondisi = true;
+        if (Left(P)!=NULL && Right(P)!=NULL){
+            CopyString((*Map).arrayWahana[i].upgrade1, Left(P)->Left->detail.nama);
+            CopyString((*Map).arrayWahana[i].upgrade2, Right(P)->Left->detail.nama);
+        }else{
+            MakeString20Empty((*Map).arrayWahana[i].upgrade1);
+            MakeString20Empty((*Map).arrayWahana[i].upgrade2);
+        }
+        CopyString((*Map).arrayWahana[i].namaWahana,(*S).TOP->namaWahana);
+
+        /* Dealokasi */
+        addressStack Temp = (*S).TOP;
+        (*S).TOP = Next((*S).TOP);
+        Dealokasi(Temp);
+
     }
     else if (InfoCommandTop(*S)==3){
         *uangPengguna -= InfoUangTop(*S);
@@ -382,33 +420,36 @@ POINT cekWahana(MATRIKS Map){
     } 
 }
 
-/*
-void UNDO(Stack *S, infotype *res){
+void UNDO(Stack *S){
     if (IsEmpty(*S)){
-        printf("Stack sudah habis, tidak bisa undo");
+        printf("Stack sudah habis, tidak bisa undo\n");
     } else{
-        addressStack P;
-        P = Top(*S);
-        (*res) = Info(P);
+        addressStack P = (*S).TOP;
         Top(*S) = Next(Top(*S));
-        Next(P) = NULL;
         DealokasiStack(P);
+        printf("Yeay kamu berhasil undo!\n");
     }
 }
-*/
 
-//void EXECUTE(Stack* S1, Stack S2){
-    //while (!IsEmpty(*S1)){
 
-        //Pop(*S1,P);
-        //Push(S2,P);
-    //}
-//}
+void EXECUTE(Stack* SAwal, Stack* STarget){
+    while (!IsEmpty(*SAwal)){
+        addressStack P=NULL;
+        P = (*SAwal).TOP;
+        Push(STarget,P);
+        (*SAwal).TOP = Next((*SAwal).TOP);
+    }
+    while (!IsEmptyStack(*STarget))
+    {
+        //Pop();
+    }
+    
+}
 
-//void RUN(Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map){
-    //while(!IsEmpty(*S)){
-        //Pop(*S);
+void RUN(Stack* S){
+    while(!IsEmpty(*S)){
+        Pop(*S);
         //RUNPerintahnya
-    //}
+    }
 
-//}
+}
