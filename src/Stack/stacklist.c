@@ -63,7 +63,8 @@ void Push (Stack * S, addressStack P)
         (*S).TOP = P;
     }
 }
-/* TODO FIX-IN POP */
+
+
 void Pop (Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map)
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak mungkin kosong */
