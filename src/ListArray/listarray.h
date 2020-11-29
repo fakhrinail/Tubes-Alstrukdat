@@ -14,6 +14,12 @@ typedef struct{
 typedef struct{
    char namaWahana[20];
    POINT lokasi;
+   int hargawahana; //tiket 
+   char deskripsi[100]; 
+   int kapasitas;
+   //TO DO history upgrade
+   int waktuwahana;
+   boolean kondisi;
 }WahanaMatriks;
 
 void DaftarBahan(BahanBangunan listbahan[]);
