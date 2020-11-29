@@ -14,6 +14,10 @@ POINT MakePOINT (int X, int Y)
     Kolom(P) = Y;
     return P;
 }
+void TulisPOINT (POINT P)
+{
+    printf("(%d,%d)\n",(int)Baris(P),(int)Kolom(P));
+}
 
 boolean isNil(POINT P){
     return Baris(P)==-1 && Kolom(P)==-1;
