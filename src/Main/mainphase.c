@@ -67,8 +67,8 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
     printf("Masukkan nama wahana yang ingin dilayani: ");
     ADVKATAi();
     //nanti dibuat fungsi rusak secara random tiap mau serve sesuatu wahana
-
-    if (isSame('bombomcar', CKataI))
+    
+    if (isSame(CKataI, "bombomcar"))
     {
         boolean cond = false;
         while (cond == false ){
@@ -80,7 +80,7 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
             i++;
         }
     }
-    else if (isSame('halilintar', CKataI))
+    else if (isSame(CKataI, "halilintar"))
     {
         boolean cond = false;
         while (cond == false ){
@@ -92,7 +92,7 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
             i++;
         }
     }
-    else if (isSame('kora-kora', CKataI))
+    else if (isSame(CKataI, "kora-kora"))
     {
         boolean cond = false;
         while (cond == false ){
@@ -132,10 +132,20 @@ void BreakWahana (MATRIKS *M, char namawahana[20])
     }
 }
 
-void REPAIR(MATRIKS M)
+void REPAIR(MATRIKS *M)
 {
-
+    if (!(isNil(cekWahana(*M)))) //cek di sebelah wahana atau ga
+    {
+        POINT wahana = cekWahana(*M);
+        int i;
+        while (EQPoint(M->arrayWahana[i].lokasi, wahana)) //cari wahana sesuai lokasi
+        {
+            i++;
+        }
+        M->arrayWahana[i].kondisi = true;
+    }
 }
+
 void OFFICE(AddressTree T , MATRIKS Map){
     if(EQPoint(Map.Office,Player(Map))){
         printf(".-=~=-.                                      .-=~=-.\n");
