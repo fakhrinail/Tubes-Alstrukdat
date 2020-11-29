@@ -295,7 +295,7 @@ void DETAIL(MATRIKS M){
                 printf("Harga wahana                : %d\n",M.arrayWahana[i].hargawahana);
                 printf("Lokasi wahana               : ");TulisPOINT(M.arrayWahana[i].lokasi);printf("\n");
                 printf("Kondisi                     : %d\n",M.arrayWahana[i].kondisi);
-                //printf("Riwayat upgrade wahana      : %d\n",M.arrayWahana[i].historyUpgrade);
+                printf("Riwayat upgrade wahana      : "); PrintInfo(M.arrayWahana[i].historyUpgrade);printf("\n");
                 printf("Upgrade 1                   : %s\n",M.arrayWahana[i].upgrade1);
                 printf("Upgrade 2                   : %s\n",M.arrayWahana[i].upgrade2);
                 cond = true;
