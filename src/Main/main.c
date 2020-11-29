@@ -18,6 +18,7 @@ JAM currentJam;         //sebagai jam di game
 char namaPengguna[20];
 Stack SAwal;
 Stack STarget;
+int currCapacity[7];    //sebagai kapasitas riil saat wahana dimainkan
 
 void new_game()
 {

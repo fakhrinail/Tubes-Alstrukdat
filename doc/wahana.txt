@@ -1,7 +1,7 @@
-bombomcar 10 10 30 bismillah 15 10 0 0
-halilintar 20 15 15 semoga 20 20 10 0
-kora-kora 20 15 15 kelar 20 10 20 0
-jungkat-jungkit 30 20 15 amin 25 20 10 10
-rollercoaster 30 20 15 amin 30 20 10 10
-bianglala 35 20 15 amin 25 20 20 10
-tornado 35 20 15 amin 300 20 20 20
+bombomcar 10 1 15 bismillah 15 10 0 0
+halilintar 20 2 15 semoga 20 20 10 0
+kora-kora 20 2 15 kelar 20 10 20 0
+jungkat-jungkit 30 3 15 amin 25 20 10 10
+rollercoaster 30 3 15 amin 30 20 10 10
+bianglala 35 4 15 amin 25 20 20 10
+tornado 35 4 15 amin 30 20 20 20

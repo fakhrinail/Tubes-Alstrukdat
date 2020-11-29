@@ -289,7 +289,7 @@ void DelFirst (List *L, address *P)
     First(*L) = Next(*P);
     Next(*P) = Nil;
 }
-/*
+
 void DelP (List *L, infotype X[])
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
@@ -298,9 +298,9 @@ void DelP (List *L, infotype X[])
 /* maka yang dihapus hanya elemen pertama dengan Info = X */
 /* Jika tidak ada elemen list dengan Info(P)=X, maka list tetap */
 /* List mungkin menjadi kosong karena penghapusan */
-/*
+
 {
-    address Ptemp = Search(*L,*X);
+    address Ptemp = SearchList(*L,X);
     
     if (Ptemp != Nil)
     {
@@ -321,7 +321,7 @@ void DelP (List *L, infotype X[])
         }
     }
 }
-*/
+
 void DelLast (List *L, address *P)
 /* I.S. List tidak kosong */
 /* F.S. P adalah alamat elemen terakhir list sebelum penghapusan  */
