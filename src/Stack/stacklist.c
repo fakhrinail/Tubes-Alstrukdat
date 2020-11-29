@@ -432,7 +432,7 @@ void UNDO(Stack *S){
 }
 
 
-void EXECUTE(Stack* SAwal, Stack* STarget){
+void EXECUTE(Stack* SAwal, Stack* STarget, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map, AddressTree* T){
     while (!IsEmpty(*SAwal)){
         addressStack P=NULL;
         P = (*SAwal).TOP;
@@ -441,15 +441,20 @@ void EXECUTE(Stack* SAwal, Stack* STarget){
     }
     while (!IsEmptyStack(*STarget))
     {
-        //Pop();
+        Pop(STarget,uangPengguna,jamPengguna,bahanPengguna,Map,T);
     }
+    printf("Berhasil menjalankan semua perintah!\n");
+    printf("Masuk ke Main Phase . . .\n");
     
 }
 
-void RUN(Stack* S){
-    while(!IsEmpty(*S)){
-        Pop(*S);
-        //RUNPerintahnya
+void MAIN(Stack* SAwal)
+{
+    while (!IsEmptyStack(*SAwal)){
+        addressStack P = (*SAwal).TOP;
+        (*SAwal).TOP = Next((*SAwal).TOP);
+        DealokasiStack(P);
     }
-
+    printf("Semua perintah tidak dilakukan!\n");
+    printf("Masuk ke Main Phase . . .\n");
 }
