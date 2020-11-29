@@ -19,22 +19,24 @@ char namaPengguna[20];
 void new_game()
 {
     /* Load Map dari file */
-    MakeMAP(&MAP1,"../../map1.txt");
-    MakeMAP(&MAP2,"../../map2.txt");
-    MakeMAP(&MAP3,"../../map3.txt");
-    MakeMAP(&MAP4,"../../map4.txt");
+    MakeMAP(&MAP1,"../../doc/map1.txt");
+    MakeMAP(&MAP2,"../../doc/map2.txt");
+    MakeMAP(&MAP3,"../../doc/map3.txt");
+    MakeMAP(&MAP4,"../../doc/map4.txt");
 
     /* Memasukkan nama pengguna */
     MakeString20Empty(namaPengguna);
+    printf("Masukkan nama anda: ");
     ADVKATAi(); // sebagai scanf
     CopyString(namaPengguna,CKataI);
     
     /* Inisiasi preparation phase */
+    
     boolean preparation = true;
-    while(!exit){ // selama tidak exit 
-        printf("Preparation Phase");
+    while(!isEOP(CKataI)){ // selama tidak exit 
+        printf("Preparation Phase\n");
         TulisMap(MAP1);
-        printf("Legend : \n A = Antrian \n P = Player \n W = Wahana \n O = Office \n G = Gerbang");
+        printf("Legend : \n A = Antrian \n P = Player \n W = Wahana \n O = Office \n G = Gerbang\n");
         printf("Nama : %s\n", namaPengguna);
         printf("Uang : %d\n", uangPengguna);
         printf("Waktu : ");
@@ -110,11 +112,11 @@ int main(){
     pilihan = StrToInt(CKataI);
 
     if (pilihan==1){
-        new_game;
+        new_game();
     }else if (pilihan==2){
         load_game;
     }else{
-        exit;
+        exit();
     }
 
     return 0;
