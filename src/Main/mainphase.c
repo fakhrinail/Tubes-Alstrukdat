@@ -40,7 +40,7 @@ void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
         List listwahana;
         daftar.prio = i+1; //prioritas antrian
         daftar.sabar = 5; //kalo 0 bakal keluar queue
-        daftar.daftarwahana = listwahana; //listwahana yg ingin dikunjuni
+        daftar.daftarwahana; //listwahana yg ingin dikunjungi
         char namawahana[20];
         CopyString(namawahana[20], M.arrayWahana[0].namaWahana);
         InsVLast(&daftar, namawahana[20]);
@@ -49,7 +49,7 @@ void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
         for (int j = 1; j < jmlwahana; j++)
         {
             CopyString(namawahana[20], M.arrayWahana[1].namaWahana);
-            InsVLast(&daftar, namawahana[20]);
+            InsVLast(&daftar.daftarwahana, namawahana[20]);
         }
         
         /* tambah queue */
