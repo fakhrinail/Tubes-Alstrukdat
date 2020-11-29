@@ -4,15 +4,37 @@
 #include "../Jam/jam.h"
 #include "../Tree/tree.h"
 #include "../ListArray/listarray.h"
+#include "../Matriks/matriks.h"
 
+
+MATRIKS MAP1, MAP2, MAP3, MAP4;
 WahanaTree W[3];        //List Wahana dari wahana.txt
 AddressTree T[3];       //Pohon yang akan berisi List Wahana di atas
 BahanBangunan material[3];
 int uangPengguna;       //sebagai uang game
 int listBahan[3];       //sebagai bahan bangunan yang dimiliki pengguna, 0 untuk kayu, 1 untuk batu, 2 untuk metal
 JAM currentJam;         //sebagai jam di game
+char namaPengguna[20];
 
-void new_game();
+void new_game()
+{
+    /* Load Map dari file */
+    MakeMAP(&MAP1,"../../map1.txt");
+    MakeMAP(&MAP2,"../../map2.txt");
+    MakeMAP(&MAP3,"../../map3.txt");
+    MakeMAP(&MAP4,"../../map4.txt");
+
+    /* Memasukkan nama pengguna */
+    MakeString20Empty(namaPengguna);
+    ADVKATAi();
+    CopyString(namaPengguna,CKataI);
+    
+    /* Inisiasi preparation phase */
+    boolean preparation = true;
+
+
+
+}
 
 void load_game();
 
@@ -28,6 +50,7 @@ int main(){
 
     /* Membuat List Bahan Bangunan */
     DaftarBahan(material);
+
     
 
     printf("\\=========================================================================/\n");
