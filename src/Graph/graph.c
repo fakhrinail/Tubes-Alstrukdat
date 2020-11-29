@@ -9,7 +9,17 @@ void CreateEmptyGraph(Graph *G){
 boolean IsGraphEmpty(Graph G){
     return (First(G)==Nil);
 }
-
+addressGraph AlokasiGraph(infograph X)
+{
+    addressGraph P;
+    P = (addressGraph)malloc(sizeof(ElmtGraph));
+    if(P!=Nil){
+        InfoGraph(P)=X;
+        NextGraph(P)=Nil;
+        CreateEmpty(&Link(P));
+    }
+    return P;
+}
 void AddLink(Graph *G, infograph n, infograph p)
 {
     addressGraph tempn, tempp;

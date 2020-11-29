@@ -29,6 +29,8 @@ void CreateEmptyGraph(Graph *G);
 
 boolean IsGraphEmpty(Graph G);
 
+addressGraph AlokasiGraph(infograph X);
+
 void AddLink(Graph *G, infograph n, infograph p);
 
 boolean Adjacent(Graph G, infograph n, infograph p);
