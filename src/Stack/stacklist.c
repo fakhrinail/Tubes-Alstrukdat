@@ -379,5 +379,13 @@ POINT cekWahana(MATRIKS Map){
     }else{
         return MakePOINT(-1,-1);
     } 
-    
+}
+
+void UNDO(Stack *S, infotype *res){
+    addressStack P;
+	P = Top(*S);
+	(*res) = Info(P);
+	Top(*S) = Next(Top(*S));
+	Next(P) = NULL;
+	DealokasiStack(P);
 }
