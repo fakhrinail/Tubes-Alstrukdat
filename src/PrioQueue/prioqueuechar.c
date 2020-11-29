@@ -99,7 +99,8 @@ void Dequeue (PrioQueueChar * Q, infotypeQ * X)
 }
 
 
-/* Operasi Tambahan 
+/*
+/* Operasi Tambahan
 void PrintPrioQueueChar (PrioQueueChar Q)
 /* Mencetak isi queue Q ke layar */
 /* I.S. Q terdefinisi, mungkin kosong */
@@ -108,8 +109,6 @@ void PrintPrioQueueChar (PrioQueueChar Q)
 ...
 <prio-n> <elemen-n>
 #
-*/
-/*
 {
     int temp;
     for (int i = 0; i < NBElmt(Q);i++){
