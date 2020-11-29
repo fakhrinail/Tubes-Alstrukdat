@@ -1,4 +1,5 @@
 #include "listarray.h"
+#include <stdio.h>
 
 void DaftarBahan(BahanBangunan listbahan[])
 {

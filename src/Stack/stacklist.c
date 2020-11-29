@@ -269,7 +269,7 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
     }
 }
 
-void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, POINT posisiPlayer)
+void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS MAP)
 {
     /* Menghitung Waktu */
     int totalWaktu = 0;
@@ -300,21 +300,42 @@ void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, Address
         }
         totalUang += P->uang;
     }
+    
+    /* Menentukan apakah player berada di sebelah wahana atau tidak */
 
-    /* Menentukan apakah waktu cukup atau tidak, build menghabiskan waktu 120 menit */
-    if(cekwahana){
+    if (!isNil(cekWahana(MAP))){
+
+        /* Menentukan apakah waktu cukup atau tidak, upgrade menghabiskan waktu 120 menit */
+
         if (totalWaktu+currentJam+120 > 720){
             printf("Oops, waktu melebihi batas!\n");
         }
         else{
+
+            /* menemukan wahana yang di sebelah player yang mana */
+            POINT temp = cekWahana(MAP);
+            int i=0;
+            boolean found = false;
+
+            while(!found){
+                if (EQPoint(MAP.arrayWahana[i].lokasi, temp)){
+                    found = true;
+                }else{
+                    i++;
+                }
+            }
+
+            /* memberikan pilihan ke pengguna */
+            AddressTree correctWahana = searchTree(MAP.arrayWahana[i].namaWahana,T);
             printf("Berikut wahana yang bisa anda upgrade: \n");
-            printf("1. Halilintar");
-            printf("2. Kora Kora");
+            printf("    1. %s",Left(correctWahana)->detail.nama);       //1 kiri
+            printf("    2. %s",Right(correctWahana)->detail.nama);      //2 kanan
+
             int input;
-            scanf(input);
+            scanf("%d", &input);
             if(input == 1){
-                 if (uangPengguna>=T->Left->detail.hargaBangun + totalUang && (bahanPengguna[0]>= T->Left->detail.bahanBangun[0] && bahanPengguna[1]>= T->Left->detail.bahanBangun[1] && bahanPengguna[2]>=T->Left->detail.bahanBangun[2])){
-                    addressStack VarUpgrade = AlokasiStack(2,T->Left->detail.hargaBangun,T->Left->detail.bahanBangun,120, posisiPlayer, T->Left->detail.nama);
+                 if (uangPengguna >= Left(correctWahana)->detail.hargaBangun + totalUang && bahanPengguna[0] >= Left(correctWahana)->detail.bahanBangun[0] && bahanPengguna[1] >= Left(correctWahana)->detail.bahanBangun[1] && bahanPengguna[2] >= Left(correctWahana)->detail.bahanBangun[2]){
+                    addressStack VarUpgrade = AlokasiStack(2,Left(correctWahana)->detail.hargaBangun,Left(correctWahana)->detail.bahanBangun, 120, temp, Left(correctWahana)->detail.nama);
                     if (VarUpgrade!=NULL){
                         Push(S, VarUpgrade);
                         printf("Aksi Upgrade anda tercatat, Terima kasih!\n");
@@ -324,10 +345,9 @@ void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, Address
                 }else{
                     printf("Oops, uang atau bahan anda tidak mencukupi untuk melakukan aksi ini.\n");
                 }
-            }
-            if(input == 2){
-                 if (uangPengguna>=T->Right->detail.hargaBangun + totalUang && (bahanPengguna[0]>= T->Right->detail.bahanBangun[0] && bahanPengguna[1]>= T->Right->detail.bahanBangun[1] && bahanPengguna[2]>=T->Right->detail.bahanBangun[2])){
-                    addressStack VarUpgrade = AlokasiStack(2,T->Right->detail.hargaBangun,T->Right->detail.bahanBangun,120, posisiPlayer, T->Right->detail.nama);
+            }else if(input == 2){
+                 if (uangPengguna >= Right(correctWahana)->detail.hargaBangun + totalUang && bahanPengguna[0] >= Right(correctWahana)->detail.bahanBangun[0] && bahanPengguna[1] >= Right(correctWahana)->detail.bahanBangun[1] && bahanPengguna[2] >= Right(correctWahana)->detail.bahanBangun[2]){
+                    addressStack VarUpgrade = AlokasiStack(2,Right(correctWahana)->detail.hargaBangun,Right(correctWahana)->detail.bahanBangun, 120, temp, Right(correctWahana)->detail.nama);
                     if (VarUpgrade!=NULL){
                         Push(S, VarUpgrade);
                         printf("Aksi Upgrade anda tercatat, Terima kasih!\n");
@@ -339,18 +359,25 @@ void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, Address
                 }
             }
         }
-    }
-    else{
-        printf("Oopss, anda tidak berdiri di wahana apa-apa");
+    }else{
+        printf("Oops, Anda tidak berada di sebelah wahana apa-apa.");
     }
 }
 
-boolean cekwahana(MATRIKS Map){
-    boolean cek = false;
-    for (int i=0; i<30;i++){
-        if ( Baris(Map.arrayWahana[i].lokasi) == Baris(Map.Player) && Kolom(Map.arrayWahana[i].lokasi) == Kolom(Map.Player)){
-            cek = true;
+POINT cekWahana(MATRIKS Map){
+    boolean found = false;
+    int i = 0;
+    while (!found && i<30){
+        if (isSebelah(Map.arrayWahana[i].lokasi,Player(Map))){
+            found = true;
+        }else{
+            i++;
         }       
+    }
+    if (found){
+        return Map.arrayWahana[i].lokasi;
+    }else{
+        return MakePOINT(-1,-1);
     } 
-    return cek;
+    
 }

@@ -3,6 +3,7 @@
 
 #include "../boolean.h"
 
+
 typedef struct {
     char nama[20];  
     int hargaTiket;

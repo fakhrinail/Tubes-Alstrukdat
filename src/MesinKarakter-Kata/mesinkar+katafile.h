@@ -6,8 +6,6 @@
 
 #include "../boolean.h"
 
-
-
 #define MARK '\n'
 #define NMaxFILE 100
 #define BLANK ' '
