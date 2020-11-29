@@ -2,6 +2,7 @@
 #define Tree_H
 
 #include "../boolean.h"
+#include "../Point/point.h"
 
 
 typedef struct {

@@ -108,7 +108,7 @@ void CopyString(char S1[], char S2[])
            yang ada di S2. */
 {
     int i=0;
-    while (S2[i]>= 'a' && S2[i]<= 'z'){
+    while (S2[i]!='\0'){
         S1[i] = S2[i];
         i++;
     }

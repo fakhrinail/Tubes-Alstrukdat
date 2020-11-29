@@ -84,9 +84,11 @@ void Build(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTr
 
 void Upgrade(Stack *S, int bahanPengguna[], int uangPengguna, JAM waktu, AddressTree T, MATRIKS MAP);
 
-boolean cekwahana(MATRIKS Map);
+POINT cekWahana(MATRIKS Map);
 
-//void UNDO(Stack *S, infotype *res);
-//void EXECUTE(Stack S1, Stack S2);
-//void RUN(Stack *S);
+void UNDO(Stack *S);
+
+void EXECUTE(Stack* SAwal, Stack* STarget, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map, AddressTree* T);
+
+void MAIN(Stack* SAwal);
 #endif
