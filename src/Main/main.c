@@ -26,11 +26,15 @@ void new_game()
 
     /* Memasukkan nama pengguna */
     MakeString20Empty(namaPengguna);
-    ADVKATAi();
+    ADVKATAi(); // sebagai scanf
     CopyString(namaPengguna,CKataI);
     
     /* Inisiasi preparation phase */
     boolean preparation = true;
+    while(!exit){
+        ADVKATAi();
+        
+    }
 
 
 
