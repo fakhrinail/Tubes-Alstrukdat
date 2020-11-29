@@ -51,10 +51,9 @@ int JAMToMenit (JAM J){
 JAM MenitToJAM (int N){
    {
       JAM J;
-      int h,m,N1;
-      N1 = N%1440;
-      h = N/1440;
-      m= N1/60;
+      int h,m;
+      m = N%60;
+      h = N/60;
       J.HH=h; J.MM=m;
       return J;
       }

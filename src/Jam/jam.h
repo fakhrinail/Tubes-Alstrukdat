@@ -22,7 +22,7 @@ typedef struct {
 /* ***************************************************************** */
 /* KELOMPOK VALIDASI TERHADAP TYPE                                   */
 /* ***************************************************************** */
-
+boolean IsJAMValid (int H, int M, int S);
 /* *** Konstruktor: Membentuk sebuah JAM dari komponen-komponennya *** */
 JAM MakeJAM (int HH, int MM);
 /* Membentuk sebuah JAM dari komponen-komponennya yang valid */
