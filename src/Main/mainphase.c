@@ -233,7 +233,7 @@ void BreakWahana (MATRIKS *M, char namawahana[])
     }
 }
 
-void REPAIR(MATRIKS *M)
+void REPAIR(MATRIKS *M, JAM *jamPengguna)
 {
     if (!(isNil(cekWahana(*M)))) //cek di sebelah wahana atau ga
     {
@@ -245,6 +245,7 @@ void REPAIR(MATRIKS *M)
         }
         M->arrayWahana[i].kondisi = true;
     }
+    addJam(jamPengguna, 10);
 }
 
 void OFFICE(AddressTree T , MATRIKS Map){
