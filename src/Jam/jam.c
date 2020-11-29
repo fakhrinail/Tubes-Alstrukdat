@@ -51,10 +51,9 @@ int JAMToMenit (JAM J){
 JAM MenitToJAM (int N){
    {
       JAM J;
-      int h,m,N1;
-      N1 = N%1440;
-      h = N/1440;
-      m= N1/60;
+      int h,m;
+      h = N/60;
+      m= N%60;
       J.HH=h; J.MM=m;
       return J;
       }
@@ -91,5 +90,17 @@ int Durasi (JAM JAw, JAM JAkh)
       return JAMToMenit(MakeJAM(24,0)) - JAMToMenit(JAw) + JAMToMenit(JAkh);
    }else{
       return JAMToMenit(JAkh) - JAMToMenit(JAw);
+   }
+}
+
+void NextMenit (JAM * J)
+{
+   (*J).MM += 1;
+   if ((*J).MM==60){
+      (*J).HH+=1;
+      (*J).MM = (*J).MM%60;
+   }
+   if ((*J).HH==24){
+      (*J).HH = (*J).HH%24;
    }
 }

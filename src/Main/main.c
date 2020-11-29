@@ -28,6 +28,7 @@ void new_game()
     MakeMAP(&MAP4,"../../doc/map4.txt");
 
     /* Load material dari file */
+    
     DaftarBahan(material);
 
     /* Memasukkan nama pengguna */
@@ -56,24 +57,34 @@ void new_game()
     while(!isEOP(CKataI)){ // selama tidak exit 
         if (preparation){
             countDayPreparation++;
-            printf("\n");
-            printf("Preparation Phase Day %d \n", countDayPreparation);
-            TulisMap(MAP1);printf("\n");
-            printf("Legend : \n A = Antrian \n P = Player \n W = Wahana \n O = Office \n G = Gerbang\n\n");
-            printf("Nama : %s\n", namaPengguna);
-            printf("Uang : %d\n", uangPengguna);
-            printf("Waktu Sekarang: ");
-            TulisJAM(currentJam);
-            printf("Waktu Open Gate: ");
-            TulisJAM(MakeJAM(9,0));
-            printf("Sisa Waktu: %d jam %d menit\n", Durasi(currentJam,MakeJAM(9,0))/60, Durasi(currentJam,MakeJAM(9,0))%60); printf("\n");
-            printf("Masukkan perintah: ");
-            ADVKATAi();
-            if (isSame(CKataI,"a") || isSame(CKataI,"w") || isSame(CKataI,"d") || isSame(CKataI,"s")){
-                GerakPlayer(&MAP1,CKataI);
-                updateMap(&MAP1);
-            }else if (isSame(CKataI,"buy")){
-                Buy(&SAwal,material,uangPengguna,currentJam);
+            int totalAksi = 0;
+            int totalWaktu = 0;
+            int totalUang = 0;
+            while (!isEOP(CKataI) && isSame(CKataI,"main") && isSame(CKataI,"execute")){
+                printf("\n");
+                printf("Preparation Phase Day %d \n", countDayPreparation);
+                TulisMap(MAP1);printf("\n");
+                printf("Legend : \n A = Antrian \n P = Player \n W = Wahana \n O = Office \n G = Gerbang\n\n");
+                printf("Nama : %s\n", namaPengguna);
+                printf("Uang : %d\n", uangPengguna);
+                printf("Waktu Sekarang: ");
+                TulisJAM(currentJam);
+                printf("Waktu Open Gate: ");
+                TulisJAM(MakeJAM(9,0));
+                printf("Sisa Waktu: %d jam %d menit\n", Durasi(currentJam,MakeJAM(9,0))/60, Durasi(currentJam,MakeJAM(9,0))%60); 
+                printf("Total aksi yang akan dilakukan: ");printf("%d\n", totalAksi);
+                printf("Total waktu yang akan dibutuhkan: ");printf("%d\n", totalWaktu);
+                printf("Total uang yang akan dilakukan: ");printf("%d\n", totalUang);
+                printf("\n");
+                printf("Masukkan perintah: ");
+                ADVKATAi();
+                if (isSame(CKataI,"a") || isSame(CKataI,"w") || isSame(CKataI,"d") || isSame(CKataI,"s")){
+                    GerakPlayer(&MAP1,CKataI);
+                    updateMap(&MAP1);
+                    
+                }else if (isSame(CKataI,"buy")){
+                    Buy(&SAwal,material,uangPengguna,currentJam);
+                }
             }
         }
     }

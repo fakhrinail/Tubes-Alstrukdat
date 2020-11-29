@@ -51,14 +51,14 @@ void DealokasiList (address P);
 /* Melakukan dealokasi/pengembalian address P */
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (List L, infotype X);
+address SearchList (List L, infotype X[]);
 /* Mencari apakah ada elemen list dengan info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 boolean FSearch (List L, address P);
 /* Mencari apakah ada elemen list yang beralamat P */
 /* Mengirimkan true jika ada, false jika tidak ada */
-address SearchPrec (List L, infotype X);
+address SearchPrec (List L, infotype X[]);
 /* Mengirimkan address elemen sebelum elemen yang nilainya=X */
 /* Mencari apakah ada elemen list dengan Info(P)=X */
 /* Jika ada, mengirimkan address Prec, dengan Next(Prec)=P dan Info(P)=X. */

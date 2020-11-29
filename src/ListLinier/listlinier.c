@@ -58,13 +58,13 @@ void DealokasiList (address P)
 }
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (List L, infotype X)
+address SearchList (List L, infotype X[])
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 {
     address P = First(L);
-    if (IsEmpty(L))
+    if (IsEmptyList(L))
     {
         return Nil;
     }
@@ -73,7 +73,7 @@ address Search (List L, infotype X)
         boolean isFound = false;
         while (P != Nil && !(isFound))
         {
-            if (Info(P) == X)
+            if (isSame(Info(P),X))
             {
                 isFound = true;
             }
@@ -92,7 +92,7 @@ boolean FSearch (List L, address P)
 {
     address Ptemp = First(L);
 
-    if (IsEmpty(L))
+    if (IsEmptyList(L))
     {
         return false;
     }
@@ -122,7 +122,7 @@ boolean FSearch (List L, address P)
     }   
 }
 
-address SearchPrec (List L, infotype X)
+address SearchPrec (List L, infotype X[])
 /* Mengirimkan address elemen sebelum elemen yang nilainya=X */
 /* Mencari apakah ada elemen list dengan Info(P)=X */
 /* Jika ada, mengirimkan address Prec, dengan Next(Prec)=P dan Info(P)=X. */
@@ -177,7 +177,7 @@ void InsVLast (List *L, infotype X[])
 
     if (P != Nil)
     {
-        if (IsEmpty(*L))
+        if (IsEmptyList(*L))
         {
             First(*L) = P;
         }
@@ -258,7 +258,7 @@ void InsertLast (List *L, address P)
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
 {
     address Ptemp = First(*L);
-    if (IsEmpty(*L))
+    if (IsEmptyList(*L))
     {
         First(*L) = P;
     }
@@ -357,7 +357,7 @@ void PrintInfo (List L)
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 {
     address P = First(L);
-    if (IsEmpty(L))
+    if (IsEmptyList(L))
     {
         printf("[]\n");
     }
@@ -375,7 +375,7 @@ void PrintInfo (List L)
 int NbElmt (List L)
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 {
-    if (IsEmpty(L))
+    if (IsEmptyList(L))
     {
         return 0;
     }
@@ -398,9 +398,9 @@ void DelAll (List *L)
 {
     address P;
 
-    if (!(IsEmpty(*L)))
+    if (!(IsEmptyList(*L)))
     {
-        while (!(IsEmpty(*L)))
+        while (!(IsEmptyList(*L)))
         {
             DelFirst(L,&P);
             Dealokasi(&P);
@@ -454,7 +454,7 @@ List FCopyList (List L)
 /* Jika ada alokasi gagal, hasilnya list kosong dan */
 /* semua elemen yang terlanjur di-alokasi, harus didealokasi */
 {
-    if (!(IsEmpty(L)))
+    if (!(IsEmptyList(L)))
     {
         List Lcopy;
         CreateEmpty(&Lcopy);
@@ -533,10 +533,10 @@ void Konkat (List L1, List L2, List * L3)
     CreateEmpty(&L3copy);
     CpAlokList(L1,L3);
 
-    if (!(IsEmpty(*L3)))
+    if (!(IsEmptyList(*L3)))
     {
         CpAlokList(L2,&L3copy);
-        if (!(IsEmpty(*L3)))
+        if (!(IsEmptyList(*L3)))
         {
             address Plast = First(L3copy);
             InsertLast(L3,Plast);
@@ -554,7 +554,7 @@ void PecahList (List *L1, List *L2, List L)
     CreateEmpty(L1);
     CreateEmpty(L2);
 
-    if (!(IsEmpty(L)))
+    if (!(IsEmptyList(L)))
     {
         if (NbElmt(L)%2 == 0)
         {

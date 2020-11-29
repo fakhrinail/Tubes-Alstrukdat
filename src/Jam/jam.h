@@ -62,5 +62,7 @@ boolean JGT (JAM J1, JAM J2);
 
 int Durasi (JAM JAw, JAM JAkh);
 
+void NextMenit(JAM *J);
+
 
 #endif

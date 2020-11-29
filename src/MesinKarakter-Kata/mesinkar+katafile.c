@@ -135,7 +135,7 @@ void SalinKataf()
 {
     resetCKata(CKataF);
     int i=0;
-    while (CCF!=MARK && CCF!=BLANK && i<NMaxFILE && !EndFile){
+    while (CCF!=MARK && CCF!=BLANK && i<NMaxFILE){
         CKataF[i] = CCF;
         i+=1;
         ADVf();

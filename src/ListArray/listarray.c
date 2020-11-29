@@ -10,11 +10,12 @@ void DaftarBahan(BahanBangunan listbahan[])
         while (!EndLine)
         {
             MakeString20Empty(listbahan[i].namabahan);
+            printf("%s\n",CKataF);
             CopyString(listbahan[i].namabahan,CKataF);
             ADVKATAf();
             listbahan[i].hargabahan = StrToInt(CKataF);
         }
-        ADVKATAf();     //maju ke line di bawahnya
+        ADVf();     //maju ke line di bawahnya
         i++;
     }
 }
