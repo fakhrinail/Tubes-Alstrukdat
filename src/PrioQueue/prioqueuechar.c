@@ -6,7 +6,7 @@
 boolean IsEmpty (PrioQueueChar Q)
 /* Mengirim true jika Q kosong: lihat definisi di atas */
 {
-    return ((Head(Q) == Nil) && (Tail(Q) == Nil));
+    return ((Head(Q) == Undefined) && (Tail(Q) == Undefined));
 }
 
 boolean IsFull (PrioQueueChar Q)
@@ -38,12 +38,12 @@ void MakeEmpty (PrioQueueChar * Q, int Max)
 /* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 {
-    (*Q).T = (infotype *) malloc (Max * sizeof(infotype));
+    (*Q).T = (infotypeQ *) malloc (Max * sizeof(infotypeQ));
 
     if ((*Q).T != NULL) {
         MaxEl(*Q) = Max;
-        Head(*Q) = Nil;
-        Tail(*Q) = Nil;
+        Head(*Q) = Undefined;
+        Tail(*Q) = Undefined;
     } else {
         MaxEl(*Q) = 0;
     }
@@ -60,18 +60,18 @@ void DeAlokasi(PrioQueueChar * Q)
 }
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueChar * Q, infotype X)
+void Enqueue (PrioQueueChar * Q, infotypeQ X)
 /* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut mengecil berdasarkan prio */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
 {
-    if(Head(*Q) == Nil)   Head(*Q) = 0;
+    if(Head(*Q) == Undefined)   Head(*Q) = 0;
     Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
     InfoTail(*Q) = X;
     int a1 = Tail(*Q);
     int a2 = (a1 + MaxEl(*Q) - 1)% MaxEl(*Q);
-    infotype temp;
+    infotypeQ temp;
     while (a1 != Head(*Q) && Prio(Elmt(*Q, a1)) < Prio(Elmt(*Q, a2))){
         temp = Elmt(*Q, a1);
         Elmt(*Q, a1) = Elmt(*Q, a2);
@@ -81,7 +81,7 @@ void Enqueue (PrioQueueChar * Q, infotype X)
     }
 }
 
-void Dequeue (PrioQueueChar * Q, infotype * X)
+void Dequeue (PrioQueueChar * Q, infotypeQ * X)
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
@@ -89,8 +89,8 @@ void Dequeue (PrioQueueChar * Q, infotype * X)
 {
     *X= InfoHead(*Q);
     if (NBElmt(*Q) == 1) {
-        Head(*Q) = Nil;
-        Tail(*Q) = Nil;
+        Head(*Q) = Undefined;
+        Tail(*Q) = Undefined;
     }
     else {
         Head(*Q)++;
