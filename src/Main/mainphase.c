@@ -58,7 +58,16 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
 
 
 void REPAIR();
-void DETAIL();
+void DETAIL(MATRIKS* M){
+    Player(*M) = SearchIndeks(*M,'P');
+    for (int i = Baris(Player(*M))-1; i <= Baris(Player(*M))+1;i++){
+        for (int j = Kolom(Player(*M))-1; j <= Kolom(Player(*M))+1; j++){
+            if ((*M).Mem[i][j] != '-' && (*M).Mem[i][j] != '#' ){
+                //Print disini
+            }
+        }
+    }
+}
 void OFFICE();
 void PREPARE(PrioQueueChar *Q){
     infotype *X;
