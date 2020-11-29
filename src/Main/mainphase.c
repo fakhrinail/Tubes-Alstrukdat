@@ -8,6 +8,10 @@
 #include "../MesinKarakter-Kata/mesinkar+katafile.h"
 #include "../MesinKarakter-Kata/mesinkar+katainput.h"
 
+
+void reportoffice(AddressTree T); //pengganti .h biar ga implicit declaration
+void detailsoffice(AddressTree T); //pengganti .h biar ga implicit declaration
+
 /* dipanggil di awal mainphase */
 void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
 {
@@ -40,20 +44,20 @@ void GeneratePengunjung(MATRIKS M, PrioQueueChar *Q)
         List listwahana;
         daftar.prio = i+1; //prioritas antrian
         daftar.sabar = 5; //kalo 0 bakal keluar queue
-        daftar.daftarwahana = listwahana; //listwahana yg ingin dikunjuni
+        daftar.daftarwahana; //listwahana yg ingin dikunjungi
         char namawahana[20];
-        CopyString(namawahana[20], M.arrayWahana[0].namaWahana);
-        InsVLast(&daftar, namawahana[20]);
+        CopyString(&namawahana[20], M.arrayWahana[0].namaWahana);
+        InsVLast(&daftar.daftarwahana, &namawahana[20]);
 
         /* kalau jml wahana lebih dari 1 */
         for (int j = 1; j < jmlwahana; j++)
         {
-            CopyString(namawahana[20], M.arrayWahana[1].namaWahana);
-            InsVLast(&daftar, namawahana[20]);
+            CopyString(&namawahana[20], M.arrayWahana[1].namaWahana);
+            InsVLast(&daftar.daftarwahana, &namawahana[20]);
         }
         
         /* tambah queue */
-        Enqueue(&Q, daftar);
+        Enqueue(Q, daftar);
     }
 }
 
@@ -63,17 +67,42 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
     printf("Masukkan nama wahana yang ingin dilayani: ");
     ADVKATAi();
     //nanti dibuat fungsi rusak secara random tiap mau serve sesuatu wahana
-    if (isSame('bombomcar', CKataI))
+    
+    if (isSame(CKataI, "bombomcar"))
     {
-        
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (isSame(M.arrayWahana[i].namaWahana,'bombomcar')){
+                BreakWahana(&M,'bombomcar');
+                cond = true;
+            }
+            i++;
+        }
     }
-    else if (isSame('halilintar', CKataI))
+    else if (isSame(CKataI, "halilintar"))
     {
-        
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (isSame(M.arrayWahana[i].namaWahana,'halilintar')){
+                BreakWahana(&M,'halilintar');
+                cond = true;
+            }
+            i++;
+        }
     }
-    else if (isSame('kora-kora', CKataI))
+    else if (isSame(CKataI, "kora-kora"))
     {
-        
+        boolean cond = false;
+        while (cond == false ){
+            int i = 0;
+            if (isSame(M.arrayWahana[i].namaWahana,'kora-kora')){
+                BreakWahana(&M,'kora-kora');
+                cond = true;
+            }
+            i++;
+        }
     }
     else
     {
@@ -95,7 +124,7 @@ void BreakWahana (MATRIKS *M, char namawahana[20])
         /* ubah setiap wahana dengan nama sama jadi rusak */
         while (!(isNil(M->arrayWahana[i].lokasi)))
         {
-            if (isSame(M->arrayWahana[i].namaWahana, namawahana[20]))
+            if (isSame(M->arrayWahana[i].namaWahana, &namawahana[20]))
             {
                 M->arrayWahana[i].kondisi = false; //set ke rusak
             }
@@ -103,7 +132,20 @@ void BreakWahana (MATRIKS *M, char namawahana[20])
     }
 }
 
-void REPAIR();
+void REPAIR(MATRIKS *M)
+{
+    if (!(isNil(cekWahana(*M)))) //cek di sebelah wahana atau ga
+    {
+        POINT wahana = cekWahana(*M);
+        int i;
+        while (EQPoint(M->arrayWahana[i].lokasi, wahana)) //cari wahana sesuai lokasi
+        {
+            i++;
+        }
+        M->arrayWahana[i].kondisi = true;
+    }
+}
+
 void OFFICE(AddressTree T , MATRIKS Map){
     if(EQPoint(Map.Office,Player(Map))){
         printf(".-=~=-.                                      .-=~=-.\n");
@@ -121,7 +163,7 @@ void OFFICE(AddressTree T , MATRIKS Map){
         printf("`-._.-'                                      `-._.-'\n");
         printf("Masukkan perintah (1/2/3) : ");
         int input;
-        scanf(input);
+        scanf("%d", &input); //ganti pake mesin kata
         if(input==1){
             detailsoffice(T);
         }
@@ -159,84 +201,15 @@ void DETAIL(MATRIKS M){
             i++;
         }
     }
-
-
 }
-void OFFICE();
+
 void PREPARE(PrioQueueChar *Q){
     infotypeQ *X;
     while(!IsEmpty(*Q)){
-        Dequeue(&Q,X);
+        Dequeue(Q,X);
     }
-    DeAlokasi(&Q);
+    DeAlokasi(Q);
     //panggil preparation phase disini
-}
-
-void detailsoffice(AddressTree T){
-    printf(".-=~=-.                                      .-=~=-.\n");
-    printf("(__  _)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(__  _)\n");
-    printf("( _ __)       Details Nama-nama Wahana       ( _ __)\n");
-    printf("( _ __)            1. bombomcar              ( _ __)\n");
-    printf("( _ __)            2. halilintar             ( _ __)\n");
-    printf("(__  _)            3. kora-kora              (__  _)\n");
-    printf("(_ ___)            4.                        (_ ___)\n");
-    printf("(__  _)            5.                        (__  _)\n");
-    printf("(__  _)            6.                        (__  _)\n");
-    printf("( _ __)            7.                        ( _ __)\n");
-    printf("(_ ___)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(_ ___)\n");
-    printf("`-._.-'                                      `-._.-'\n");
-    printf("Masukkan perintah (1-7) : ");
-    int input;
-    scanf(input);
-
-    if(input==1){
-        AddressTree temp;
-        temp = searchTree("bombomcar",T);
-        printf("Nama        : %c\n",temp->detail.nama);
-        printf("Harga       : %d\n",temp->detail.hargaTiket);
-        printf("Lokasi      : \n");
-        int i = 0;
-        while(!isNil (temp->detail.lokasi[i])){
-            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
-            i++;
-        }
-        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
-        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
-        printf("Durasi      : %d\n",temp->detail.durasi);
-    }
-    else if(input==2){
-        AddressTree temp;
-        temp = searchTree("halilintar",T);
-        printf("Nama        : %c\n",temp->detail.nama);
-        printf("Harga       : %d\n",temp->detail.hargaTiket);
-        printf("Lokasi      : \n");
-        int i = 0;
-        while(!isNil (temp->detail.lokasi[i])){
-            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
-            i++;
-        }
-        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
-        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
-        printf("Durasi      : %d\n",temp->detail.durasi);
-    }
-    else if(input==3){
-        AddressTree temp;
-        temp = searchTree("kora-kora",T);
-        printf("Nama        : %c\n",temp->detail.nama);
-        printf("Harga       : %d\n",temp->detail.hargaTiket);
-        printf("Lokasi      : \n");
-        int i = 0;
-        while(!isNil (temp->detail.lokasi[i])){
-            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
-            i++;
-        }
-        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
-        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
-        printf("Durasi      : %d\n",temp->detail.durasi);
-    }
-    else{
-        printf("Inputan anda salah!!");
-    }
 }
 
 void reportoffice(AddressTree T){
@@ -253,10 +226,9 @@ void reportoffice(AddressTree T){
     printf("(_ ___)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(_ ___)\n");
     printf("`-._.-'                                      `-._.-'\n");
     printf("Masukkan perintah (1-7) : ");
-    int input;
-    scanf(input);
+    ADVKATAi();
 
-    if(input==1){
+    if(StrToInt(CKataI)==1){
         AddressTree temp;
         temp = searchTree("bombomcar",T);
         printf("Nama                : %c\n",temp->detail.nama);
@@ -265,7 +237,7 @@ void reportoffice(AddressTree T){
         printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
         printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
     }
-    else if(input==2){
+    else if(StrToInt(CKataI)==2){
         AddressTree temp;
         temp = searchTree("halilintar",T);
         printf("Nama                : %c\n",temp->detail.nama);
@@ -274,7 +246,7 @@ void reportoffice(AddressTree T){
         printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
         printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
     }
-    else if(input==3){
+    else if(StrToInt(CKataI)==3){
         AddressTree temp;
         temp = searchTree("kora-kora",T);
         printf("Nama                : %c\n",temp->detail.nama);
@@ -282,6 +254,72 @@ void reportoffice(AddressTree T){
         printf("Total Penghasilan   : %d\n",temp->detail.totalPenghasilan);
         printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
         printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
+    }
+    else{
+        printf("Inputan anda salah!!");
+    }
+}
+
+void detailsoffice(AddressTree T){
+    printf(".-=~=-.                                      .-=~=-.\n");
+    printf("(__  _)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(__  _)\n");
+    printf("( _ __)       Details Nama-nama Wahana       ( _ __)\n");
+    printf("( _ __)            1. bombomcar              ( _ __)\n");
+    printf("( _ __)            2. halilintar             ( _ __)\n");
+    printf("(__  _)            3. kora-kora              (__  _)\n");
+    printf("(_ ___)            4.                        (_ ___)\n");
+    printf("(__  _)            5.                        (__  _)\n");
+    printf("(__  _)            6.                        (__  _)\n");
+    printf("( _ __)            7.                        ( _ __)\n");
+    printf("(_ ___)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(_ ___)\n");
+    printf("`-._.-'                                      `-._.-'\n");
+    printf("Masukkan perintah (1-7) : ");
+    ADVKATAi();
+
+    if(StrToInt(CKataI)==1){
+        AddressTree temp;
+        temp = searchTree("bombomcar",T);
+        printf("Nama        : %c\n",temp->detail.nama);
+        printf("Harga       : %d\n",temp->detail.hargaTiket);
+        printf("Lokasi      : \n");
+        int i = 0;
+        while(!isNil (temp->detail.lokasi[i])){
+            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
+            i++;
+        }
+        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
+        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
+        printf("Durasi      : %d\n",temp->detail.durasi);
+    }
+    else if(StrToInt(CKataI)==2){
+        AddressTree temp;
+        temp = searchTree("halilintar",T);
+        printf("Nama        : %c\n",temp->detail.nama);
+        printf("Harga       : %d\n",temp->detail.hargaTiket);
+        printf("Lokasi      : \n");
+        int i = 0;
+        while(!isNil (temp->detail.lokasi[i])){
+            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
+            i++;
+        }
+        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
+        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
+        printf("Durasi      : %d\n",temp->detail.durasi);
+    }
+    else if(StrToInt(CKataI)==3){
+        AddressTree temp;
+        temp = searchTree("kora-kora",T);
+        printf("Nama        : %c\n",temp->detail.nama);
+        printf("Harga       : %d\n",temp->detail.hargaTiket);
+        printf("Lokasi      : \n");
+        int i = 0;
+        while(!isNil (temp->detail.lokasi[i])){
+            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
+            i++;
+        }
+        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
+        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
+        printf("Durasi      : %d\n",temp->detail.durasi);
     }
     else{
         printf("Inputan anda salah!!");
