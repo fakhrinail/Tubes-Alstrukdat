@@ -15,7 +15,7 @@
 
 typedef int indeks; /* indeks baris, kolom */
 typedef char ElType; 
-
+typedef struct MATRIKS *addressMatriks;
 typedef struct { 
 	ElType Mem[BrsMax+1][KolMax+1];
    POINT Player;
@@ -23,7 +23,9 @@ typedef struct {
    POINT Office;
    POINT Antrian;
    WahanaMatriks arrayWahana[30];
+   addressMatriks graph;
 } MATRIKS;
+
 
 
 /* *** Selektor *** */
