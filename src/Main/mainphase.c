@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "../Stack/stacklist.h"
 #include "../PrioQueue/prioqueuechar.h"
 #include "../Matriks/matriks.h"
 #include "../MesinKarakter-Kata/mesinkar+katafile.h"
@@ -85,15 +86,28 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
 
 
 void REPAIR();
-void DETAIL(MATRIKS* M){
-    Player(*M) = SearchIndeks(*M,'P');
-    for (int i = Baris(Player(*M))-1; i <= Baris(Player(*M))+1;i++){
-        for (int j = Kolom(Player(*M))-1; j <= Kolom(Player(*M))+1; j++){
-            if ((*M).Mem[i][j] != '-' && (*M).Mem[i][j] != '#' ){
-                //Print disini
+void DETAIL(MATRIKS M){
+    POINT asu = MakePOINT(-1,-1);
+    POINT cek = cekWahana(M);
+    boolean cond = false;
+    if (NEQPoint(asu,cek)){
+        while(cond == false){
+            int i = 0;
+            if (EQPoint(cek,M.arrayWahana[i].lokasi)){
+                printf("Nama wahana                 : %d\n",M.arrayWahana[i].namaWahana);
+                printf("Harga wahana                : %d\n",M.arrayWahana[i].hargawahana);
+                printf("Lokasi wahana               : %d\n",M.arrayWahana[i].lokasi);
+                printf("Kondisi                     : %d\n",M.arrayWahana[i].kondisi);
+                printf("Riwayat upgrade wahana      : %d\n",M.arrayWahana[i].historyUpgrade);
+                printf("Upgrade 1                   : %d\n",M.arrayWahana[i].upgrade1);
+                printf("Upgrade 2                   : %d\n",M.arrayWahana[i].upgrade2);
+                cond = true;
             }
+            i++;
         }
     }
+
+
 }
 void OFFICE();
 void PREPARE(PrioQueueChar *Q){
