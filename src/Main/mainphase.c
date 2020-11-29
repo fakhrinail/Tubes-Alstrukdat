@@ -289,14 +289,14 @@ void PREPARE(PrioQueueChar *Q){
 void reportoffice(AddressTree T){
     printf(".-=~=-.                                      .-=~=-.\n");
     printf("(__  _)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(__  _)\n");
-    printf("( _ __)      Report Nama-nama Wahana         ( _ __)\n");
+    printf("( _ __)       Report Nama-nama Wahana        ( _ __)\n");
     printf("( _ __)            1. bombomcar              ( _ __)\n");
     printf("( _ __)            2. halilintar             ( _ __)\n");
     printf("(__  _)            3. kora-kora              (__  _)\n");
-    printf("(_ ___)            4.                        (_ ___)\n");
-    printf("(__  _)            5.                        (__  _)\n");
-    printf("(__  _)            6.                        (__  _)\n");
-    printf("( _ __)            7.                        ( _ __)\n");
+    printf("(_ ___)            4. jungkat jungkit        (_ ___)\n");
+    printf("(__  _)            5. rollercoaster          (__  _)\n");
+    printf("(__  _)            6. bianglala              (__  _)\n");
+    printf("( _ __)            7. tornado                ( _ __)\n");
     printf("(_ ___)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(_ ___)\n");
     printf("`-._.-'                                      `-._.-'\n");
     printf("Masukkan perintah (1-7) : ");
@@ -323,6 +323,42 @@ void reportoffice(AddressTree T){
     else if(StrToInt(CKataI)==3){
         AddressTree temp;
         temp = searchTree("kora-kora",T);
+        printf("Nama                : %c\n",temp->detail.nama);
+        printf("Total Pengunjung    : %d\n",temp->detail.totalDinaiki);
+        printf("Total Penghasilan   : %d\n",temp->detail.totalPenghasilan);
+        printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
+        printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
+    }
+    else if(StrToInt(CKataI)==4){
+        AddressTree temp;
+        temp = searchTree("jungkat jungkit",T);
+        printf("Nama                : %c\n",temp->detail.nama);
+        printf("Total Pengunjung    : %d\n",temp->detail.totalDinaiki);
+        printf("Total Penghasilan   : %d\n",temp->detail.totalPenghasilan);
+        printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
+        printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
+    }
+    else if(StrToInt(CKataI)==5){
+        AddressTree temp;
+        temp = searchTree("rollercoaster",T);
+        printf("Nama                : %c\n",temp->detail.nama);
+        printf("Total Pengunjung    : %d\n",temp->detail.totalDinaiki);
+        printf("Total Penghasilan   : %d\n",temp->detail.totalPenghasilan);
+        printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
+        printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
+    }
+    else if(StrToInt(CKataI)==6){
+        AddressTree temp;
+        temp = searchTree("bianglala",T);
+        printf("Nama                : %c\n",temp->detail.nama);
+        printf("Total Pengunjung    : %d\n",temp->detail.totalDinaiki);
+        printf("Total Penghasilan   : %d\n",temp->detail.totalPenghasilan);
+        printf("Pengunjung 1 hari   : %d\n",temp->detail.oneDayDinaiki);
+        printf("Penghasilan 1 hari  : %d\n",temp->detail.oneDayPenghasilan);
+    }
+    else if(StrToInt(CKataI)==7){
+        AddressTree temp;
+        temp = searchTree("tornado",T);
         printf("Nama                : %c\n",temp->detail.nama);
         printf("Total Pengunjung    : %d\n",temp->detail.totalDinaiki);
         printf("Total Penghasilan   : %d\n",temp->detail.totalPenghasilan);
@@ -341,10 +377,10 @@ void detailsoffice(AddressTree T){
     printf("( _ __)            1. bombomcar              ( _ __)\n");
     printf("( _ __)            2. halilintar             ( _ __)\n");
     printf("(__  _)            3. kora-kora              (__  _)\n");
-    printf("(_ ___)            4.                        (_ ___)\n");
-    printf("(__  _)            5.                        (__  _)\n");
-    printf("(__  _)            6.                        (__  _)\n");
-    printf("( _ __)            7.                        ( _ __)\n");
+    printf("(_ ___)            4. jungkat jungkit        (_ ___)\n");
+    printf("(__  _)            5. rollercoaster          (__  _)\n");
+    printf("(__  _)            6. bianglala              (__  _)\n");
+    printf("( _ __)            7. tornado                ( _ __)\n");
     printf("(_ ___)-._.-=-._.-=-._.-=--=-._.-=-._.-=-._.-(_ ___)\n");
     printf("`-._.-'                                      `-._.-'\n");
     printf("Masukkan perintah (1-7) : ");
@@ -383,6 +419,66 @@ void detailsoffice(AddressTree T){
     else if(StrToInt(CKataI)==3){
         AddressTree temp;
         temp = searchTree("kora-kora",T);
+        printf("Nama        : %c\n",temp->detail.nama);
+        printf("Harga       : %d\n",temp->detail.hargaTiket);
+        printf("Lokasi      : \n");
+        int i = 0;
+        while(!isNil (temp->detail.lokasi[i])){
+            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
+            i++;
+        }
+        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
+        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
+        printf("Durasi      : %d\n",temp->detail.durasi);
+    }
+    else if(StrToInt(CKataI)==4){
+        AddressTree temp;
+        temp = searchTree("jungkat jungkit",T);
+        printf("Nama        : %c\n",temp->detail.nama);
+        printf("Harga       : %d\n",temp->detail.hargaTiket);
+        printf("Lokasi      : \n");
+        int i = 0;
+        while(!isNil (temp->detail.lokasi[i])){
+            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
+            i++;
+        }
+        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
+        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
+        printf("Durasi      : %d\n",temp->detail.durasi);
+    }
+    else if(StrToInt(CKataI)==5){
+        AddressTree temp;
+        temp = searchTree("rollercoaster",T);
+        printf("Nama        : %c\n",temp->detail.nama);
+        printf("Harga       : %d\n",temp->detail.hargaTiket);
+        printf("Lokasi      : \n");
+        int i = 0;
+        while(!isNil (temp->detail.lokasi[i])){
+            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
+            i++;
+        }
+        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
+        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
+        printf("Durasi      : %d\n",temp->detail.durasi);
+    }
+    else if(StrToInt(CKataI)==6){
+        AddressTree temp;
+        temp = searchTree("bianglala",T);
+        printf("Nama        : %c\n",temp->detail.nama);
+        printf("Harga       : %d\n",temp->detail.hargaTiket);
+        printf("Lokasi      : \n");
+        int i = 0;
+        while(!isNil (temp->detail.lokasi[i])){
+            TulisPOINT(temp->detail.lokasi[i]); printf(" ");
+            i++;
+        }
+        printf("Deskripsi   : %c\n",temp->detail.deskripsi);
+        printf("Kapasitas   : %d\n",temp->detail.kapasitas);
+        printf("Durasi      : %d\n",temp->detail.durasi);
+    }
+    else if(StrToInt(CKataI)==3){
+        AddressTree temp;
+        temp = searchTree("tornado",T);
         printf("Nama        : %c\n",temp->detail.nama);
         printf("Harga       : %d\n",temp->detail.hargaTiket);
         printf("Lokasi      : \n");

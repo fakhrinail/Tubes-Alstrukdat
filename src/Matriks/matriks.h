@@ -22,7 +22,9 @@ typedef struct {
    POINT Office;
    POINT Antrian;
    WahanaMatriks arrayWahana[30];
+   //addressMatriks graph;
 } MATRIKS;
+
 
 
 /* *** Selektor *** */

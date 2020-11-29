@@ -57,7 +57,7 @@ void DealokasiList (address *P) //pake * atau ga? di praprak pake
     free(*P);
 }
 
-
+/*
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
 address SearchList (List L, infotype X[])
 /* Mencari apakah ada elemen list dengan Info(P)= X */
@@ -88,10 +88,11 @@ address SearchList (List L, infotype X[])
     }
 }
 
-
+/*
 boolean FSearch (List L, address P)
 /* Mencari apakah ada elemen list yang beralamat P */
 /* Mengirimkan true jika ada, false jika tidak ada */
+/*
 {
     address Ptemp = First(L);
 
@@ -133,6 +134,7 @@ address SearchPrec (List L, infotype X[])
 /* Jika P adalah elemen pertama, maka Prec=Nil */
 /* Search dengan spesifikasi seperti ini menghindari */
 /* traversal ulang jika setelah Search akan dilakukan operasi lain */
+/*
 {
     if (Search(L,X) != Nil)
     {
@@ -153,6 +155,7 @@ address SearchPrec (List L, infotype X[])
         return Nil;
     }
 }
+*/
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
@@ -286,6 +289,7 @@ void DelFirst (List *L, address *P)
     First(*L) = Next(*P);
     Next(*P) = Nil;
 }
+/*
 void DelP (List *L, infotype X[])
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
@@ -294,6 +298,7 @@ void DelP (List *L, infotype X[])
 /* maka yang dihapus hanya elemen pertama dengan Info = X */
 /* Jika tidak ada elemen list dengan Info(P)=X, maka list tetap */
 /* List mungkin menjadi kosong karena penghapusan */
+/*
 {
     address Ptemp = Search(*L,*X);
     
@@ -316,6 +321,7 @@ void DelP (List *L, infotype X[])
         }
     }
 }
+*/
 void DelLast (List *L, address *P)
 /* I.S. List tidak kosong */
 /* F.S. P adalah alamat elemen terakhir list sebelum penghapusan  */
