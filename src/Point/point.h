@@ -16,7 +16,7 @@ typedef struct {
 /* *** Konstruktor membentuk POINT *** */
 POINT MakePOINT (int X, int Y);
 /* Membentuk sebuah POINT dari komponen-komponennya */
-
+void TulisPOINT (POINT P);
 boolean isNil(POINT P);
 /* Mengembalikan true jika Baris P = -1 dan Kolom P = -1.*/
 
