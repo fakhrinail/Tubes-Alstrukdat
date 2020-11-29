@@ -201,8 +201,6 @@ void DETAIL(MATRIKS M){
             i++;
         }
     }
-
-
 }
 
 void PREPARE(PrioQueueChar *Q){
