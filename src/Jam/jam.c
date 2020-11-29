@@ -30,7 +30,7 @@ JAM MakeJAM (int HH, int MM){
 /* ***************************************************************** */
 
 void TulisJAM (JAM J){
-   printf("%d:%d", J.HH,J.MM);
+   printf("%d:%d\n", J.HH,J.MM);
 }
 /* I.S. : J sembarang */
 /* F.S. :   Nilai J ditulis dg format HH:MM:SS */

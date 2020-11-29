@@ -55,3 +55,16 @@ void Serve(MATRIKS M, PrioQueueChar *Q)
         printf("Tidak ada wahana dengan nama tersebut\n");
     }
 }
+
+
+void REPAIR();
+void DETAIL();
+void OFFICE();
+void PREPARE(PrioQueueChar *Q){
+    infotype *X;
+    while(!IsEmpty(*Q)){
+        Dequeue(&Q,X);
+    }
+    DeAlokasi(&Q);
+    //panggil preparation phase disini
+}

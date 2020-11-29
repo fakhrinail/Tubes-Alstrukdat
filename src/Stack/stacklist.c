@@ -384,11 +384,31 @@ POINT cekWahana(MATRIKS Map){
 
 /*
 void UNDO(Stack *S, infotype *res){
-    addressStack P;
-	P = Top(*S);
-	(*res) = Info(P);
-	Top(*S) = Next(Top(*S));
-	Next(P) = NULL;
-	DealokasiStack(P);
+    if (IsEmpty(*S)){
+        printf("Stack sudah habis, tidak bisa undo");
+    } else{
+        addressStack P;
+        P = Top(*S);
+        (*res) = Info(P);
+        Top(*S) = Next(Top(*S));
+        Next(P) = NULL;
+        DealokasiStack(P);
+    }
 }
 */
+
+//void EXECUTE(Stack* S1, Stack S2){
+    //while (!IsEmpty(*S1)){
+
+        //Pop(*S1,P);
+        //Push(S2,P);
+    //}
+//}
+
+//void RUN(Stack* S, int* uangPengguna, JAM* jamPengguna, int bahanPengguna[], MATRIKS* Map){
+    //while(!IsEmpty(*S)){
+        //Pop(*S);
+        //RUNPerintahnya
+    //}
+
+//}

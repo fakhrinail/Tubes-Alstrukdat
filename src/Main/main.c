@@ -31,18 +31,34 @@ void new_game()
     
     /* Inisiasi preparation phase */
     boolean preparation = true;
-    while(!exit){
+    while(!exit){ // selama tidak exit 
+        printf("Preparation Phase");
+        TulisMap(MAP1);
+        printf("Legend : \n A = Antrian \n P = Player \n W = Wahana \n O = Office \n G = Gerbang");
+        printf("Nama : %s\n", namaPengguna);
+        printf("Uang : %d\n", uangPengguna);
+        printf("Waktu : ");
+        TulisJAM(currentJam);
+        printf("Masukkan perintah: ");
         ADVKATAi();
-        
     }
-
-
-
 }
 
 void load_game();
 
-void exit();
+void exit(){
+    printf("  ___  ___  ___   _   _  ___  _   _     \n");       
+    printf(" / __|/ _ \\/ _ \\ | | | |/ _ \\| | | |         \n");  
+    printf(" \\__ \\  __/  __/ | |_| | (_) | |_| |           \n");
+    printf(" |___/\\___|\\___|  \\__, |\\___/ \\__,_|           \n");
+    printf("                   __/ |                       \n");
+    printf("                  |___/ _   _                _ \n");
+    printf("                 | |   | | (_)              | |\n");
+    printf("  _ __   _____  _| |_  | |_ _ _ __ ___   ___| |\n");
+    printf(" | '_ \\ / _ \\ \\/ / __| | __| | '_ ` _ \\ / _ \\ |\n");
+    printf(" | | | |  __/>  <| |_  | |_| | | | | | |  __/_|\n");
+    printf(" |_| |_|\\___/_/\\_\\\\__|  \\__|_|_| |_| |_|\\___(_)\n");
+}
 
 int main(){
 
@@ -55,33 +71,37 @@ int main(){
     /* Membuat List Bahan Bangunan */
     DaftarBahan(material);
 
-    
 
-    printf("\\=========================================================================/\n");
-    printf("\\                                                                         /\n");
-    printf("\\                                                                         /\n");
-    printf("\\                  Selamat                                                /\n");
-    printf("\\                          Datang                                         /\n");
-    printf("\\                                  di                                     /\n");
-    printf("\\                                     Willy Wangky's World                /\n");
-    printf("\\                                                                         /\n");
-    printf("\\                              KELOMPOK 10 K3                             /\n");
-    printf("\\=========================================================================/\n");
+    printf(" __      __.__.__  .__                                          __           \n");
+    printf("/  \\    /  \\__|  | |  | ___.__. __  _  _______    ____    ____ |  | _____.__.\n");
+    printf("\\   \\/\\/   /  |  | |  |<   |  | \\ \\/ \\/ /\\__  \\  /    \\  / ___\\|  |/ <   |  |\n");
+    printf(" \\        /|  |  |_|  |_\\___  |  \\     /  / __ \\|   |  \\/ /_/  >    < \\___  |\n");
+    printf("  \\__/\\  / |__|____/____/ ____|   \\/\\_/  (____  /___|  /\\___  /|__|_ \\/ ____|\n");
+    printf("       \\/               \\/                    \\/     \\//_____/      \\/\\/     \n");
+    printf("                                            .__       .___\n");
+    printf("                        __  _  _____________|  |    __| _/\n");
+    printf("                        \\ \\/ \\/ /  _ \\_  __ \\  |   / __ | \n");
+    printf("                         \\     (  <_> )  | \\/  |__/ /_/ | \n");
+    printf("                          \\/\\_/ \\____/|__|  |____/\\____ | \n");
+    printf("                                                       \\/ \n");
     printf("\n");
     printf("\n");
     printf("Klik enter untuk melanjutkan.\n");
     STARTKATAi();
 
 
-    printf("\\=========================================================================/\n");
-    printf("\\                                                                         /\n");
-    printf("\\                                NEW GAME(1)                              /\n");
-    printf("\\                                                                         /\n");
-    printf("\\                                LOAD GAME(2)                             /\n");
-    printf("\\                                                                         /\n");
-    printf("\\                                  EXIT(3)                                /\n");
-    printf("\\                                                                         /\n");
-    printf("\\=========================================================================/\n");
+    printf(" __| |____________________________________________| |__\n");
+    printf("(__   ____________________________________________   __)\n");
+    printf("   | |                                            | |\n");
+    printf("   | |               1. New Game                  | |\n");
+    printf("   | |                                            | |\n");
+    printf("   | |               2. Load game                 | |\n");
+    printf("   | |                                            | |\n");
+    printf("   | |               3. Exit                      | |\n");
+    printf(" __| |____________________________________________| |__\n");
+    printf("(__   ____________________________________________   __)\n");
+    printf("   | |                                            | |\n");
+
     printf("\n");
     printf("Masukkan pilihan anda. (1/2/3)\n");
 
