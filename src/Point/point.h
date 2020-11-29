@@ -20,18 +20,14 @@ POINT MakePOINT (int X, int Y);
 boolean isNil(POINT P);
 /* Mengembalikan true jika Baris P = -1 dan Kolom P = -1.*/
 
-boolean isBersebelahan(POINT P1, POINT P2);
-/* Mengembalikan true jika P1 tepat bersebelahan dengan P2, misal P1 (3,3) dan P2 (3,4).
-Namun, bukan P1 (3,3) dan P2 (4,4).*/
-
 /* *** Kelompok operasi relasional terhadap POINT *** */
 boolean EQPoint (POINT P1, POINT P2);
 /* Mengirimkan true jika P1 = P2 : absis dan ordinatnya sama */
 boolean NEQPoint (POINT P1, POINT P2);
 /* Mengirimkan true jika P1 tidak sama dengan P2 */
 
-
-
+boolean isSebelah(POINT P1, POINT P2);
+/* Mengirimkan true jika P1 bersebelahan dengan P2 */
 
 
 

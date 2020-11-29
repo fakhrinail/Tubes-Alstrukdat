@@ -19,12 +19,6 @@ boolean isNil(POINT P){
     return Baris(P)==-1 && Kolom(P)==-1;
 }
 
-boolean isBersebelahan(POINT P1, POINT P2){
-    int selisihBaris = Baris(P1)-Baris(P2);
-    int selisihKolom = Kolom(P1)-Kolom(P2);
-    return (selisihBaris==0 && selisihKolom!=0) || (selisihBaris!=0 && selisihKolom==0);
-}
-
 /* *** Kelompok operasi relasional terhadap POINT *** */
 boolean EQPoint (POINT P1, POINT P2)
 /* Mengirimkan true jika P1 = P2 : baris dan kolomnya sama */
@@ -35,5 +29,20 @@ boolean NEQPoint (POINT P1, POINT P2)
 /* Mengirimkan true jika P1 tidak sama dengan P2 */
 {
     return Baris(P1)!=Baris(P2) || Kolom(P1)!=Kolom(P2);
+}
+
+boolean isSebelah (POINT P1, POINT P2)
+{
+    if (Baris(P1)-Baris(P2)==0 && Kolom(P1)-Kolom(P2)==1){
+        return true;
+    }else if (Baris(P1)-Baris(P2)==1 && Kolom(P1)-Kolom(P2)==0){
+        return true;
+    }else if (Baris(P1)-Baris(P2)==0 && Kolom(P1)-Kolom(P2)==-1){
+        return true;
+    }else if (Baris(P1)-Baris(P2)==-1 && Kolom(P1)-Kolom(P2)==0){
+        return true;
+    }else{
+        return false;
+    }
 }
 

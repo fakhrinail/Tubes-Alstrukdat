@@ -10,7 +10,7 @@ boolean EndFile = false;
 char CKataF[NMaxFILE];
 
 static FILE * pitaFile;
-static int retval;
+static int retvalFile;
 
 void STARTf(char path[]) {   // variabel path digunakan untuk menyimpan path file
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
@@ -35,13 +35,12 @@ void ADVf() {
               Jika CC = EOF maka pembacaan file berhenti.*/
 
 	/* Algoritma */
-	retval = fscanf(pitaFile,"%c",&CCF);
+	retvalFile = fscanf(pitaFile,"%c",&CCF);
 	EndLine = CCF==MARK;
 
-	if (retval==EOF) {
+	if (retvalFile==EOF) {
         EndFile = true;
         fclose(pitaFile);
-        printf("kamu sampai di sini!\n");
  	}
 }
 
@@ -61,6 +60,8 @@ void STARTKATAf(char path[])
           CKata mungkin terisi kata yang sudah diakusisi
           atau juga mungkin tidak terisi apa-apa (file kosong).*/
 {
+    EndLine = false;
+    EndFile = false;
     STARTf(path);
     IgnoreBlankAndMARKf();
     if (CCF==MARK){
@@ -77,11 +78,13 @@ void ADVKATAf()
           Jika CC = MARK, EndLine = true.		  
    Proses : Akuisisi kata menggunakan procedure SalinKata */
 {
-    IgnoreBlankAndMARKf();
-    if (CCF==MARK){
-       EndLine=true;
-    }else{
-       SalinKataf();
+    if (!EndFile){
+        IgnoreBlankAndMARKf();
+        if (CCF==MARK){
+        EndLine=true;
+        }else{
+        SalinKataf();
+        }
     }
 }
 
@@ -132,7 +135,7 @@ void SalinKataf()
 {
     resetCKata(CKataF);
     int i=0;
-    while (CCF!=MARK && CCF!=BLANK && i<NMaxFILE){
+    while (CCF!=MARK && CCF!=BLANK && i<NMaxFILE && !EndFile){
         CKataF[i] = CCF;
         i+=1;
         ADVf();

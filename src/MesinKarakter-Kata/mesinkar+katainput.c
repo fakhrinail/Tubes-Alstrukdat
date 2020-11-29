@@ -11,7 +11,7 @@ boolean EOP = false;
 char CKataI[NMaxINPUT];
 
 static FILE * pitaInput;
-static int retval;
+static int retvalInput;
 
 void STARTi() {
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
@@ -31,7 +31,7 @@ void ADVi() {
           CC mungkin = MARK, CC mungkin = BLANK. */
 
 	/* Algoritma */
-	retval = fscanf(pitaInput,"%c",&CCI);
+	retvalInput = fscanf(pitaInput,"%c",&CCI);
 }
 
 void STARTKATAi()

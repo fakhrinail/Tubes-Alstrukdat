@@ -2,7 +2,7 @@
 #ifndef _STACKLIST_H
 #define _STACKLIST_H
 
-#include "boolean.h"
+#include "../boolean.h"
 #include "../Point/point.h"
 #include "../Jam/jam.h"
 #include "../ListArray/listarray.h"
