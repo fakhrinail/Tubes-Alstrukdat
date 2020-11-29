@@ -45,7 +45,7 @@ address AlokasiList (infotype X[]);
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka info(P)=X, Next(P)=Nil */
 /* Jika alokasi gagal, mengirimkan Nil */
-void DealokasiList (address P);
+void DealokasiList (address *P);
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address P */
@@ -134,18 +134,6 @@ void PrintInfo (List L);
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 int NbElmt (List L);
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
-
-/*** Prekondisi untuk Max/Min/rata-rata : List tidak kosong ***/
-infotype Max (List L);
-/* Mengirimkan nilai info(P) yang maksimum */
-address AdrMax (List L);
-/* Mengirimkan address P, dengan info(P) yang bernilai maksimum */
-infotype Min (List L);
-/* Mengirimkan nilai info(P) yang minimum */
-address AdrMin (List L);
-/* Mengirimkan address P, dengan info(P) yang bernilai minimum */
-float Average (List L);
-/* Mengirimkan nilai rata-rata info(P) */
 
 /****************** PROSES TERHADAP LIST ******************/
 void DelAll (List *L);

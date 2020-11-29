@@ -49,22 +49,25 @@ address AlokasiList (infotype X[])
         return Nil;
     }
 }
-void DealokasiList (address P)
+void DealokasiList (address *P) //pake * atau ga? di praprak pake
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address P */
 {
-    free(P);
+    free(*P);
 }
 
+
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
+/*
 address Search (List L, infotype X)
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
+/*
 {
     address P = First(L);
-    if (IsEmpty(L))
+    if (IsEmptyList(L))
     {
         return Nil;
     }
@@ -85,6 +88,7 @@ address Search (List L, infotype X)
         return P;
     }
 }
+*/
 
 boolean FSearch (List L, address P)
 /* Mencari apakah ada elemen list yang beralamat P */
@@ -92,7 +96,7 @@ boolean FSearch (List L, address P)
 {
     address Ptemp = First(L);
 
-    if (IsEmpty(L))
+    if (IsEmptyList(L))
     {
         return false;
     }
@@ -177,7 +181,7 @@ void InsVLast (List *L, infotype X[])
 
     if (P != Nil)
     {
-        if (IsEmpty(*L))
+        if (IsEmptyList(*L))
         {
             First(*L) = P;
         }
@@ -199,10 +203,10 @@ void DelVFirst (List *L, infotype *X)
 /*      dan alamat elemen pertama di-dealokasi */
 {
     address P = First(*L);
-    *X = Info(P);
+    X = Info(P);
     First(*L) = Next(P);
     Next(P) = Nil;
-    Dealokasi(&P);
+    DealokasiList(&P);
 }
 void DelVLast (List *L, infotype *X)
 /* I.S. list tidak kosong */
@@ -225,8 +229,8 @@ void DelVLast (List *L, infotype *X)
     {
         Next(Ptemp) = Nil;
     }
-    *X = Info(P);
-    Dealokasi(&P);
+    X = Info(P);
+    DealokasiList(&P);
 }
 
 /****************** PRIMITIF BERDASARKAN ALAMAT ******************/
@@ -258,7 +262,7 @@ void InsertLast (List *L, address P)
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
 {
     address Ptemp = First(*L);
-    if (IsEmpty(*L))
+    if (IsEmptyList(*L))
     {
         First(*L) = P;
     }
@@ -292,14 +296,14 @@ void DelP (List *L, infotype X[])
 /* Jika tidak ada elemen list dengan Info(P)=X, maka list tetap */
 /* List mungkin menjadi kosong karena penghapusan */
 {
-    address Ptemp = Search(*L,X);
+    address Ptemp = Search(*L,*X);
     
     if (Ptemp != Nil)
     {
         if (Ptemp == First(*L))
         {
             First(*L) = Next(Ptemp);
-            Dealokasi(&Ptemp);
+            DealokasiList(&Ptemp);
         }
         else
         {
@@ -309,7 +313,7 @@ void DelP (List *L, infotype X[])
                 P = Next(P);
             }
             DelAfter(L,&Ptemp,P);
-            Dealokasi(&Ptemp);
+            DealokasiList(&Ptemp);
         }
     }
 }
@@ -357,7 +361,7 @@ void PrintInfo (List L)
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 {
     address P = First(L);
-    if (IsEmpty(L))
+    if (IsEmptyList(L))
     {
         printf("[]\n");
     }
@@ -375,7 +379,7 @@ void PrintInfo (List L)
 int NbElmt (List L)
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 {
-    if (IsEmpty(L))
+    if (IsEmptyList(L))
     {
         return 0;
     }
@@ -398,12 +402,12 @@ void DelAll (List *L)
 {
     address P;
 
-    if (!(IsEmpty(*L)))
+    if (!(IsEmptyList(*L)))
     {
-        while (!(IsEmpty(*L)))
+        while (!(IsEmptyList(*L)))
         {
             DelFirst(L,&P);
-            Dealokasi(&P);
+            DealokasiList(&P);
         }
     }
 }
@@ -454,7 +458,7 @@ List FCopyList (List L)
 /* Jika ada alokasi gagal, hasilnya list kosong dan */
 /* semua elemen yang terlanjur di-alokasi, harus didealokasi */
 {
-    if (!(IsEmpty(L)))
+    if (!(IsEmptyList(L)))
     {
         List Lcopy;
         CreateEmpty(&Lcopy);
@@ -533,10 +537,10 @@ void Konkat (List L1, List L2, List * L3)
     CreateEmpty(&L3copy);
     CpAlokList(L1,L3);
 
-    if (!(IsEmpty(*L3)))
+    if (!(IsEmptyList(*L3)))
     {
         CpAlokList(L2,&L3copy);
-        if (!(IsEmpty(*L3)))
+        if (!(IsEmptyList(*L3)))
         {
             address Plast = First(L3copy);
             InsertLast(L3,Plast);
@@ -554,7 +558,7 @@ void PecahList (List *L1, List *L2, List L)
     CreateEmpty(L1);
     CreateEmpty(L2);
 
-    if (!(IsEmpty(L)))
+    if (!(IsEmptyList(L)))
     {
         if (NbElmt(L)%2 == 0)
         {
