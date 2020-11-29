@@ -1,5 +1,9 @@
 compile : gcc pergerakanmap.c ../Matriks/matriks.c ../MesinKarakter-Kata/mesinkar.c ../Point/point.c -o ../../test/gerakmapv1
 run: ./../../test/gerakmapv1
 
+compile : gcc main.c ../MesinKarakter-Kata/mesinkar+katafile.c ../MesinKarakter-Kata/mesinkar+katainput.c ../Jam/jam.c ../Tree/tree.c ../ListArray/listarray.c ../Matriks/matriks.c ../Point/point.c ../Stack/stacklist.c ../ListLinier/listlinier.c -o main
+
+run: ./main
+
 NOTE:
 1.  Ketika kita ngecompile program dari "../../<path>" nah dijalanin juga harus dari path itu. Bisa jadi reminder aja nanti di program dibuat sedemikian rupa.
